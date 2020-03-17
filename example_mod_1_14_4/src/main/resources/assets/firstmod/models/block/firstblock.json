@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "particle": "firstmod:block/firstblock",
+    "all": "firstmod:block/firstblock"
+  }
+}
