@@ -9,9 +9,11 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import sharkbound.forge.firstmod.blocks.FirstBlock
 import sharkbound.forge.firstmod.blocks.ModBlocks
-import sharkbound.forge.firstmod.data.*
+import sharkbound.forge.firstmod.creative.FirstModItemGroup
+import sharkbound.forge.firstmod.data.modEventBus
 
 const val MOD_ID = "firstmod"
+const val MOD_NAME = "First Mod"
 
 @Mod(MOD_ID)
 class FirstMod {
@@ -33,6 +35,10 @@ object RegistryEvents {
     @SubscribeEvent
     @JvmStatic
     fun onItemsRegistry(e: RegistryEvent.Register<Item>) {
-        e.registry.register(BlockItem(ModBlocks.FIRST_BLOCK, Item.Properties()).setRegistryName(FirstBlock.REGISTRY_NAME))
+        registerBlocks(e)
+    }
+
+    private fun registerBlocks(e: RegistryEvent.Register<Item>) {
+        e.registry.register(BlockItem(ModBlocks.FIRST_BLOCK, Item.Properties().group(FirstModItemGroup)).setRegistryName(FirstBlock.REGISTRY_NAME))
     }
 }

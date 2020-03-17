@@ -4,4 +4,5 @@ import net.minecraft.world.World
 
 interface Proxy {
     val world: World
+    fun init() {}
 }
