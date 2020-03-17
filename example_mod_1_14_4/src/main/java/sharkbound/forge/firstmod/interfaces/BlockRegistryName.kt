@@ -1,5 +1,6 @@
 package sharkbound.forge.firstmod.interfaces
 
-interface HasRegistryName {
+@Suppress("PropertyName")
+interface BlockRegistryName {
     val REGISTRY_NAME: String
 }

@@ -5,14 +5,11 @@ import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
-import net.minecraftforge.fml.DistExecutor
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import sharkbound.forge.firstmod.blocks.FirstBlock
 import sharkbound.forge.firstmod.blocks.ModBlocks
-import sharkbound.forge.firstmod.proxy.*
-import java.util.function.Consumer
-import java.util.function.Supplier
+import sharkbound.forge.firstmod.data.modEventBus
 
 const val MOD_ID = "firstmod"
 

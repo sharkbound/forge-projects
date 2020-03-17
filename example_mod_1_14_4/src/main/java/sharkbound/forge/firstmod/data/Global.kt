@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod
+package sharkbound.forge.firstmod.data
 
 import net.minecraft.client.Minecraft
 import net.minecraftforge.common.MinecraftForge

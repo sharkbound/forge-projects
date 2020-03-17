@@ -1,7 +1,7 @@
 package sharkbound.forge.firstmod.proxy
 
-import sharkbound.forge.firstmod.minecraft
 import net.minecraft.world.World
+import sharkbound.forge.firstmod.data.minecraft
 
 class ClientProxy : Proxy {
     override val world: World
