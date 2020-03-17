@@ -13,14 +13,13 @@ import sharkbound.forge.firstmod.data.modEventBus
 
 const val MOD_ID = "firstmod"
 
-@Suppress("MemberVisibilityCanBePrivate")
 @Mod(MOD_ID)
 class FirstMod {
     init {
         modEventBus.addListener<FMLCommonSetupEvent> { setup(it) }
     }
 
-    fun setup(e: FMLCommonSetupEvent) {
+    private fun setup(e: FMLCommonSetupEvent) {
 
     }
 }
