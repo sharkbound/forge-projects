@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import sharkbound.forge.firstmod.blocks.FirstBlock
 import sharkbound.forge.firstmod.blocks.ModBlocks
-import sharkbound.forge.firstmod.data.modEventBus
+import sharkbound.forge.firstmod.data.*
 
 const val MOD_ID = "firstmod"
 
@@ -19,9 +19,7 @@ class FirstMod {
         modEventBus.addListener<FMLCommonSetupEvent> { setup(it) }
     }
 
-    private fun setup(e: FMLCommonSetupEvent) {
-
-    }
+    private fun setup(e: FMLCommonSetupEvent) {}
 }
 
 @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
