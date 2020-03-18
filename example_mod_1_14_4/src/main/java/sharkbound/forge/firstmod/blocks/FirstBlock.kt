@@ -3,7 +3,7 @@ package sharkbound.forge.firstmod.blocks
 import net.minecraft.block.Block
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
-import sharkbound.forge.firstmod.interfaces.BlockRegistryName
+import sharkbound.forge.firstmod.interfaces.HasRegistryName
 
 class FirstBlock : Block(
         Properties.create(Material.IRON)
@@ -14,7 +14,7 @@ class FirstBlock : Block(
         setRegistryName(REGISTRY_NAME)
     }
 
-    companion object : BlockRegistryName {
+    companion object : HasRegistryName {
         override val REGISTRY_NAME: String
             get() = "firstblock"
     }

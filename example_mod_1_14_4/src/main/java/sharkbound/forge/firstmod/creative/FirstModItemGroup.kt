@@ -2,12 +2,11 @@ package sharkbound.forge.firstmod.creative
 
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack
-import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.blocks.ModBlocks
+import sharkbound.forge.firstmod.data.Tabs
 
-const val ITEM_GROUP_ID = MOD_ID
 
-object FirstModItemGroup : ItemGroup(ITEM_GROUP_ID) {
+object FirstModItemGroup : ItemGroup(Tabs.FIRST_MOD_TAB) {
     override fun createIcon(): ItemStack =
             ItemStack(ModBlocks.FIRST_BLOCK)
 
