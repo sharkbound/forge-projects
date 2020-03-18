@@ -1,10 +1,14 @@
 package sharkbound.forge.firstmod.events
 
+import com.mojang.realmsclient.gui.ChatFormatting
+import net.minecraft.entity.MoverType
+import net.minecraft.entity.monster.CreeperEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.potion.*
 import net.minecraft.util.DamageSource
 import net.minecraft.util.EntityDamageSource
 import net.minecraft.util.math.Vec3d
+import net.minecraft.util.text.StringTextComponent
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.event.entity.living.LivingDamageEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -46,13 +50,10 @@ object PlayerEvents {
             e.source.trueSource.let {
                 if (it.isServerPlayer() && it.inventory.getCurrentItem().item is FirstItem) {
                     e.amount = 0f
-//                   fixme
+                    it.sendMessage(StringTextComponent("${ChatColor}Poof"))
                     e.entityLiving.run {
-                        if (!world.isRemote) {
-                            fall(1f, 0f)
-                            addVelocity(0.0, 3.0, 0.0)
-                            velocityChanged = true
-                        }
+
+                        teleportKeepLoaded(posX, posY + 10, posZ)
                     }
                 }
             }
