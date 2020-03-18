@@ -1,6 +1,7 @@
 package sharkbound.forge.shared.extensions
 
 import net.minecraft.client.world.ClientWorld
+import net.minecraft.particles.IParticleData
 import net.minecraft.world.World
 import net.minecraft.world.server.ServerWorld
 import kotlin.contracts.ExperimentalContracts
@@ -20,4 +21,13 @@ fun World.isClientWorld(): Boolean {
         returns(true) implies (this@isClientWorld is ClientWorld)
     }
     return this is ClientWorld
+}
+
+@ExperimentalContracts
+fun <T : IParticleData> World.particle(type: T, x: Double, y: Double, z: Double, count: Int = 1, offX: Double = 0.0, offY: Double = 0.0, offZ: Double = 0.0, speed: Double = 0.0): Boolean {
+    if (this.isServerWorld()) {
+        spawnParticle(type, x, y, z, count, offX, offY, offZ, speed)
+        return true
+    }
+    return false
 }

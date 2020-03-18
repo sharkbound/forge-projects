@@ -2,9 +2,11 @@ package sharkbound.forge.firstmod
 
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
+import net.minecraftforge.registries.ForgeRegistries
+import net.minecraftforge.registries.ForgeRegistry
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.data.modEventBus
-import sharkbound.forge.firstmod.data.proxy
+import sharkbound.forge.firstmod.data.*
+import sharkbound.forge.firstmod.potions.ChaosEffect
 
 const val MOD_ID = "firstmod"
 const val MOD_NAME = "First Mod"
@@ -16,6 +18,7 @@ class FirstMod {
     }
 
     private fun setup(e: FMLCommonSetupEvent) {
+//        ForgeRegistries.POTIONS.register(ChaosEffect())
         FirstModItemGroup.init()
         proxy.init()
     }
