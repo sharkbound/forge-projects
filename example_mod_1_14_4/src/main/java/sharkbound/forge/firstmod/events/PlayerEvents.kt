@@ -18,8 +18,7 @@ import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.data.forgeEventBus
 import sharkbound.forge.firstmod.data.logger
 import sharkbound.forge.firstmod.items.FirstItem
-import sharkbound.forge.shared.extensions.ifServerPlayer
-import sharkbound.forge.shared.extensions.isServerPlayer
+import sharkbound.forge.shared.extensions.*
 import kotlin.contracts.ExperimentalContracts
 
 @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -42,21 +41,22 @@ object PlayerEvents {
     }
 */
 
-    @ExperimentalContracts
-    @SubscribeEvent
-    @JvmStatic
-    fun onEntityDamaged(e: LivingDamageEvent) {
-        if (!e.entity.isServerPlayer() && e.source is EntityDamageSource) {
-            e.source.trueSource.let {
-                if (it.isServerPlayer() && it.inventory.getCurrentItem().item is FirstItem) {
-                    e.amount = 0f
-                    it.sendMessage(StringTextComponent("${ChatColor}Poof"))
-                    e.entityLiving.run {
-
-                        teleportKeepLoaded(posX, posY + 10, posZ)
-                    }
-                }
-            }
-        }
-    }
+//    @ExperimentalContracts
+//    @SubscribeEvent
+//    @JvmStatic
+//    fun onEntityDamaged(e: LivingDamageEvent) {
+//        if (!e.entity.isServerPlayer() && e.source is EntityDamageSource) {
+//            e.source.trueSource.let {
+//                if (it.isServerPlayer() && it.inventory.getCurrentItem().item is FirstItem) {
+//                    e.amount = 0f
+//                    it.send("&4Poof!")
+//                    e.entityLiving.run {
+//                        setInAir()
+//                        setVelocity(0.0, 3.0, 0.0)
+//                        velocityChanged = true
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
