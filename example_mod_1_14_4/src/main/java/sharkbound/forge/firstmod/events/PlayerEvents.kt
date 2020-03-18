@@ -48,8 +48,11 @@ object PlayerEvents {
                     e.amount = 0f
 //                   fixme
                     e.entityLiving.run {
-                        this.setJumping(true)
-                        addVelocity(0.0, 3.0, 0.0)
+                        if (!world.isRemote) {
+                            fall(1f, 0f)
+                            addVelocity(0.0, 3.0, 0.0)
+                            velocityChanged = true
+                        }
                     }
                 }
             }
