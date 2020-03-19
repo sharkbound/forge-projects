@@ -37,8 +37,8 @@ class FirstItem : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
 
     @ExperimentalContracts
     override fun onItemRightClick(worldIn: World, player: PlayerEntity, handIn: Hand): ActionResult<ItemStack> {
-        player.send("&eRIGHT CLICK")
-        return ActionResult.newResult(ActionResultType.SUCCESS, ItemStack.EMPTY)
+        player.send(player.heldItemInfo.item.javaClass)
+        return ActionResult(ActionResultType.SUCCESS, player.heldItemInfo.stack)
     }
 
     companion object : HasRegistryName {

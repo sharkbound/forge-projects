@@ -1,0 +1,27 @@
+package sharkbound.forge.shared.util
+
+enum class TickUnit(val mul: Int) {
+    TICKS(1),
+    SECONDS(20),
+    MINUTES(20 * 60),
+    HOURS(20 * 60 * 60),
+    DAYS(20 * 60 * 60 * 24);
+
+    fun applyTo(value: Int): Int =
+            value * mul
+
+    fun applyTo(value: Long): Long =
+            value * mul
+}
+
+fun ticks(value: Int, unit: TickUnit = TickUnit.TICKS): Int =
+        unit.applyTo(value)
+
+fun ticks(value: Long, unit: TickUnit = TickUnit.TICKS): Long =
+        unit.applyTo(value)
+
+fun Int.toTicks(unit: TickUnit): Int =
+        unit.applyTo(this)
+
+fun Long.toTicks(unit: TickUnit): Long =
+        unit.applyTo(this)

@@ -7,11 +7,11 @@ import sharkbound.commonutils.extensions.ifNotNull
 import sharkbound.forge.firstmod.blocks.ModBlocks
 import sharkbound.forge.firstmod.interfaces.HasRegistryName
 import sharkbound.forge.shared.extensions.*
-import sharkbound.forge.shared.util.Incrementer
+import sharkbound.forge.shared.util.*
 import kotlin.contracts.ExperimentalContracts
 
 class FirstBlockTileEntity : TileEntity(ModBlocks.FIRST_BLOCK_TILE_ENTITY), ITickableTileEntity {
-    private val incr = Incrementer(20)
+    private val incr = Incrementer(ticks(3, TickUnit.SECONDS))
 
     @ExperimentalContracts
     override fun tick() {
