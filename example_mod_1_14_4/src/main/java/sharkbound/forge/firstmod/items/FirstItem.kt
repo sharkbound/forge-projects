@@ -4,13 +4,22 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
-import net.minecraft.util.Hand
+import net.minecraft.util.*
+import net.minecraft.world.World
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.interfaces.HasRegistryName
 import sharkbound.forge.firstmod.potions.ChaosEffect
-import sharkbound.forge.shared.extensions.instance
+import sharkbound.forge.shared.extensions.*
+import kotlin.contracts.ExperimentalContracts
+
 
 class FirstItem : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
+    enum class Mode {
+        DUPLICATE
+    }
+
+    var currentMode = Mode.DUPLICATE
+
     init {
         setRegistryName(REGISTRY_NAME)
     }
@@ -20,12 +29,16 @@ class FirstItem : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
         return true
     }
 
-    override fun hitEntity(stack: ItemStack, target: LivingEntity, attacker: LivingEntity): Boolean {
-        return target.addEffect(stack)
-    }
+    override fun hitEntity(stack: ItemStack, target: LivingEntity, attacker: LivingEntity): Boolean =
+            target.addEffect(stack)
 
-    override fun itemInteractionForEntity(stack: ItemStack, playerIn: PlayerEntity, target: LivingEntity, hand: Hand): Boolean {
-        return target.addEffect(stack)
+    override fun itemInteractionForEntity(stack: ItemStack, playerIn: PlayerEntity, target: LivingEntity, hand: Hand): Boolean =
+            target.addEffect(stack)
+
+    @ExperimentalContracts
+    override fun onItemRightClick(worldIn: World, player: PlayerEntity, handIn: Hand): ActionResult<ItemStack> {
+        player.send("&eRIGHT CLICK")
+        return ActionResult.newResult(ActionResultType.SUCCESS, ItemStack.EMPTY)
     }
 
     companion object : HasRegistryName {
