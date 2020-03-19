@@ -39,9 +39,10 @@ class ChaosEffect : Effect(EffectType.NEUTRAL, 0xff0000) {
     override fun performEffect(e: LivingEntity, amplifier: Int) {
         e.setNoGravity(true)
         e.teleportRelative(offset, offset, offset)
-        e.isCustomNameVisible = true
+
         val left = format.format((e.activePotionEffects.firstOrNull { it.potion is ChaosEffect }?.duration ?: -1) / 20.0)
         e.customName = StringTextComponent("&dChaos: &e$left".color())
+        e.isCustomNameVisible = true
         e.world.let {
             if (it.isServerWorld()) {
                 it.particle(ParticleTypes.LARGE_SMOKE, e.posX, e.posY, e.posZ)

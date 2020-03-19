@@ -5,6 +5,8 @@ import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.potion.Effect
+import net.minecraft.tileentity.TileEntity
+import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.text.StringTextComponent
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.event.TickEvent
@@ -15,8 +17,10 @@ import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.blocks.FirstBlock
 import sharkbound.forge.firstmod.blocks.ModBlocks
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
+import sharkbound.forge.firstmod.entities.FirstBlockTileEntity
 import sharkbound.forge.firstmod.items.FirstItem
 import sharkbound.forge.firstmod.potions.ChaosEffect
+import sharkbound.forge.shared.util.tileEntityRegistryBuilder
 
 @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 object RegistryEvents {
@@ -42,6 +46,14 @@ object RegistryEvents {
     fun onEffectRegistry(e: RegistryEvent.Register<Effect>) {
         e.registry.run {
             register(ChaosEffect())
+        }
+    }
+
+    @SubscribeEvent
+    @JvmStatic
+    fun onTileEntityRegistry(e: RegistryEvent.Register<TileEntityType<*>>) {
+        e.registry.run {
+            register(tileEntityRegistryBuilder({ FirstBlockTileEntity() }, ModBlocks.FIRST_BLOCK).build(null).setRegistryName(FirstBlockTileEntity.REGISTRY_NAME))
         }
     }
 }
