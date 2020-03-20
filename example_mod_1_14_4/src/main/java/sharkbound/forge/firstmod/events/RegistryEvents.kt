@@ -1,21 +1,17 @@
 package sharkbound.forge.firstmod.events
 
 import net.minecraft.block.Block
-import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
+import net.minecraft.particles.ParticleType
 import net.minecraft.potion.Effect
-import net.minecraft.tileentity.TileEntity
 import net.minecraft.tileentity.TileEntityType
-import net.minecraft.util.text.StringTextComponent
 import net.minecraftforge.event.RegistryEvent
-import net.minecraftforge.event.TickEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.registries.ForgeRegistries
 import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.blocks.FirstBlock
-import sharkbound.forge.firstmod.blocks.ModBlocks
+import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.entities.FirstBlockTileEntity
 import sharkbound.forge.firstmod.items.FirstItem
@@ -54,6 +50,14 @@ object RegistryEvents {
     fun onTileEntityRegistry(e: RegistryEvent.Register<TileEntityType<*>>) {
         e.registry.run {
             register(tileEntityRegistryBuilder({ FirstBlockTileEntity() }, ModBlocks.FIRST_BLOCK).build(null).setRegistryName(FirstBlockTileEntity.REGISTRY_NAME))
+        }
+    }
+
+    @SubscribeEvent
+    @JvmStatic
+    fun onParticleTypeRegistry(e: RegistryEvent.Register<ParticleType<*>>) {
+        e.registry.run {
+//            TODO: register()
         }
     }
 }

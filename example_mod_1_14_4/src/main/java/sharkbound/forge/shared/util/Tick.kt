@@ -19,9 +19,3 @@ fun ticks(value: Int, unit: TickUnit = TickUnit.TICKS): Int =
 
 fun ticks(value: Long, unit: TickUnit = TickUnit.TICKS): Long =
         unit.applyTo(value)
-
-fun Int.toTicks(unit: TickUnit): Int =
-        unit.applyTo(this)
-
-fun Long.toTicks(unit: TickUnit): Long =
-        unit.applyTo(this)

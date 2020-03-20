@@ -26,19 +26,31 @@ inline infix fun Entity?.ifServerPlayer(block: ServerPlayerEntity.() -> Unit) {
 
 val PlayerEntity.mainHandItem
     get() = getHeldItem(Hand.MAIN_HAND)
+
 val PlayerEntity.offHandItem
     get() = getHeldItem(Hand.OFF_HAND)
 
-data class HeldItemInfo(val hand: Hand, val stack: ItemStack, val player: PlayerEntity) {
-    @ExperimentalContracts
-    inline fun <reified T : Item> isType(): Boolean =
-            stack.isType<T>()
+class HeldItemInfo(val hand: Hand, val stack: ItemStack, val player: PlayerEntity) {
+    val isEmpty: Boolean = stack.isEmpty
+    val item: Item = stack.item
 
-    inline fun <reified T : Item> asType(): T? =
-            item as? T
+    infix fun itemIs(other: Item): Boolean =
+            item == other
 
-    val isEmpty by lazy { stack.isEmpty }
-    val item by lazy { stack.item }
+    override fun equals(other: Any?): Boolean =
+            when (other) {
+                is Item -> item == other
+                is ItemStack -> item == other.item
+                is HeldItemInfo -> item == other.item
+                else -> false
+            }
+
+    override fun hashCode(): Int {
+        var result = isEmpty.hashCode()
+        result = 31 * result + item.hashCode()
+        return result
+    }
+
 }
 
 val PlayerEntity.heldItemInfo: HeldItemInfo

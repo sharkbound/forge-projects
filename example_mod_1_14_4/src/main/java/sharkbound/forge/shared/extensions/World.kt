@@ -16,27 +16,11 @@ fun World?.isServerWorld(): Boolean {
 }
 
 @ExperimentalContracts
-fun World?.isNotServerWorld(): Boolean {
-    contract {
-        returns(true) implies (this@isNotServerWorld !is ServerWorld)
-    }
-    return this !is ServerWorld
-}
-
-@ExperimentalContracts
-fun World.isClientWorld(): Boolean {
+fun World?.isClientWorld(): Boolean {
     contract {
         returns(true) implies (this@isClientWorld is ClientWorld)
     }
     return this is ClientWorld
-}
-
-@ExperimentalContracts
-fun World.isNotClientWorld(): Boolean {
-    contract {
-        returns(true) implies (this@isNotClientWorld !is ClientWorld)
-    }
-    return this !is ClientWorld
 }
 
 @ExperimentalContracts
