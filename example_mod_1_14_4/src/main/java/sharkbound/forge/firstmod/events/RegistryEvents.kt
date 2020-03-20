@@ -13,7 +13,8 @@ import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.blocks.MehBlock
 import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.entities.FirstBlockTileEntity
+import sharkbound.forge.firstmod.entities.MehBlockItemEntity
+import sharkbound.forge.firstmod.items.MehBlockItem
 import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.firstmod.potions.ChaosEffect
 import sharkbound.forge.shared.util.tileEntityRegistryBuilder
@@ -33,6 +34,7 @@ object RegistryEvents {
     fun onItemsRegistry(e: RegistryEvent.Register<Item>) {
         e.registry.run {
             register(BlockItem(ModBlocks.MEH_BLOCK, Item.Properties().group(FirstModItemGroup)).setRegistryName(MehBlock.REGISTRY_NAME))
+//            register(MehBlockItem())
             register(MehWand())
         }
     }
@@ -49,7 +51,7 @@ object RegistryEvents {
     @JvmStatic
     fun onTileEntityRegistry(e: RegistryEvent.Register<TileEntityType<*>>) {
         e.registry.run {
-            register(tileEntityRegistryBuilder({ FirstBlockTileEntity() }, ModBlocks.MEH_BLOCK).build(null).setRegistryName(FirstBlockTileEntity.REGISTRY_NAME))
+            register(tileEntityRegistryBuilder({ MehBlockItemEntity() }, ModBlocks.MEH_BLOCK).build(null).setRegistryName(MehBlockItemEntity.REGISTRY_NAME))
         }
     }
 

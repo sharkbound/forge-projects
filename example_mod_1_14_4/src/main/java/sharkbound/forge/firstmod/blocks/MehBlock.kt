@@ -11,7 +11,7 @@ import net.minecraft.world.*
 import sharkbound.commonutils.extensions.choice
 import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.data.ModItems
-import sharkbound.forge.firstmod.entities.FirstBlockTileEntity
+import sharkbound.forge.firstmod.entities.MehBlockItemEntity
 import sharkbound.forge.firstmod.interfaces.HasRegistryName
 import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.shared.extensions.*
@@ -31,14 +31,14 @@ class MehBlock : Block(
     }
 
     override fun createTileEntity(state: BlockState?, world: IBlockReader?): TileEntity? {
-        return FirstBlockTileEntity()
+        return MehBlockItemEntity()
     }
 
     val dirs = enumValues<Direction>()
 
     private fun destroyChain(pos: BlockPos, world: World) {
         if (pos.block(world) == ModBlocks.MEH_BLOCK) {
-            world.destroyBlock(pos, true)
+            world.destroyBlock(pos, false)
             destroyChain(pos.east(), world)
             destroyChain(pos.west(), world)
             destroyChain(pos.north(), world)
@@ -54,13 +54,16 @@ class MehBlock : Block(
             pos.offset(dirs.choice()).let {
                 when (MehWand.getMode(player.mainHandItem)) {
                     MehWand.Mode.DELETE -> world.destroyBlock(pos, true)
-                    MehWand.Mode.DUPLICATE -> world.setBlockState(it, ModBlocks.MEH_BLOCK.defaultState)
+                    MehWand.Mode.DUPLICATE -> spread(world, it)
                     MehWand.Mode.DESTROY_CHAIN -> destroyChain(pos, world)
                 }
             }
         }
         return false
     }
+
+    private fun spread(world: World, pos: BlockPos) =
+            world.setBlockState(pos, ModBlocks.MEH_BLOCK.defaultState)
 
     companion object : HasRegistryName {
         override val REGISTRY_NAME: String

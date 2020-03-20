@@ -18,7 +18,6 @@ class FirstMod {
     }
 
     private fun setup(e: FMLCommonSetupEvent) {
-//        ForgeRegistries.POTIONS.register(ChaosEffect())
         FirstModItemGroup.init()
         proxy.init()
     }

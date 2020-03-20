@@ -5,7 +5,7 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.registries.ObjectHolder
 import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.blocks.MehBlock
-import sharkbound.forge.firstmod.entities.FirstBlockTileEntity
+import sharkbound.forge.firstmod.entities.MehBlockItemEntity
 
 @Mod.EventBusSubscriber
 object ModBlocks {
@@ -16,5 +16,5 @@ object ModBlocks {
 
     @ObjectHolder("$MOD_ID:mehblock")
     @JvmStatic
-    lateinit var FIRST_BLOCK_TILE_ENTITY: TileEntityType<FirstBlockTileEntity>
+    lateinit var MEH_BLOCK_TILE_ENTITY: TileEntityType<MehBlockItemEntity>
 }
