@@ -17,9 +17,9 @@ import sharkbound.forge.shared.util.text
 import kotlin.contracts.ExperimentalContracts
 
 
-class FirstItem : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
+class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
     override fun getDisplayName(stack: ItemStack): ITextComponent =
-            text("&aFirst Item (&e${getMode(stack)}&a)")
+            text("&aMeh Wand (&e${getMode(stack)}&a)")
 
     init {
         setRegistryName(REGISTRY_NAME)
@@ -61,7 +61,7 @@ class FirstItem : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
         const val MODE_KEY = "mode"
 
         override val REGISTRY_NAME: String
-            get() = "firstitem"
+            get() = "mehwand"
 
         fun getMode(stack: ItemStack): Mode =
                 stack.orCreateTag.getByte(MODE_KEY).let { id -> Mode.values().first { it.numberId == id } }

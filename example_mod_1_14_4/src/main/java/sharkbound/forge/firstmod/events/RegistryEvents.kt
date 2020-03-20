@@ -14,7 +14,7 @@ import sharkbound.forge.firstmod.blocks.FirstBlock
 import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.entities.FirstBlockTileEntity
-import sharkbound.forge.firstmod.items.FirstItem
+import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.firstmod.potions.ChaosEffect
 import sharkbound.forge.shared.util.tileEntityRegistryBuilder
 
@@ -33,7 +33,7 @@ object RegistryEvents {
     fun onItemsRegistry(e: RegistryEvent.Register<Item>) {
         e.registry.run {
             register(BlockItem(ModBlocks.FIRST_BLOCK, Item.Properties().group(FirstModItemGroup)).setRegistryName(FirstBlock.REGISTRY_NAME))
-            register(FirstItem())
+            register(MehWand())
         }
     }
 

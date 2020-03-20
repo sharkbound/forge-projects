@@ -13,7 +13,7 @@ import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.data.ModItems
 import sharkbound.forge.firstmod.entities.FirstBlockTileEntity
 import sharkbound.forge.firstmod.interfaces.HasRegistryName
-import sharkbound.forge.firstmod.items.FirstItem
+import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.shared.extensions.*
 import kotlin.contracts.ExperimentalContracts
 
@@ -50,12 +50,12 @@ class FirstBlock : Block(
 
     @ExperimentalContracts
     override fun onBlockActivated(state: BlockState, world: World, pos: BlockPos, player: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): Boolean {
-        if (player.isServerPlayer() && world.isServerWorld() && player.mainHandItem itemIs ModItems.FIRST_ITEM) {
+        if (player.isServerPlayer() && world.isServerWorld() && player.mainHandItem itemIs ModItems.MEH_WAND) {
             pos.offset(dirs.choice()).let {
-                when (FirstItem.getMode(player.mainHandItem)) {
-                    FirstItem.Mode.DELETE -> world.destroyBlock(pos, true)
-                    FirstItem.Mode.DUPLICATE -> world.setBlockState(it, ModBlocks.FIRST_BLOCK.defaultState)
-                    FirstItem.Mode.DESTROY_CHAIN -> destroyChain(pos, world)
+                when (MehWand.getMode(player.mainHandItem)) {
+                    MehWand.Mode.DELETE -> world.destroyBlock(pos, true)
+                    MehWand.Mode.DUPLICATE -> world.setBlockState(it, ModBlocks.FIRST_BLOCK.defaultState)
+                    MehWand.Mode.DESTROY_CHAIN -> destroyChain(pos, world)
                 }
             }
         }
