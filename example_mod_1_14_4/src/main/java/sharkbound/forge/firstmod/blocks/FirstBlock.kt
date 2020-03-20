@@ -13,6 +13,7 @@ import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.data.ModItems
 import sharkbound.forge.firstmod.entities.FirstBlockTileEntity
 import sharkbound.forge.firstmod.interfaces.HasRegistryName
+import sharkbound.forge.firstmod.items.FirstItem
 import sharkbound.forge.shared.extensions.*
 import kotlin.contracts.ExperimentalContracts
 
@@ -35,14 +36,30 @@ class FirstBlock : Block(
 
     val dirs = enumValues<Direction>()
 
+    private fun destroyChain(pos: BlockPos, world: World) {
+        if (pos.block(world) == ModBlocks.FIRST_BLOCK) {
+            world.destroyBlock(pos, true)
+            destroyChain(pos.east(), world)
+            destroyChain(pos.west(), world)
+            destroyChain(pos.north(), world)
+            destroyChain(pos.south(), world)
+            destroyChain(pos.up(), world)
+            destroyChain(pos.down(), world)
+        }
+    }
+
     @ExperimentalContracts
     override fun onBlockActivated(state: BlockState, world: World, pos: BlockPos, player: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): Boolean {
         if (player.isServerPlayer() && world.isServerWorld() && player.mainHandItem itemIs ModItems.FIRST_ITEM) {
             pos.offset(dirs.choice()).let {
-                world.setBlockState(it, ModBlocks.FIRST_BLOCK.defaultState)
+                when (FirstItem.getMode(player.mainHandItem)) {
+                    FirstItem.Mode.DELETE -> world.destroyBlock(pos, true)
+                    FirstItem.Mode.DUPLICATE -> world.setBlockState(it, ModBlocks.FIRST_BLOCK.defaultState)
+                    FirstItem.Mode.DESTROY_CHAIN -> destroyChain(pos, world)
+                }
             }
         }
-        return true
+        return false
     }
 
     companion object : HasRegistryName {
