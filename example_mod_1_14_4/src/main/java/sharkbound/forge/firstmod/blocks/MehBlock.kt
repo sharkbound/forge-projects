@@ -17,7 +17,7 @@ import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.shared.extensions.*
 import kotlin.contracts.ExperimentalContracts
 
-class FirstBlock : Block(
+class MehBlock : Block(
         Properties.create(Material.IRON)
                 .sound(SoundType.METAL)
                 .hardnessAndResistance(2f)
@@ -37,7 +37,7 @@ class FirstBlock : Block(
     val dirs = enumValues<Direction>()
 
     private fun destroyChain(pos: BlockPos, world: World) {
-        if (pos.block(world) == ModBlocks.FIRST_BLOCK) {
+        if (pos.block(world) == ModBlocks.MEH_BLOCK) {
             world.destroyBlock(pos, true)
             destroyChain(pos.east(), world)
             destroyChain(pos.west(), world)
@@ -54,7 +54,7 @@ class FirstBlock : Block(
             pos.offset(dirs.choice()).let {
                 when (MehWand.getMode(player.mainHandItem)) {
                     MehWand.Mode.DELETE -> world.destroyBlock(pos, true)
-                    MehWand.Mode.DUPLICATE -> world.setBlockState(it, ModBlocks.FIRST_BLOCK.defaultState)
+                    MehWand.Mode.DUPLICATE -> world.setBlockState(it, ModBlocks.MEH_BLOCK.defaultState)
                     MehWand.Mode.DESTROY_CHAIN -> destroyChain(pos, world)
                 }
             }
@@ -64,6 +64,6 @@ class FirstBlock : Block(
 
     companion object : HasRegistryName {
         override val REGISTRY_NAME: String
-            get() = "firstblock"
+            get() = "mehblock"
     }
 }

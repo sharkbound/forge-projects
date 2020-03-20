@@ -10,7 +10,7 @@ import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import sharkbound.forge.firstmod.MOD_ID
-import sharkbound.forge.firstmod.blocks.FirstBlock
+import sharkbound.forge.firstmod.blocks.MehBlock
 import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.entities.FirstBlockTileEntity
@@ -24,7 +24,7 @@ object RegistryEvents {
     @JvmStatic
     fun onBlockRegistry(e: RegistryEvent.Register<Block>) {
         e.registry.run {
-            register(FirstBlock())
+            register(MehBlock())
         }
     }
 
@@ -32,7 +32,7 @@ object RegistryEvents {
     @JvmStatic
     fun onItemsRegistry(e: RegistryEvent.Register<Item>) {
         e.registry.run {
-            register(BlockItem(ModBlocks.FIRST_BLOCK, Item.Properties().group(FirstModItemGroup)).setRegistryName(FirstBlock.REGISTRY_NAME))
+            register(BlockItem(ModBlocks.MEH_BLOCK, Item.Properties().group(FirstModItemGroup)).setRegistryName(MehBlock.REGISTRY_NAME))
             register(MehWand())
         }
     }
@@ -49,7 +49,7 @@ object RegistryEvents {
     @JvmStatic
     fun onTileEntityRegistry(e: RegistryEvent.Register<TileEntityType<*>>) {
         e.registry.run {
-            register(tileEntityRegistryBuilder({ FirstBlockTileEntity() }, ModBlocks.FIRST_BLOCK).build(null).setRegistryName(FirstBlockTileEntity.REGISTRY_NAME))
+            register(tileEntityRegistryBuilder({ FirstBlockTileEntity() }, ModBlocks.MEH_BLOCK).build(null).setRegistryName(FirstBlockTileEntity.REGISTRY_NAME))
         }
     }
 

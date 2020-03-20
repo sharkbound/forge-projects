@@ -27,6 +27,6 @@ class FirstBlockTileEntity : TileEntity(ModBlocks.FIRST_BLOCK_TILE_ENTITY), ITic
 
     companion object : HasRegistryName {
         override val REGISTRY_NAME: String
-            get() = "firstblock"
+            get() = "mehblock"
     }
 }

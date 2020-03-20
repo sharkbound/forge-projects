@@ -1,7 +1,7 @@
 {
   "effect.firstmod.chaoseffect": "Chaos",
   "item.firstmod.mehwand": "Meh Wand",
-  "block.firstmod.firstblock": "First Block",
+  "block.firstmod.mehblock": "Meh Block",
   "_comment": "Creative Tabs",
   "itemGroup.firstmod": "First Mod"
 }

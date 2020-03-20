@@ -2,12 +2,12 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "pool_firstblock",
+      "name": "pool_mehblock",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "firstmod:firstblock"
+          "name": "firstmod:mehblock"
         }
       ],
       "conditions": [
