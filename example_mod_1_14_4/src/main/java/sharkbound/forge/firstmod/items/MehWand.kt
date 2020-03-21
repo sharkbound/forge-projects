@@ -12,7 +12,6 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider
 import sharkbound.commonutils.extensions.choice
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.data.ModBlocks
-import sharkbound.forge.firstmod.data.modEventBus
 import sharkbound.forge.firstmod.potions.ModEffects
 import sharkbound.forge.shared.extensions.*
 import sharkbound.forge.shared.util.text
@@ -22,15 +21,15 @@ import kotlin.contracts.ExperimentalContracts
 class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
     enum class Mode(val numberId: Byte) {
         DUPLICATE(0),
-        DELETE(1),
+        DESTROY(1),
         DESTROY_CHAIN(2),
         REPLACE(3),
         REPLACE_OFFSET(4);
 
         fun next() =
                 when (this) {
-                    DUPLICATE -> DELETE
-                    DELETE -> DESTROY_CHAIN
+                    DUPLICATE -> DESTROY
+                    DESTROY -> DESTROY_CHAIN
                     DESTROY_CHAIN -> REPLACE
                     REPLACE -> REPLACE_OFFSET
                     REPLACE_OFFSET -> DUPLICATE
@@ -39,7 +38,7 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
         override fun toString(): String =
                 when (this) {
                     DUPLICATE -> "Duplicate"
-                    DELETE -> "Delete"
+                    DESTROY -> "Destroy"
                     DESTROY_CHAIN -> "Destroy Chain"
                     REPLACE -> "Replace"
                     REPLACE_OFFSET -> "Replace Offset"
@@ -76,7 +75,7 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
             val mode = getMode(item)
             val isMeh = pos.isBlock(world, ModBlocks.MEH_BLOCK)
             when {
-                mode == Mode.DELETE -> pos.destroyBlock(world)
+                mode == Mode.DESTROY -> pos.destroyBlock(world)
                 mode == Mode.DUPLICATE && isMeh -> {
                     pos.offset(allDirections.choice()).setBlock(world, ModBlocks.MEH_BLOCK)
                 }
@@ -86,6 +85,10 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
             }
         }
         return ActionResultType.SUCCESS
+    }
+
+    override fun onUsingTick(stack: ItemStack?, player: LivingEntity?, count: Int) {
+        println("TICK")
     }
 
 
