@@ -14,16 +14,14 @@ import sharkbound.forge.shared.util.text
 // fixme get this working...
 class MehBlockItem : BlockItem(ModBlocks.MEH_BLOCK, Properties().group(FirstModItemGroup)) {
     init {
-        setRegistryName("$MOD_ID:mehblockitem")
+        setRegistryName("$MOD_ID:$REGISTRY_NAME")
     }
 
     override fun getDisplayName(stack: ItemStack): ITextComponent {
         return text(color("&aMeh Block"))
     }
 
-    companion object : HasRegistryName {
-        override val REGISTRY_NAME: String
-            get() = "mehblockitem"
-
+    companion object {
+        const val REGISTRY_NAME = "mehblockitem"
     }
 }

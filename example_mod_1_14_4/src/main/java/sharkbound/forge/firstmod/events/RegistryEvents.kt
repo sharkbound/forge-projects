@@ -34,6 +34,7 @@ object RegistryEvents {
     fun onItemsRegistry(e: RegistryEvent.Register<Item>) {
         e.registry.run {
             register(BlockItem(ModBlocks.MEH_BLOCK, Item.Properties().group(FirstModItemGroup)).setRegistryName(MehBlock.REGISTRY_NAME))
+//            TEST MEH BLOCK
 //            register(MehBlockItem())
             register(MehWand())
         }
