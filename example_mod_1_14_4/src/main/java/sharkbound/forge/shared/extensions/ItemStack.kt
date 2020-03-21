@@ -5,3 +5,6 @@ import net.minecraft.item.ItemStack
 
 infix fun ItemStack.itemIs(other: Item): Boolean =
         item == other
+
+infix fun ItemStack.itemIsNot(other: Item): Boolean =
+        item != other

@@ -6,12 +6,8 @@ import net.minecraft.particles.ParticleTypes
 import net.minecraft.potion.*
 import net.minecraft.util.text.StringTextComponent
 import sharkbound.commonutils.util.*
-import sharkbound.forge.firstmod.MOD_ID
-import sharkbound.forge.firstmod.interfaces.HasRegistryName
 import sharkbound.forge.shared.extensions.*
 import java.text.DecimalFormat
-import java.text.NumberFormat
-import javax.swing.text.NumberFormatter
 import kotlin.contracts.ExperimentalContracts
 
 class ChaosEffect : Effect(EffectType.NEUTRAL, 0xff0000) {
@@ -22,10 +18,8 @@ class ChaosEffect : Effect(EffectType.NEUTRAL, 0xff0000) {
     override fun getName() =
             "Chaos"
 
-    companion object : HasRegistryName {
-        override val REGISTRY_NAME: String
-            get() = "chaoseffect"
-
+    companion object {
+        const val REGISTRY_NAME = "chaoseffect"
     }
 
     override fun isReady(duration: Int, amplifier: Int): Boolean {

@@ -5,7 +5,6 @@ import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
 import sharkbound.commonutils.extensions.ifNotNull
 import sharkbound.forge.firstmod.data.ModBlocks
-import sharkbound.forge.firstmod.interfaces.HasRegistryName
 import sharkbound.forge.shared.extensions.*
 import sharkbound.forge.shared.util.*
 import kotlin.contracts.ExperimentalContracts
@@ -24,8 +23,7 @@ class MehBlockItemEntity : TileEntity(ModBlocks.MEH_BLOCK_TILE_ENTITY), ITickabl
         }
     }
 
-    companion object : HasRegistryName {
-        override val REGISTRY_NAME: String
-            get() = "mehblock"
+    companion object {
+        const val REGISTRY_NAME = "mehblock"
     }
 }

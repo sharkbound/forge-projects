@@ -10,7 +10,7 @@ import net.minecraft.util.text.ITextComponent
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.interfaces.HasRegistryName
+import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.potions.ModEffects
 import sharkbound.forge.shared.extensions.*
 import sharkbound.forge.shared.util.text
@@ -37,9 +37,18 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
 
     override fun initCapabilities(stack: ItemStack?, nbt: CompoundNBT?): ICapabilityProvider? {
         stack?.let {
-            setMode(it, Mode.DUPLICATE)
+            if (MODE_NBT_KEY !in it.orCreateTag)
+                setMode(it, Mode.DUPLICATE)
         }
         return null
+    }
+
+    override fun onItemUse(c: ItemUseContext): ActionResultType {
+        c.run {
+            c.world.setBlockState(pos, ModBlocks.MEH_BLOCK.defaultState)
+        }
+        // TODO
+        return ActionResultType.SUCCESS
     }
 
     @ExperimentalContracts
@@ -57,17 +66,16 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
             target.addEffect(stack)
 
 
-    companion object : HasRegistryName {
-        const val MODE_KEY = "mode"
+    companion object {
+        const val MODE_NBT_KEY = "mode"
 
-        override val REGISTRY_NAME: String
-            get() = "mehwand"
+        const val REGISTRY_NAME = "mehwand"
 
         fun getMode(stack: ItemStack): Mode =
-                stack.orCreateTag.getByte(MODE_KEY).let { id -> Mode.values().first { it.numberId == id } }
+                stack.orCreateTag.getByte(MODE_NBT_KEY).let { id -> Mode.values().first { it.numberId == id } }
 
         fun setMode(stack: ItemStack, newMode: Mode) =
-                stack.orCreateTag.putByte(MODE_KEY, newMode.numberId)
+                stack.orCreateTag.putByte(MODE_NBT_KEY, newMode.numberId)
 
         fun advanceMode(stack: ItemStack) {
             setMode(stack, getMode(stack).next())

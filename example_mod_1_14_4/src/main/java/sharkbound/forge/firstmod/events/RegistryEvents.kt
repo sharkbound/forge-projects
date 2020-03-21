@@ -33,9 +33,7 @@ object RegistryEvents {
     @JvmStatic
     fun onItemsRegistry(e: RegistryEvent.Register<Item>) {
         e.registry.run {
-            register(BlockItem(ModBlocks.MEH_BLOCK, Item.Properties().group(FirstModItemGroup)).setRegistryName(MehBlock.REGISTRY_NAME))
-//            TEST MEH BLOCK
-//            register(MehBlockItem())
+            register(MehBlockItem(ModBlocks.MEH_BLOCK))
             register(MehWand())
         }
     }

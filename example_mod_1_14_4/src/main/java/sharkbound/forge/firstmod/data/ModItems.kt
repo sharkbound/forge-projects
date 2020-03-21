@@ -8,11 +8,11 @@ import sharkbound.forge.firstmod.items.MehWand
 
 @Mod.EventBusSubscriber
 object ModItems {
-    @ObjectHolder("$MOD_ID:mehwand")
+    @ObjectHolder("$MOD_ID:${MehWand.REGISTRY_NAME}")
     @JvmStatic
     lateinit var MEH_WAND: MehWand
 
-//    @ObjectHolder("$MOD_ID:mehblock")
-//    @JvmStatic
-//    lateinit var MEH_BLOCK_ITEM: MehBlockItem
+    @ObjectHolder("$MOD_ID:${MehBlockItem.REGISTRY_NAME}")
+    @JvmStatic
+    lateinit var MEH_BLOCK_ITEM: MehBlockItem
 }

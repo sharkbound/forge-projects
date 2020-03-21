@@ -12,7 +12,6 @@ import sharkbound.commonutils.extensions.choice
 import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.data.ModItems
 import sharkbound.forge.firstmod.entities.MehBlockItemEntity
-import sharkbound.forge.firstmod.interfaces.HasRegistryName
 import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.shared.extensions.*
 import kotlin.contracts.ExperimentalContracts
@@ -65,8 +64,7 @@ class MehBlock : Block(
     private fun spread(world: World, pos: BlockPos) =
             world.setBlockState(pos, ModBlocks.MEH_BLOCK.defaultState)
 
-    companion object : HasRegistryName {
-        override val REGISTRY_NAME: String
-            get() = "mehblock"
+    companion object {
+        const val REGISTRY_NAME = "mehblock"
     }
 }
