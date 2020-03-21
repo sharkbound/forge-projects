@@ -1,6 +1,7 @@
 package sharkbound.forge.firstmod.items
 
 import net.minecraft.client.util.ITooltipFlag
+import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.*
@@ -46,7 +47,7 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
     }
 
     override fun getDisplayName(stack: ItemStack): ITextComponent =
-            text("&aMeh Wand (&e${getMode(stack)}&a)")
+            text("&aMeh Wand (&e${modeOf(stack)}&a)")
 
 
     init {
@@ -55,7 +56,7 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
 
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<ITextComponent>, flagIn: ITooltipFlag) {
         tooltip.addAll(listOf(
-                text("&3Mode: ${getMode(stack)}")
+                text("&3Mode: ${modeOf(stack)}")
         ))
     }
 
@@ -72,7 +73,7 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
 
     override fun onItemUse(c: ItemUseContext): ActionResultType {
         c.run {
-            val mode = getMode(item)
+            val mode = modeOf(item)
             val isMeh = pos.isBlock(world, ModBlocks.MEH_BLOCK)
             when {
                 mode == Mode.DESTROY -> pos.destroyBlock(world)
@@ -97,7 +98,7 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
         if (worldIn.isServerWorld() && player.isSneaking) {
             player.heldItemInfo.stack.run {
                 advanceMode(this)
-                player.send("&aset mode to &e${getMode(stack)}")
+                player.send("&aset mode to &e${modeOf(stack)}")
             }
         }
         return ActionResult(ActionResultType.SUCCESS, player.heldItemInfo.stack)
@@ -113,14 +114,14 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
 
         val allDirections = enumValues<Direction>()
 
-        fun getMode(stack: ItemStack): Mode =
+        fun modeOf(stack: ItemStack): Mode =
                 stack.orCreateTag.getByte(MODE_NBT_KEY).let { id -> Mode.values().first { it.numberId == id } }
 
         fun setMode(stack: ItemStack, newMode: Mode) =
                 stack.orCreateTag.putByte(MODE_NBT_KEY, newMode.numberId)
 
         fun advanceMode(stack: ItemStack) {
-            setMode(stack, getMode(stack).next())
+            setMode(stack, modeOf(stack).next())
         }
 
     }

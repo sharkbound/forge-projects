@@ -34,7 +34,7 @@ class HeldItemInfo(val hand: Hand, val stack: ItemStack, val player: PlayerEntit
     val isEmpty: Boolean = stack.isEmpty
     val item: Item = stack.item
 
-    infix fun itemIs(other: Item): Boolean =
+    infix fun isItem(other: Item): Boolean =
             item == other
 
     override fun equals(other: Any?): Boolean =
