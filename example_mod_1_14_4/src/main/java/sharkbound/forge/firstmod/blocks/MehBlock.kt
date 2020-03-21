@@ -33,11 +33,9 @@ class MehBlock : Block(
         return MehBlockItemEntity()
     }
 
-    val dirs = enumValues<Direction>()
-
-    private fun destroyChain(pos: BlockPos, world: World) {
-        if (pos.block(world) == ModBlocks.MEH_BLOCK) {
-            world.destroyBlock(pos, false)
+    fun destroyChain(pos: BlockPos, world: World) {
+        if (pos.isBlock(world, ModBlocks.MEH_BLOCK)) {
+            pos.destroyBlock(world)
             destroyChain(pos.east(), world)
             destroyChain(pos.west(), world)
             destroyChain(pos.north(), world)
@@ -46,23 +44,6 @@ class MehBlock : Block(
             destroyChain(pos.down(), world)
         }
     }
-
-    @ExperimentalContracts
-    override fun onBlockActivated(state: BlockState, world: World, pos: BlockPos, player: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): Boolean {
-        if (player.isServerPlayer() && world.isServerWorld() && player.mainHandItem itemIs ModItems.MEH_WAND) {
-            pos.offset(dirs.choice()).let {
-                when (MehWand.getMode(player.mainHandItem)) {
-                    MehWand.Mode.DELETE -> world.destroyBlock(pos, true)
-                    MehWand.Mode.DUPLICATE -> spread(world, it)
-                    MehWand.Mode.DESTROY_CHAIN -> destroyChain(pos, world)
-                }
-            }
-        }
-        return false
-    }
-
-    private fun spread(world: World, pos: BlockPos) =
-            world.setBlockState(pos, ModBlocks.MEH_BLOCK.defaultState)
 
     companion object {
         const val REGISTRY_NAME = "mehblock"

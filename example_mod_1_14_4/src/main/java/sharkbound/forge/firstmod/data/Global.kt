@@ -1,6 +1,7 @@
 package sharkbound.forge.firstmod.data
 
 import net.minecraft.client.Minecraft
+import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.DistExecutor
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
@@ -23,3 +24,6 @@ val minecraft get() = Minecraft.getInstance()
 val proxy: Proxy by lazy {
     DistExecutor.runForDist<Proxy>({ Supplier { ClientProxy() } }, { Supplier { ServerProxy() } })
 }
+
+val proxyWorld: World
+    get() = proxy.world
