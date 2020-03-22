@@ -1,6 +1,8 @@
 package sharkbound.forge.firstmod.events
 
 import net.minecraft.util.Hand
+import net.minecraft.util.math.RayTraceContext
+import net.minecraft.util.math.RayTraceResult
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.client.event.InputEvent
@@ -19,17 +21,23 @@ object HotbarTrackingEvents {
         forgeEventBus.register(this)
     }
 
-    // fixme
-//    @OnlyIn(Dist.CLIENT)
-//    @ExperimentalContracts
-//    @SubscribeEvent(priority = EventPriority.LOWEST)
-//    fun mouseInput(e: InputEvent.MouseScrollEvent) {
-//        val player = mcPlayer
-//        val item = player.mainHand
-//        if (!e.isLeftDown && !e.isMiddleDown && !e.isRightDown && player.isSneaking && item itemIs ModItems.MEH_WAND) {
-//            MehWand.modeOf(item).also { MehWand.setMode(item, if (e.scrollDelta < 0) it.prev() else it.next()) }
-//            ModItems.MEH_WAND.sendModeUpdateMessage(player, item)
-//            e.cancel()
-//        }
-//    }
+    @OnlyIn(Dist.CLIENT)
+    @ExperimentalContracts
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    // fixme send packet to server
+    fun mouseInput(e: InputEvent.MouseScrollEvent) {
+        val player = mcPlayer
+        if (!e.anyMouseKeyDown && player.isSneaking && minecraft.objectMouseOver.type == RayTraceResult.Type.MISS) {
+            val item = player.mainHand
+            if (item isNotItem ModItems.MEH_WAND) return
+            MehWand.modeOf(item).also {
+                MehWand.setMode(item, when (e.scrollDirection) {
+                    ScrollDirection.UP -> it.prev()
+                    ScrollDirection.DOWN -> it.next()
+                })
+            }
+            minecraft.gameRenderer.itemRenderer.resetEquippedProgress(Hand.MAIN_HAND)
+            e.cancel()
+        }
+    }
 }
