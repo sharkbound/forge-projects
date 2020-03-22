@@ -19,6 +19,7 @@ val modEventBus get() = modLoadingContext.modEventBus
 val forgeEventBus get() = MinecraftForge.EVENT_BUS
 
 val minecraft get() = Minecraft.getInstance()
+val mcPlayer get() = minecraft.player
 
 
 val proxy: Proxy by lazy {

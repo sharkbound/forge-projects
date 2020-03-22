@@ -24,10 +24,10 @@ inline infix fun Entity?.ifServerPlayer(block: ServerPlayerEntity.() -> Unit) {
     }
 }
 
-val PlayerEntity.mainHandItem
+val PlayerEntity.mainHand
     get() = getHeldItem(Hand.MAIN_HAND)
 
-val PlayerEntity.offHandItem
+val PlayerEntity.offHand
     get() = getHeldItem(Hand.OFF_HAND)
 
 class HeldItemInfo(val hand: Hand, val stack: ItemStack, val player: PlayerEntity) {
@@ -57,8 +57,8 @@ val PlayerEntity.heldItemInfo: HeldItemInfo
     get() {
         val hand = when {
             isHandActive -> activeHand
-            !mainHandItem.isEmpty -> Hand.MAIN_HAND
-            !offHandItem.isEmpty -> Hand.OFF_HAND
+            !mainHand.isEmpty -> Hand.MAIN_HAND
+            !offHand.isEmpty -> Hand.OFF_HAND
             else -> Hand.MAIN_HAND
         }
 

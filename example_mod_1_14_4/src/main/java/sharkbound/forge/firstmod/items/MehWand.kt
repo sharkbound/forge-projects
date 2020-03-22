@@ -1,7 +1,6 @@
 package sharkbound.forge.firstmod.items
 
 import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.*
@@ -11,6 +10,7 @@ import net.minecraft.util.text.ITextComponent
 import net.minecraft.world.World
 import net.minecraftforge.common.capabilities.ICapabilityProvider
 import sharkbound.commonutils.extensions.choice
+import sharkbound.commonutils.extensions.len
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.potions.ModEffects
@@ -20,21 +20,22 @@ import kotlin.contracts.ExperimentalContracts
 
 
 class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
-    enum class Mode(val numberId: Byte) {
-        DUPLICATE(0),
-        DESTROY(1),
-        DESTROY_CHAIN(2),
-        REPLACE(3),
-        REPLACE_OFFSET(4);
+    enum class Mode {
+        DUPLICATE,
+        DESTROY,
+        DESTROY_CHAIN,
+        REPLACE,
+        REPLACE_OFFSET;
+
+        companion object {
+            val ALL = values()
+        }
+
+        fun prev() =
+                ALL[(ordinal - 1).let { if (it < 0) ALL.lastIndex else it }]
 
         fun next() =
-                when (this) {
-                    DUPLICATE -> DESTROY
-                    DESTROY -> DESTROY_CHAIN
-                    DESTROY_CHAIN -> REPLACE
-                    REPLACE -> REPLACE_OFFSET
-                    REPLACE_OFFSET -> DUPLICATE
-                }
+                ALL[(ordinal + 1) % ALL.len]
 
         override fun toString(): String =
                 when (this) {
@@ -88,20 +89,19 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
         return ActionResultType.SUCCESS
     }
 
-    override fun onUsingTick(stack: ItemStack?, player: LivingEntity?, count: Int) {
-        println("TICK")
-    }
-
-
     @ExperimentalContracts
     override fun onItemRightClick(worldIn: World, player: PlayerEntity, handIn: Hand): ActionResult<ItemStack> {
         if (worldIn.isServerWorld() && player.isSneaking) {
             player.heldItemInfo.stack.run {
                 advanceMode(this)
-                player.send("&aset mode to &e${modeOf(stack)}")
+                sendModeUpdateMessage(player, this)
             }
         }
         return ActionResult(ActionResultType.SUCCESS, player.heldItemInfo.stack)
+    }
+
+    fun sendModeUpdateMessage(player: PlayerEntity, stack: ItemStack) {
+        player.send("&aset mode to &e${modeOf(stack)}")
     }
 
 
@@ -115,10 +115,10 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
         val allDirections = enumValues<Direction>()
 
         fun modeOf(stack: ItemStack): Mode =
-                stack.orCreateTag.getByte(MODE_NBT_KEY).let { id -> Mode.values().first { it.numberId == id } }
+                stack.orCreateTag.getInt(MODE_NBT_KEY).let { id -> Mode.values().first { it.ordinal == id } }
 
         fun setMode(stack: ItemStack, newMode: Mode) =
-                stack.orCreateTag.putByte(MODE_NBT_KEY, newMode.numberId)
+                stack.orCreateTag.putInt(MODE_NBT_KEY, newMode.ordinal)
 
         fun advanceMode(stack: ItemStack) {
             setMode(stack, modeOf(stack).next())
