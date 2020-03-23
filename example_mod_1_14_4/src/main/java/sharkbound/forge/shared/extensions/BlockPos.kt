@@ -2,6 +2,7 @@ package sharkbound.forge.shared.extensions
 
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
+import net.minecraft.util.Direction8
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
@@ -50,3 +51,7 @@ fun BlockPos.setState(world: World, state: BlockState, flags: Int) {
 
 fun BlockPos.isBlock(world: World, block: Block): Boolean =
         block(world) == block
+
+fun BlockPos.offset8(direction: Direction8) {
+
+}
