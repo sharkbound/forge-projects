@@ -24,10 +24,9 @@ object HotbarTrackingEvents {
     @OnlyIn(Dist.CLIENT)
     @ExperimentalContracts
     @SubscribeEvent
-    // fixme send packet to server
     fun mouseInput(e: InputEvent.MouseScrollEvent) {
         val player = mcPlayer
-        if (!e.anyMouseKeyDown && player.isSneaking && minecraft.objectMouseOver.type == RayTraceResult.Type.MISS) {
+        if (!e.anyMouseKeyDown && player.isSneaking) {
             val item = player.mainHand
             if (item isNotItem ModItems.MEH_WAND) return
             MehWand.modeOf(item).also {

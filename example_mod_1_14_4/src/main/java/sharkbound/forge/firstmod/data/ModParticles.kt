@@ -1,12 +1,18 @@
 package sharkbound.forge.firstmod.data
 
-import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.registries.DeferredRegister
-import net.minecraftforge.registries.ForgeRegistries
+import net.minecraft.particles.BasicParticleType
+import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.api.distmarker.OnlyIn
+import net.minecraftforge.registries.*
 import sharkbound.forge.firstmod.MOD_ID
 
-@Mod.EventBusSubscriber
+@OnlyIn(Dist.CLIENT)
 object ModParticles {
+    fun init() {
+        registry.register(modEventBus)
+    }
+
     private val registry = DeferredRegister(ForgeRegistries.PARTICLE_TYPES, MOD_ID)
 
+    val MEH = registry.register("meh") { BasicParticleType(true) }
 }

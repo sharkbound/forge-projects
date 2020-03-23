@@ -8,7 +8,7 @@ import sharkbound.forge.firstmod.networking.packets.MehWandModeSwitchPacket
 
 object Network {
     lateinit var channel: SimpleChannel
-    val mehWandModeSwitch = nextId()
+    private val mehWandModeSwitch = nextId()
 
     var id = 0
     fun nextId() =

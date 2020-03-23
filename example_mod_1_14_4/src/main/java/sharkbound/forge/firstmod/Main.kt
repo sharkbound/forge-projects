@@ -2,6 +2,7 @@ package sharkbound.forge.firstmod
 
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
+import sharkbound.commonutils.extensions.ifNotNull
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.data.*
 import sharkbound.forge.firstmod.networking.Network
@@ -16,6 +17,7 @@ class FirstMod {
     }
 
     private fun setup(e: FMLCommonSetupEvent) {
+        ModParticles.init()
         FirstModItemGroup.init()
         Network.init()
         proxy.init()
