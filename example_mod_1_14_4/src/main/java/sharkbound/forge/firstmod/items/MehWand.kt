@@ -21,7 +21,6 @@ import sharkbound.forge.shared.util.text
 import java.util.*
 import kotlin.contracts.ExperimentalContracts
 
-
 class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
     enum class Mode {
         DUPLICATE,
@@ -53,7 +52,6 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
     override fun getDisplayName(stack: ItemStack): ITextComponent =
             text("&aMeh Wand (&e${modeOf(stack)}&a)")
 
-
     init {
         setRegistryName(REGISTRY_NAME)
     }
@@ -80,13 +78,13 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
         if (c.world.isServerWorld()) {
             c.run {
                 val mode = modeOf(item)
-                val isMeh = pos.isBlock(world, ModBlocks.MEH_BLOCK)
+                val isMehBlock = pos.isBlock(world, ModBlocks.MEH_BLOCK)
                 when {
                     mode == Mode.DESTROY -> pos.destroyBlock(world)
-                    mode == Mode.DUPLICATE && isMeh -> {
+                    mode == Mode.DUPLICATE && isMehBlock -> {
                         pos.offset(allDirections.choice()).setBlock(world, ModBlocks.MEH_BLOCK)
                     }
-                    mode == Mode.DESTROY_CHAIN && isMeh -> ModBlocks.MEH_BLOCK.destroyChain(pos, world)
+                    mode == Mode.DESTROY_CHAIN && isMehBlock -> ModBlocks.MEH_BLOCK.destroyChain(pos, world)
                     mode == Mode.REPLACE -> pos.setBlock(world, ModBlocks.MEH_BLOCK)
                     mode == Mode.REPLACE_OFFSET -> pos.offset(face).setBlock(world, ModBlocks.MEH_BLOCK)
                 }
@@ -105,7 +103,6 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
         }
         return ActionResult(ActionResultType.SUCCESS, player.heldItemInfo.stack)
     }
-
 
     override fun itemInteractionForEntity(stack: ItemStack, playerIn: PlayerEntity, target: LivingEntity, hand: Hand): Boolean =
             target.addEffect(stack)
@@ -135,7 +132,6 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
         }
     }
 }
-
 
 private fun LivingEntity.addEffect(stack: ItemStack): Boolean {
     addPotionEffect(ModEffects.CHAOS.instance(stack.count * 20, particles = false))

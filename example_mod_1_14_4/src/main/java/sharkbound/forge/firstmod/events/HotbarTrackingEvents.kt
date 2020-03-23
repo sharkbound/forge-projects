@@ -14,7 +14,6 @@ import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.shared.extensions.*
 import kotlin.contracts.ExperimentalContracts
 
-
 @Mod.EventBusSubscriber
 object HotbarTrackingEvents {
     init {
@@ -24,6 +23,7 @@ object HotbarTrackingEvents {
     @OnlyIn(Dist.CLIENT)
     @ExperimentalContracts
     @SubscribeEvent
+    @JvmStatic
     fun mouseInput(e: InputEvent.MouseScrollEvent) {
         val player = mcPlayer
         if (!e.anyMouseKeyDown && player.isSneaking) {

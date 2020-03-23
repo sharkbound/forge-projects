@@ -9,10 +9,9 @@ import sharkbound.forge.firstmod.MOD_ID
 @OnlyIn(Dist.CLIENT)
 object ModParticles {
     fun init() {
-        registry.register(modEventBus)
+        PARTICLE_TYPES.register(modEventBus)
     }
 
-    private val registry = DeferredRegister(ForgeRegistries.PARTICLE_TYPES, MOD_ID)
-
-    val MEH = registry.register("meh") { BasicParticleType(true) }
+    private val PARTICLE_TYPES = DeferredRegister(ForgeRegistries.PARTICLE_TYPES, MOD_ID)
+    val MEH = PARTICLE_TYPES.register("meh") { BasicParticleType(true) }
 }

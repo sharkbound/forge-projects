@@ -12,14 +12,13 @@ import kotlin.contracts.ExperimentalContracts
 class MehBlockItemEntity : TileEntity(ModBlocks.MEH_BLOCK_TILE_ENTITY), ITickableTileEntity {
     private val incr = Incrementer(1.toTicks(TickUnit.SECONDS))
 
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     @ExperimentalContracts
     override fun tick() {
         world.ifNotNull { w ->
-            if (w.isServerWorld() && incr.next()) {
+            if (w.isClientWorld() && incr.next()) {
                 pos.centerVec.run {
-                    // debug
-                    logger.error(ModParticles.MEH.get())
-                    w.addParticle(ModParticles.MEH.get(), x, y + 3, z, 0.0, 0.0, 0.0)
+                    w.addParticle(ModParticles.MEH.get(), x, y, z, 0.0, 0.0, 0.0)
                 }
             }
         }

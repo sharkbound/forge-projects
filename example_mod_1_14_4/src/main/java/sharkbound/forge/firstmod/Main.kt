@@ -13,13 +13,7 @@ const val MOD_NAME = "First Mod"
 @Mod(MOD_ID)
 class FirstMod {
     init {
-        modEventBus.addListener<FMLCommonSetupEvent> { setup(it) }
-    }
-
-    private fun setup(e: FMLCommonSetupEvent) {
-        ModParticles.init()
-        FirstModItemGroup.init()
-        Network.init()
+        modEventBus.addListener<FMLCommonSetupEvent> { proxy.commonSetup(it) }
         proxy.init()
     }
 }
