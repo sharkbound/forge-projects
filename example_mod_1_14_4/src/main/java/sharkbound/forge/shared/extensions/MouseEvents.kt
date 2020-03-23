@@ -11,4 +11,7 @@ enum class ScrollDirection {
 }
 
 val InputEvent.MouseScrollEvent.scrollDirection: ScrollDirection
-    get() = if (scrollDelta < 0) ScrollDirection.DOWN else ScrollDirection.UP
+    get() = when {
+        scrollDelta < 0 -> ScrollDirection.DOWN
+        else -> ScrollDirection.UP
+    }

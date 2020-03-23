@@ -13,9 +13,12 @@ import sharkbound.commonutils.extensions.choice
 import sharkbound.commonutils.extensions.len
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.data.ModBlocks
+import sharkbound.forge.firstmod.networking.Network
+import sharkbound.forge.firstmod.networking.packets.MehWandModeSwitchPacket
 import sharkbound.forge.firstmod.potions.ModEffects
 import sharkbound.forge.shared.extensions.*
 import sharkbound.forge.shared.util.text
+import java.util.*
 import kotlin.contracts.ExperimentalContracts
 
 
@@ -72,18 +75,21 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
         return null
     }
 
+    @ExperimentalContracts
     override fun onItemUse(c: ItemUseContext): ActionResultType {
-        c.run {
-            val mode = modeOf(item)
-            val isMeh = pos.isBlock(world, ModBlocks.MEH_BLOCK)
-            when {
-                mode == Mode.DESTROY -> pos.destroyBlock(world)
-                mode == Mode.DUPLICATE && isMeh -> {
-                    pos.offset(allDirections.choice()).setBlock(world, ModBlocks.MEH_BLOCK)
+        if (c.world.isServerWorld()) {
+            c.run {
+                val mode = modeOf(item)
+                val isMeh = pos.isBlock(world, ModBlocks.MEH_BLOCK)
+                when {
+                    mode == Mode.DESTROY -> pos.destroyBlock(world)
+                    mode == Mode.DUPLICATE && isMeh -> {
+                        pos.offset(allDirections.choice()).setBlock(world, ModBlocks.MEH_BLOCK)
+                    }
+                    mode == Mode.DESTROY_CHAIN && isMeh -> ModBlocks.MEH_BLOCK.destroyChain(pos, world)
+                    mode == Mode.REPLACE -> pos.setBlock(world, ModBlocks.MEH_BLOCK)
+                    mode == Mode.REPLACE_OFFSET -> pos.offset(face).setBlock(world, ModBlocks.MEH_BLOCK)
                 }
-                mode == Mode.DESTROY_CHAIN && isMeh -> ModBlocks.MEH_BLOCK.destroyChain(pos, world)
-                mode == Mode.REPLACE -> pos.setBlock(world, ModBlocks.MEH_BLOCK)
-                mode == Mode.REPLACE_OFFSET -> pos.offset(face).setBlock(world, ModBlocks.MEH_BLOCK)
             }
         }
         return ActionResultType.SUCCESS
@@ -98,10 +104,6 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
             }
         }
         return ActionResult(ActionResultType.SUCCESS, player.heldItemInfo.stack)
-    }
-
-    fun sendModeUpdateMessage(player: PlayerEntity, stack: ItemStack) {
-        player.send("&aset mode to &e${modeOf(stack)}")
     }
 
 
@@ -124,6 +126,13 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
             setMode(stack, modeOf(stack).next())
         }
 
+        fun sendModeUpdateMessage(player: PlayerEntity, stack: ItemStack) {
+            player.send("&aset mode to &e${modeOf(stack)}")
+        }
+
+        fun sendModeUpdatePacket(playerId: UUID, newMode: Mode) {
+            Network.channel.sendToServer(MehWandModeSwitchPacket(playerId, newMode))
+        }
     }
 }
 

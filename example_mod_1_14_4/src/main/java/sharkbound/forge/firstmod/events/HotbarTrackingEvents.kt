@@ -23,7 +23,7 @@ object HotbarTrackingEvents {
 
     @OnlyIn(Dist.CLIENT)
     @ExperimentalContracts
-    @SubscribeEvent(priority = EventPriority.LOWEST)
+    @SubscribeEvent
     // fixme send packet to server
     fun mouseInput(e: InputEvent.MouseScrollEvent) {
         val player = mcPlayer
@@ -37,6 +37,8 @@ object HotbarTrackingEvents {
                 })
             }
             minecraft.gameRenderer.itemRenderer.resetEquippedProgress(Hand.MAIN_HAND)
+            MehWand.sendModeUpdateMessage(player, item)
+            MehWand.sendModeUpdatePacket(player.uniqueID, MehWand.modeOf(item))
             e.cancel()
         }
     }
