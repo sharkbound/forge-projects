@@ -2,6 +2,5 @@ package sharkbound.forge.shared.extensions
 
 import sharkbound.forge.shared.util.TickUnit
 
-
-fun Int.toTicks(unit: TickUnit): Int =
+fun Int.ticks(unit: TickUnit): Int =
         unit.applyTo(this)

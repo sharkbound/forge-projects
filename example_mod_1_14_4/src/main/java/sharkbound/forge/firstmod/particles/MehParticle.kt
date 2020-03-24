@@ -6,8 +6,7 @@ import net.minecraft.world.World
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import sharkbound.commonutils.util.randDouble
-import sharkbound.commonutils.util.randInt
-import sharkbound.forge.shared.extensions.toTicks
+import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.util.TickUnit
 
 @OnlyIn(Dist.CLIENT)
@@ -37,7 +36,7 @@ class MehParticle(val world: World, x: Double, y: Double, z: Double, val sprites
     }
 
     override fun getMaxAge(): Int {
-        return 5.toTicks(TickUnit.SECONDS)
+        return 5.ticks(TickUnit.SECONDS)
     }
 
     override fun getRenderType(): IParticleRenderType =
