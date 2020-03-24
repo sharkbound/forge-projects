@@ -7,19 +7,37 @@ import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 import sharkbound.commonutils.util.randDouble
 import sharkbound.commonutils.util.randInt
+import sharkbound.forge.shared.extensions.toTicks
+import sharkbound.forge.shared.util.TickUnit
 
 @OnlyIn(Dist.CLIENT)
 class MehParticle(val world: World, x: Double, y: Double, z: Double, val sprites: IAnimatedSprite) : SpriteTexturedParticle(world, x, y, z) {
     init {
         selectSpriteRandomly(sprites)
-        motionX = randDouble(-.2, .2)
-        motionY = randDouble(-.2, .2)
-        motionZ = randDouble(-.2, .2)
-        particleScale = .1f
+        val horizonalRange = .2
+        motionX = randDouble(-horizonalRange, horizonalRange)
+        motionY = .6
+        motionZ = randDouble(-horizonalRange, horizonalRange)
+        age = 0
+        particleScale = randDouble(.01, 1.0).toFloat()
+    }
+
+    override fun tick() {
+        prevPosX = posX
+        prevPosY = posY
+        prevPosZ = posZ
+
+        if (++age > getMaxAge() || onGround) {
+            setExpired()
+            return
+        }
+
+        motionY -= .02
+        move(motionX, motionY, motionZ)
     }
 
     override fun getMaxAge(): Int {
-        return 300
+        return 5.toTicks(TickUnit.SECONDS)
     }
 
     override fun getRenderType(): IParticleRenderType =
