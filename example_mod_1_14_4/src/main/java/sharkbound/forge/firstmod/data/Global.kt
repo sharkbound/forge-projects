@@ -1,10 +1,13 @@
 package sharkbound.forge.firstmod.data
 
 import net.minecraft.client.Minecraft
+import net.minecraft.particles.ParticleType
 import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.DistExecutor
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
+import net.minecraftforge.registries.ForgeRegistries
+import net.minecraftforge.registries.IForgeRegistry
 import org.apache.logging.log4j.LogManager
 import sharkbound.forge.firstmod.proxy.*
 import java.util.function.Supplier
@@ -24,3 +27,6 @@ val mcPlayer get() = minecraft.player
 val proxy: Proxy by lazy {
     DistExecutor.runForDist<Proxy>({ Supplier { ClientProxy() } }, { Supplier { CommonProxy() } })
 }
+
+val forgeParticleRegistry: IForgeRegistry<ParticleType<*>>
+    get() = ForgeRegistries.PARTICLE_TYPES

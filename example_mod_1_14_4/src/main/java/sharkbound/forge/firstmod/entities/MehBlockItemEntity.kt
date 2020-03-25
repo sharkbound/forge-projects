@@ -4,6 +4,7 @@ import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
 import sharkbound.commonutils.extensions.ifNotNull
 import sharkbound.forge.firstmod.data.*
+import sharkbound.forge.firstmod.particles.data.MehBoltParticleData
 import sharkbound.forge.shared.extensions.*
 import sharkbound.forge.shared.util.*
 import kotlin.contracts.ExperimentalContracts
@@ -17,7 +18,7 @@ class MehBlockItemEntity : TileEntity(ModBlocks.MEH_BLOCK_TILE_ENTITY), ITickabl
         world.ifNotNull { w ->
             if (w.isClientWorld() && incr.next()) {
                 pos.centerVec.run {
-                    w.addParticle(ModParticles.MEH.get(), x, y, z, 0.0, 0.0, 0.0)
+                    w.addParticle(MehBoltParticleData(add(newVec3D(y = 5.0))), x, y, z, 0.0, 0.0, 0.0)
                 }
             }
         }
