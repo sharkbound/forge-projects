@@ -1,11 +1,11 @@
 package sharkbound.forge.firstmod.particles
 
 import net.minecraft.client.particle.*
-import net.minecraft.client.renderer.ActiveRenderInfo
-import net.minecraft.client.renderer.BufferBuilder
-import net.minecraft.util.math.MathHelper
+import net.minecraft.client.renderer.*
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
+import org.lwjgl.opengl.GL11
 import sharkbound.forge.firstmod.particles.data.MehBoltParticleData
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.util.TickUnit
@@ -42,6 +42,13 @@ class MehBoltParticle(val world: World, x: Double, y: Double, z: Double, val tar
     }
 
     override fun renderParticle(buffer: BufferBuilder, entityIn: ActiveRenderInfo, partialTicks: Float, rotationX: Float, rotationZ: Float, rotationYZ: Float, rotationXY: Float, rotationXZ: Float) {
+        val sprite = SPRITES.get(rand)
+        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
+        buffer.pos(posX, posY, posZ).tex(sprite.maxV.toDouble(), sprite.maxV.toDouble()).normal(0f, 0f, 1f).endVertex()
+        buffer.pos(posX + 1.0, posY, posZ).tex(sprite.minU.toDouble(), sprite.maxV.toDouble()).normal(0f, 0f, 1f).endVertex()
+        buffer.pos(posX + 1.0, posY + 1.0, posZ).tex(sprite.minU.toDouble(), sprite.minV.toDouble()).normal(0f, 0f, 1f).endVertex()
+        buffer.pos(posX, posY + 1.0, posZ).tex(sprite.maxV.toDouble(), sprite.minV.toDouble()).normal(0f, 0f, 1f).endVertex()
+        Tessellator.getInstance().draw();
 //        GlStateManager.depthMask(false)
 //        GlStateManager.enableBlend()
 //        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE)
@@ -49,7 +56,10 @@ class MehBoltParticle(val world: World, x: Double, y: Double, z: Double, val tar
 //        GlStateManager.pushMatrix()
 //        GlStateManager.translated(posX - entityIn.projectedView.x, posY - entityIn.projectedView.y, posZ - entityIn.projectedView.z)
 //        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f)
-
+//
+//        val tess = Tessellator.getInstance()
+//        tess.draw()
+//
 //        GlStateManager.color4f(1f, 1f, 1f, 1f)
 //        GlStateManager.enableCull()
 //        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
