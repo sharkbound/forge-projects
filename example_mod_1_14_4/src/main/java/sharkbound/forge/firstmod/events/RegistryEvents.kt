@@ -14,8 +14,7 @@ import sharkbound.forge.firstmod.blocks.MehBlock
 import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.entities.MehBlockItemEntity
-import sharkbound.forge.firstmod.items.MehBlockItem
-import sharkbound.forge.firstmod.items.MehWand
+import sharkbound.forge.firstmod.items.*
 import sharkbound.forge.firstmod.potions.ChaosEffect
 import sharkbound.forge.shared.util.tileEntityRegistryBuilder
 
@@ -35,6 +34,7 @@ object RegistryEvents {
         e.registry.run {
             register(MehBlockItem(ModBlocks.MEH_BLOCK))
             register(MehWand())
+            register(Striker())
         }
     }
 

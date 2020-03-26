@@ -6,6 +6,7 @@ import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.Hand
+import net.minecraft.util.math.*
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
@@ -50,7 +51,6 @@ class HeldItemInfo(val hand: Hand, val stack: ItemStack, val player: PlayerEntit
         result = 31 * result + item.hashCode()
         return result
     }
-
 }
 
 val PlayerEntity.heldItemInfo: HeldItemInfo
@@ -64,3 +64,17 @@ val PlayerEntity.heldItemInfo: HeldItemInfo
 
         return HeldItemInfo(hand, getHeldItem(hand), this)
     }
+
+val PlayerEntity.eyePos: Vec3d
+    get() = getEyePosition(1f)
+
+fun PlayerEntity.rayTraceBlocks(
+        distance: Double,
+        blockMode: RayTraceContext.BlockMode = RayTraceContext.BlockMode.OUTLINE,
+        fluidMode: RayTraceContext.FluidMode = RayTraceContext.FluidMode.SOURCE_ONLY,
+        startVec: Vec3d? = null
+): BlockRayTraceResult =
+        run {
+            val start = startVec ?: eyePos
+            world.rayTraceBlocks(RayTraceContext(start, start.add(lookVec.mul(distance)), blockMode, fluidMode, this))
+        }

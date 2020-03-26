@@ -1,6 +1,7 @@
 package sharkbound.forge.shared.extensions
 
 import net.minecraft.entity.Entity
+import net.minecraft.util.math.Vec3d
 import net.minecraft.util.text.StringTextComponent
 
 fun Entity.setInAir() {
@@ -15,3 +16,8 @@ fun Entity.teleportRelative(x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
 fun Entity.send(obj: Any?, altChar: Char = '&') {
     sendMessage(StringTextComponent(obj.toString().color(altChar)))
 }
+
+fun Entity.setPos(pos: Vec3d) =
+        apply {
+            setPosition(pos.x, pos.y, pos.z)
+        }

@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraft.world.chunk.IChunk
+import sharkbound.forge.shared.util.newVec3D
 
 val BlockPos.xd
     get() = x.toDouble()
@@ -52,6 +53,5 @@ fun BlockPos.setState(world: World, state: BlockState, flags: Int) {
 fun BlockPos.isBlock(world: World, block: Block): Boolean =
         block(world) == block
 
-fun BlockPos.offset8(direction: Direction8) {
-
-}
+val BlockPos.vec3d: Vec3d
+    get() = newVec3D(x, y, z)
