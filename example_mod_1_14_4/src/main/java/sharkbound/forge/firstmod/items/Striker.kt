@@ -1,19 +1,15 @@
 package sharkbound.forge.firstmod.items
 
 import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.entity.EntityType
 import net.minecraft.entity.effect.LightningBoltEntity
-import net.minecraft.entity.passive.PigEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.*
 import net.minecraft.util.*
-import net.minecraft.util.math.*
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.world.World
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.shared.extensions.*
-import sharkbound.forge.shared.util.newVec3D
-import sharkbound.forge.shared.util.text
+import sharkbound.forge.shared.util.toText
 import kotlin.contracts.ExperimentalContracts
 
 class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
@@ -22,7 +18,7 @@ class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     }
 
     override fun getDisplayName(stack: ItemStack): ITextComponent {
-        return text("&6Striker")
+        return toText("&6Striker")
     }
 
     @ExperimentalContracts
@@ -41,6 +37,6 @@ class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     }
 
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<ITextComponent>, flagIn: ITooltipFlag) {
-        tooltip.add(text("&eCalls down a lightning strike upon your enemies!"))
+        tooltip.addAll("&eCalls down a lightning strike upon your enemies!")
     }
 }

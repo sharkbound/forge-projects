@@ -17,7 +17,7 @@ import sharkbound.forge.firstmod.networking.Network
 import sharkbound.forge.firstmod.networking.packets.MehWandModeSwitchPacket
 import sharkbound.forge.firstmod.potions.ModEffects
 import sharkbound.forge.shared.extensions.*
-import sharkbound.forge.shared.util.text
+import sharkbound.forge.shared.util.toText
 import java.util.*
 import kotlin.contracts.ExperimentalContracts
 
@@ -50,7 +50,7 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
     }
 
     override fun getDisplayName(stack: ItemStack): ITextComponent =
-            text("&aMeh Wand (&e${modeOf(stack)}&a)")
+            toText("&aMeh Wand (&e${modeOf(stack)}&a)")
 
     init {
         setRegistryName(REGISTRY_NAME)
@@ -58,7 +58,7 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
 
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<ITextComponent>, flagIn: ITooltipFlag) {
         tooltip.addAll(listOf(
-                text("&3Mode: ${modeOf(stack)}")
+                toText("&3Mode: ${modeOf(stack)}")
         ))
     }
 
