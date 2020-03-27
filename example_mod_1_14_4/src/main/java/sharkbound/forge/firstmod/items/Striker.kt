@@ -7,8 +7,11 @@ import net.minecraft.item.*
 import net.minecraft.util.*
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.world.World
+import sharkbound.commonutils.util.randBoolean
+import sharkbound.commonutils.util.randDouble
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.shared.extensions.*
+import sharkbound.forge.shared.util.blocksInRadius
 import sharkbound.forge.shared.util.toText
 import kotlin.contracts.ExperimentalContracts
 
@@ -25,7 +28,12 @@ class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     fun callStrike(world: World, player: PlayerEntity) {
         if (world.isServerWorld() && player.isServerPlayer()) {
             player.rayTraceBlocks(100.0).run {
-                world.addLightningBolt(LightningBoltEntity(world, pos.xd, pos.yd, pos.zd, false))
+                blocksInRadius(pos, 5).forEach {
+                    if (randDouble(0.0, 1.0) < .2) {
+                        it.setToAir(world)
+                    }
+                }
+                world.addLightningBolt(LightningBoltEntity(world, hitVec.x, hitVec.y, hitVec.z, true))
             }
         }
     }

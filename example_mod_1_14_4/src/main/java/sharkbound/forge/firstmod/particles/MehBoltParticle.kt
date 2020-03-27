@@ -42,13 +42,25 @@ class MehBoltParticle(val world: World, x: Double, y: Double, z: Double, val tar
     }
 
     override fun renderParticle(buffer: BufferBuilder, entityIn: ActiveRenderInfo, partialTicks: Float, rotationX: Float, rotationZ: Float, rotationYZ: Float, rotationXY: Float, rotationXZ: Float) {
+//        buffer.setTranslation(100.0, 0.0, 1.0)
         val sprite = SPRITES.get(rand)
+        val minV = sprite.minV.toDouble()
+        val maxV = sprite.maxV.toDouble()
+        val minU = sprite.minU.toDouble()
+        val maxU = sprite.maxU.toDouble()
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
-        buffer.pos(posX, posY, posZ).tex(sprite.maxV.toDouble(), sprite.maxV.toDouble()).normal(0f, 0f, 1f).endVertex()
-        buffer.pos(posX + 1.0, posY, posZ).tex(sprite.minU.toDouble(), sprite.maxV.toDouble()).normal(0f, 0f, 1f).endVertex()
-        buffer.pos(posX + 1.0, posY + 1.0, posZ).tex(sprite.minU.toDouble(), sprite.minV.toDouble()).normal(0f, 0f, 1f).endVertex()
-        buffer.pos(posX, posY + 1.0, posZ).tex(sprite.maxV.toDouble(), sprite.minV.toDouble()).normal(0f, 0f, 1f).endVertex()
+        val x = 100.0
+        val y = posY
+        val z = posZ
+        val offset = 1.0
+        buffer.pos(x, y, z).tex(maxU, maxV).color(1f, 1f, 1f, 1f).normal(0f, 0f, 1f).endVertex()
+        buffer.pos(x + offset, y, z).tex(maxU, minV).color(1f, 0f, 0f, 1f).normal(0f, 0f, 1f).endVertex()
+        buffer.pos(x + offset, y + offset, z).tex(minU, minV).color(1f, 0f, 0f, 1f).normal(0f, 0f, 1f).endVertex()
+//        buffer.pos(x, y + offset, z).tex(minU, maxV).color(1f, 0f, 0f, 1f).normal(0f, 0f, 1f).endVertex()
+        buffer.endVertex()
         Tessellator.getInstance().draw();
+//        buffer.setTranslation(0.0, 0.0, 0.0)
+
 //        GlStateManager.depthMask(false)
 //        GlStateManager.enableBlend()
 //        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE)
@@ -72,7 +84,7 @@ class MehBoltParticle(val world: World, x: Double, y: Double, z: Double, val tar
         lateinit var SPRITES: IAnimatedSprite
     }
 
-    class Factory(val sprites: IAnimatedSprite) : IParticleFactory<MehBoltParticleData> {
+    class Factory(sprites: IAnimatedSprite) : IParticleFactory<MehBoltParticleData> {
         init {
             SPRITES = sprites
         }

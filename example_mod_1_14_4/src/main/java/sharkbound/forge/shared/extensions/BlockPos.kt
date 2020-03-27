@@ -1,7 +1,6 @@
 package sharkbound.forge.shared.extensions
 
-import net.minecraft.block.Block
-import net.minecraft.block.BlockState
+import net.minecraft.block.*
 import net.minecraft.util.Direction8
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
@@ -48,6 +47,12 @@ fun BlockPos.setState(world: World, state: BlockState) {
 
 fun BlockPos.setState(world: World, state: BlockState, flags: Int) {
     world.setBlockState(this, state, flags)
+}
+
+fun BlockPos.setToAir(world: World) {
+    if (!world.isAirBlock(this)) {
+        world.setBlockState(this, Blocks.AIR.defaultState)
+    }
 }
 
 fun BlockPos.isBlock(world: World, block: Block): Boolean =
