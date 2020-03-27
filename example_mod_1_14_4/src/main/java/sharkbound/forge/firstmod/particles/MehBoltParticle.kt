@@ -1,11 +1,14 @@
 package sharkbound.forge.firstmod.particles
 
+import com.mojang.blaze3d.platform.GlStateManager
 import net.minecraft.client.particle.*
 import net.minecraft.client.renderer.*
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
+import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import org.lwjgl.opengl.GL11
+import sharkbound.forge.firstmod.data.minecraft
 import sharkbound.forge.firstmod.particles.data.MehBoltParticleData
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.util.TickUnit
@@ -15,6 +18,7 @@ class MehBoltParticle(val world: World, x: Double, y: Double, z: Double, val tar
         particleRed = 1f
         particleBlue = 0f
         particleGreen = 1f
+        particleAlpha = 1f
         posX = x
         posY = y
         posZ = z
@@ -41,25 +45,27 @@ class MehBoltParticle(val world: World, x: Double, y: Double, z: Double, val tar
         return IParticleRenderType.CUSTOM
     }
 
-    override fun renderParticle(buffer: BufferBuilder, entityIn: ActiveRenderInfo, partialTicks: Float, rotationX: Float, rotationZ: Float, rotationYZ: Float, rotationXY: Float, rotationXZ: Float) {
-//        buffer.setTranslation(100.0, 0.0, 1.0)
-        val sprite = SPRITES.get(rand)
-        val minV = sprite.minV.toDouble()
-        val maxV = sprite.maxV.toDouble()
-        val minU = sprite.minU.toDouble()
-        val maxU = sprite.maxU.toDouble()
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL);
-        val x = 100.0
-        val y = posY
-        val z = posZ
-        val offset = 1.0
-        buffer.pos(x, y, z).tex(maxU, maxV).color(1f, 1f, 1f, 1f).normal(0f, 0f, 1f).endVertex()
-        buffer.pos(x + offset, y, z).tex(maxU, minV).color(1f, 0f, 0f, 1f).normal(0f, 0f, 1f).endVertex()
-        buffer.pos(x + offset, y + offset, z).tex(minU, minV).color(1f, 0f, 0f, 1f).normal(0f, 0f, 1f).endVertex()
-//        buffer.pos(x, y + offset, z).tex(minU, maxV).color(1f, 0f, 0f, 1f).normal(0f, 0f, 1f).endVertex()
-        buffer.endVertex()
-        Tessellator.getInstance().draw();
-//        buffer.setTranslation(0.0, 0.0, 0.0)
+    override fun renderParticle(buffer: BufferBuilder, e: ActiveRenderInfo, partialTicks: Float, rotationX: Float, rotationZ: Float, rotationYZ: Float, rotationXY: Float, rotationXZ: Float) {
+//        minecraft.textureManager.bindTexture(ResourceLocation("textures/particle/meh_bolt.png"))
+//        val sprite = SPRITES[rand]
+//        val minV = sprite.minV.toDouble()
+//        val maxV = sprite.maxV.toDouble()
+//        val minU = sprite.minU.toDouble()
+//        val maxU = sprite.maxU.toDouble()
+//        val offset = 1.0
+//        val baseRotation = (e.renderViewEntity.rotationYaw - e.renderViewEntity.prevRotationYaw) * partialTicks + e.renderViewEntity.prevRotationYaw
+//
+////        GL11.glRotatef(baseRotation, 0f, 1f, 0f)
+//        GlStateManager.disableCull()
+//        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL)
+//        buffer.pos(0.0, 100.0, 0.0).tex(maxU, maxV).color(particleRed, particleGreen, particleBlue, particleAlpha).normal(0f, 1f, 0f).endVertex()
+//        buffer.pos(100.0, 100.0, 0.0).tex(maxU, minV).color(particleRed, particleGreen, particleBlue, particleAlpha).normal(1f, 1f, 1f).endVertex()
+//        buffer.pos(100.0, 0.0, 0.0).tex(minU, minV).color(particleRed, particleGreen, particleBlue, particleAlpha).normal(1f, 0f, 0f).endVertex()
+//        buffer.pos(0.0, 0.0, 0.0).tex(minU, maxV).color(particleRed, particleGreen, particleBlue, particleAlpha).normal(0f, 0f, 0f).endVertex()
+//        buffer.endVertex()
+//        Tessellator.getInstance().draw()
+//
+//        GlStateManager.enableCull()
 
 //        GlStateManager.depthMask(false)
 //        GlStateManager.enableBlend()
