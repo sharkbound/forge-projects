@@ -19,8 +19,8 @@ class MehBlockItemEntity : TileEntity(ModBlocks.MEH_BLOCK_TILE_ENTITY), ITickabl
         world.ifNotNull { w ->
             if (w.isClientWorld() && incr.next()) {
                 pos.centerVec.run {
-//                    w.addParticle(ModParticles.MEH.get(), x, y, z, 0.0, 0.0, 0.0)
-                    w.addParticle(MehBoltParticleData(add(newVec3D(y = 10))), x, y, z, 0.0, 0.0, 0.0)
+                    w.addParticle(ModParticles.MEH.get(), x, y, z, 0.0, 0.0, 0.0)
+//                    w.addParticle(MehBoltParticleData(add(newVec3D(y = 10))), x, y, z, 0.0, 0.0, 0.0)
                 }
             }
         }

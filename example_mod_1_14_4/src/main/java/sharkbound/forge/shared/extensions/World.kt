@@ -1,7 +1,9 @@
 package sharkbound.forge.shared.extensions
 
 import net.minecraft.client.world.ClientWorld
+import net.minecraft.entity.effect.LightningBoltEntity
 import net.minecraft.particles.IParticleData
+import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraft.world.server.ServerWorld
 import kotlin.contracts.ExperimentalContracts
@@ -35,3 +37,7 @@ fun <T : IParticleData> World.particle(type: T, x: Double, y: Double, z: Double,
 @ExperimentalContracts
 fun <T : IParticleData> World.particle(type: T, x: Int, y: Int, z: Int, count: Int = 1, offX: Double = 0.0, offY: Double = 0.0, offZ: Double = 0.0, speed: Double = 0.0): Boolean =
         particle(type, x.toDouble(), y.toDouble(), z.toDouble(), count, offX, offY, offZ, speed)
+
+fun ServerWorld.doLightningStrike(pos: Vec3d, effectOnly: Boolean = false) {
+    addLightningBolt(LightningBoltEntity(this, pos.x, pos.y, pos.z, effectOnly))
+}

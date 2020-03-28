@@ -45,27 +45,29 @@ class MehBoltParticle(val world: World, x: Double, y: Double, z: Double, val tar
         return IParticleRenderType.CUSTOM
     }
 
+    fun BufferBuilder.withParticleColors() =
+            color(particleRed, particleGreen, particleBlue, particleAlpha)
+
     override fun renderParticle(buffer: BufferBuilder, e: ActiveRenderInfo, partialTicks: Float, rotationX: Float, rotationZ: Float, rotationYZ: Float, rotationXY: Float, rotationXZ: Float) {
-//        minecraft.textureManager.bindTexture(ResourceLocation("textures/particle/meh_bolt.png"))
-//        val sprite = SPRITES[rand]
-//        val minV = sprite.minV.toDouble()
-//        val maxV = sprite.maxV.toDouble()
-//        val minU = sprite.minU.toDouble()
-//        val maxU = sprite.maxU.toDouble()
-//        val offset = 1.0
-//        val baseRotation = (e.renderViewEntity.rotationYaw - e.renderViewEntity.prevRotationYaw) * partialTicks + e.renderViewEntity.prevRotationYaw
+        minecraft.textureManager.bindTexture(ResourceLocation("textures/particle/meh_bolt.png"))
+        val sprite = SPRITES[rand]
+        val minV = sprite.minV.toDouble()
+        val maxV = sprite.maxV.toDouble()
+        val minU = sprite.minU.toDouble()
+        val maxU = sprite.maxU.toDouble()
+        val offset = 1.0
+        val baseRotation = (e.renderViewEntity.rotationYaw - e.renderViewEntity.prevRotationYaw) * partialTicks + e.renderViewEntity.prevRotationYaw
 //
-////        GL11.glRotatef(baseRotation, 0f, 1f, 0f)
-//        GlStateManager.disableCull()
-//        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL)
-//        buffer.pos(0.0, 100.0, 0.0).tex(maxU, maxV).color(particleRed, particleGreen, particleBlue, particleAlpha).normal(0f, 1f, 0f).endVertex()
-//        buffer.pos(100.0, 100.0, 0.0).tex(maxU, minV).color(particleRed, particleGreen, particleBlue, particleAlpha).normal(1f, 1f, 1f).endVertex()
-//        buffer.pos(100.0, 0.0, 0.0).tex(minU, minV).color(particleRed, particleGreen, particleBlue, particleAlpha).normal(1f, 0f, 0f).endVertex()
-//        buffer.pos(0.0, 0.0, 0.0).tex(minU, maxV).color(particleRed, particleGreen, particleBlue, particleAlpha).normal(0f, 0f, 0f).endVertex()
-//        buffer.endVertex()
-//        Tessellator.getInstance().draw()
-//
+        GlStateManager.disableCull()
+        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_NORMAL)
+        buffer.pos(0.0, 100.0, 0.0).tex(maxU, maxV).withParticleColors().normal(0f, 1f, 0f).endVertex()
+        buffer.pos(100.0, 50.0, 0.0).tex(maxU, minV).withParticleColors().normal(1f, 1f, 1f).endVertex()
+        buffer.pos(100.0, 0.0, 0.0).tex(minU, minV).withParticleColors().normal(1f, 0f, 0f).endVertex()
+        buffer.pos(0.0, 0.0, 0.0).tex(minU, maxV).withParticleColors().normal(0f, 0f, 0f).endVertex()
+        buffer.endVertex()
+        Tessellator.getInstance().draw()
 //        GlStateManager.enableCull()
+//
 
 //        GlStateManager.depthMask(false)
 //        GlStateManager.enableBlend()
