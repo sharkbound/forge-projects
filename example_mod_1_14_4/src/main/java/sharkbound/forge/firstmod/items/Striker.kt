@@ -5,10 +5,13 @@ import net.minecraft.entity.item.FallingBlockEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.*
 import net.minecraft.util.*
+import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.RayTraceContext
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.world.World
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
+import sharkbound.forge.firstmod.util.delayTask
+import sharkbound.forge.firstmod.util.runningTickHandlers
 import sharkbound.forge.shared.extensions.*
 import sharkbound.forge.shared.util.*
 import kotlin.contracts.ExperimentalContracts
@@ -25,23 +28,10 @@ class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     @ExperimentalContracts
     fun callStrike(world: World, player: PlayerEntity, radius: Double) {
         if (world.isServerWorld() && player.isServerPlayer()) {
-            player.rayTraceBlocks(100.0, fluidMode = RayTraceContext.FluidMode.ANY).run {
-                blocksInRadius(pos, radius.toInt())
-                        .filter { it.withinDistance(hitVec, radius - .5) }
-                        .forEach {
-                            if (!it.isAir(world)) {
-                                val state = it.state(world)
-                                it.setToAir(world)
-                                val fallingBlock = FallingBlockEntity(world, hitVec.x, hitVec.y, hitVec.z, state)
-                                world.addEntity(fallingBlock)
-                                player.positionVec.add(vector(y = 5)).subtract(it.toVec3d()).normalize().mul(1.5).run {
-                                    fallingBlock.setPos(it.toVec3d())
-                                    fallingBlock.addVelocity(x, y, z)
-                                    fallingBlock.fallTime = 1
-                                }
-                            }
-                        }
-                world.doLightningStrike(hitVec)
+            player.rayTraceBlocks(100.0).run {
+                delayTask(ticks(5, TickUnit.SECONDS)) {
+                    world.doLightningStrike(hitVec)
+                }
             }
         }
     }
