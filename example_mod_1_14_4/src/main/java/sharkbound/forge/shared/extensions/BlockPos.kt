@@ -1,12 +1,11 @@
 package sharkbound.forge.shared.extensions
 
 import net.minecraft.block.*
-import net.minecraft.util.Direction8
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraft.world.chunk.IChunk
-import sharkbound.forge.shared.util.newVec3D
+import sharkbound.forge.shared.util.vector
 
 val BlockPos.xd
     get() = x.toDouble()
@@ -58,5 +57,8 @@ fun BlockPos.setToAir(world: World) {
 fun BlockPos.isBlock(world: World, block: Block): Boolean =
         block(world) == block
 
-val BlockPos.vec3d: Vec3d
-    get() = newVec3D(x, y, z)
+fun BlockPos.toVec3d(): Vec3d =
+        vector(x, y, z)
+
+fun BlockPos.isAir(world: World): Boolean =
+        world.isAirBlock(this)

@@ -1,20 +1,16 @@
 package sharkbound.forge.firstmod.items
 
-import com.mojang.blaze3d.platform.GlStateManager
-import net.minecraft.block.Blocks
 import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.entity.effect.LightningBoltEntity
+import net.minecraft.entity.item.FallingBlockEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.*
 import net.minecraft.util.*
+import net.minecraft.util.math.RayTraceContext
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.world.World
-import sharkbound.commonutils.util.*
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.data.minecraft
 import sharkbound.forge.shared.extensions.*
-import sharkbound.forge.shared.util.blocksInRadius
-import sharkbound.forge.shared.util.toText
+import sharkbound.forge.shared.util.*
 import kotlin.contracts.ExperimentalContracts
 
 class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
@@ -27,16 +23,24 @@ class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     }
 
     @ExperimentalContracts
-    fun callStrike(world: World, player: PlayerEntity) {
-
+    fun callStrike(world: World, player: PlayerEntity, radius: Double) {
         if (world.isServerWorld() && player.isServerPlayer()) {
-            player.rayTraceBlocks(100.0).run {
-                blocksInRadius(pos, 5).forEach {
-                    if (randDouble(0.0, 1.0) < .05) {
-//                        world.setBlockState(it, Blocks.AIR.defaultState)
-                        it.setToAir(world)
-                    }
-                }
+            player.rayTraceBlocks(100.0, fluidMode = RayTraceContext.FluidMode.ANY).run {
+                blocksInRadius(pos, radius.toInt())
+                        .filter { it.withinDistance(hitVec, radius - .5) }
+                        .forEach {
+                            if (!it.isAir(world)) {
+                                val state = it.state(world)
+                                it.setToAir(world)
+                                val fallingBlock = FallingBlockEntity(world, hitVec.x, hitVec.y, hitVec.z, state)
+                                world.addEntity(fallingBlock)
+                                player.positionVec.add(vector(y = 5)).subtract(it.toVec3d()).normalize().mul(1.5).run {
+                                    fallingBlock.setPos(it.toVec3d())
+                                    fallingBlock.addVelocity(x, y, z)
+                                    fallingBlock.fallTime = 1
+                                }
+                            }
+                        }
                 world.doLightningStrike(hitVec)
             }
         }
@@ -44,7 +48,7 @@ class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
 
     @ExperimentalContracts
     override fun onItemRightClick(world: World, player: PlayerEntity, handIn: Hand): ActionResult<ItemStack> {
-        callStrike(world, player)
+        callStrike(world, player, 5.0)
         return ActionResult(ActionResultType.SUCCESS, player.heldItemInfo.stack)
     }
 
