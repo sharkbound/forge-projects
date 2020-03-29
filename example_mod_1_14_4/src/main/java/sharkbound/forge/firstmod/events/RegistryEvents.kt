@@ -35,6 +35,7 @@ object RegistryEvents {
             register(MehBlockItem(ModBlocks.MEH_BLOCK))
             register(MehWand())
             register(Striker())
+            register(EarthShatterer())
         }
     }
 

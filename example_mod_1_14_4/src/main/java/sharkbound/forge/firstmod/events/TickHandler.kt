@@ -6,27 +6,41 @@ abstract class TickHandler(val delayTicks: Int, val isRepeating: Boolean = false
     enum class State { RUNNING, COMPLETED, SUSPENDED }
 
     var ticksLeft = delayTicks
-    var state: State = State.RUNNING
+    var state = State.RUNNING
+    var elapsedTicks = 0
 
-    abstract fun activate(elapsedTicks: Int)
+    abstract fun activate()
 
     fun suspend() {
         state = State.SUSPENDED
+    }
+
+    fun resume() {
+        state = State.RUNNING
+    }
+
+    fun reset() {
+        ticksLeft = delayTicks
+        state = State.RUNNING
     }
 
     fun cancel() {
         state = State.COMPLETED
     }
 
-    fun isRunning(): Boolean =
-            state == State.RUNNING
+    val isRunning: Boolean
+        get() = state == State.RUNNING
+
+    val isCompleted: Boolean
+        get() = state == State.COMPLETED
 
     open fun tick() {
-        if (state != State.RUNNING) return
+        if (!isRunning) return
 
         ticksLeft = (ticksLeft - 1) max 0
+        elapsedTicks++
         if (ticksLeft == 0 && state == State.RUNNING) {
-            activate(delayTicks)
+            activate()
             state = State.COMPLETED
         }
 
@@ -41,9 +55,9 @@ abstract class TickHandler(val delayTicks: Int, val isRepeating: Boolean = false
     }
 }
 
-class DefaultTickHandler(delayTicks: Int, isRepeating: Boolean, val handler: (Int) -> Unit) : TickHandler(delayTicks, isRepeating) {
-    override fun activate(elapsedTicks: Int) {
-        handler(elapsedTicks)
+class DefaultTickHandler(delayTicks: Int, isRepeating: Boolean, val handler: DefaultTickHandler.() -> Unit) : TickHandler(delayTicks, isRepeating) {
+    override fun activate() {
+        handler()
     }
 }
 
