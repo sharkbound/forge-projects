@@ -8,6 +8,7 @@ abstract class TickHandler(val delayTicks: Int, val isRepeating: Boolean = false
     var ticksLeft = delayTicks
     var state = State.RUNNING
     var elapsedTicks = 0
+    var totalActivates = 0
 
     abstract fun activate()
 
@@ -40,6 +41,7 @@ abstract class TickHandler(val delayTicks: Int, val isRepeating: Boolean = false
         ticksLeft = (ticksLeft - 1) max 0
         elapsedTicks++
         if (ticksLeft == 0 && state == State.RUNNING) {
+            totalActivates++
             activate()
             state = State.COMPLETED
         }
