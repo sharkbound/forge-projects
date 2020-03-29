@@ -47,6 +47,7 @@ object RegistryEvents {
         }
     }
 
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     @SubscribeEvent
     @JvmStatic
     fun onTileEntityRegistry(e: RegistryEvent.Register<TileEntityType<*>>) {

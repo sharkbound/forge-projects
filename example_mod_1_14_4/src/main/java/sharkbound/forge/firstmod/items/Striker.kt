@@ -25,10 +25,10 @@ class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     val r get() = randDouble(-4, 4)
 
     @ExperimentalContracts
-    fun callStrike(world: World, player: PlayerEntity, radius: Double) {
+    fun callStrike(world: World, player: PlayerEntity) {
         if (world.isServerWorld() && player.isServerPlayer()) {
             player.rayTraceBlocks(100.0).run {
-                delayTask(toTicks(5, TickUnit.SECONDS)) {
+                delayTask(5.ticks(TickUnit.SECONDS)) {
                     repeat(randRange(100)) {
                         world.doLightningStrike(hitVec.add(r, 0.0, r))
                     }
@@ -39,7 +39,7 @@ class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
 
     @ExperimentalContracts
     override fun onItemRightClick(world: World, player: PlayerEntity, handIn: Hand): ActionResult<ItemStack> {
-        callStrike(world, player, 5.0)
+        callStrike(world, player)
         return ActionResult(ActionResultType.SUCCESS, player.heldItemInfo.stack)
     }
 

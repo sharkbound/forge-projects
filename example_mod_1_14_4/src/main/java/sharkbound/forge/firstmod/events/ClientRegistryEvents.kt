@@ -15,6 +15,7 @@ import sharkbound.forge.firstmod.particles.data.MehBoltParticleData
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD, modid = MOD_ID)
 object ClientRegistryEvents {
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     @SubscribeEvent
     @JvmStatic
     fun registerClientParticles(e: ParticleFactoryRegisterEvent) {
