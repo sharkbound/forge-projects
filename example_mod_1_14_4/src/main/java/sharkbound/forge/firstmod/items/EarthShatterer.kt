@@ -1,8 +1,8 @@
 package sharkbound.forge.firstmod.items
 
+import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
+import net.minecraft.item.*
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
@@ -22,15 +22,34 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
         setRegistryName("earth_shatterer")
     }
 
+    override fun getUseAction(stack: ItemStack): UseAction {
+        return UseAction.BOW
+    }
+
+    override fun getUseDuration(stack: ItemStack): Int {
+        return 100
+    }
+
     @ExperimentalContracts
     override fun onItemRightClick(world: World, player: PlayerEntity, hand: Hand): ActionResult<ItemStack> {
         if (!world.isServerWorld()) {
-            return ActionResult(ActionResultType.SUCCESS, player.getHeldItem(hand))
+            return player.getHeldItem(hand).toActionResult(ActionResultType.PASS)
         }
 
+        player.activeHand = Hand.MAIN_HAND
+        return player.getHeldItem(hand).toActionResult(ActionResultType.SUCCESS)
+    }
+
+    @ExperimentalContracts
+    override fun onPlayerStoppedUsing(stack: ItemStack, world: World, player: LivingEntity, timeLeft: Int) {
+        if (!world.isServerWorld() || !player.isServerPlayer()) return
+        trigger(player, world)
+    }
+
+    private fun trigger(player: PlayerEntity, world: ServerWorld) {
         val blocks = mutableListOf<BlockPos>().apply {
-            val verticleRange = 7
-            val horizonalRange = 3
+            val verticleRange = 70
+            val horizonalRange = 1
             player.rayTraceBlocks(100.0).run {
                 (-horizonalRange..horizonalRange).forEach { xo ->
                     (-horizonalRange..horizonalRange).forEach { zo ->
@@ -46,13 +65,13 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
         }
 
         blocks.sortByDescending { it.y }
-        delayRepeatingTask(0) {
+        delayRepeatingTask(5) {
             if (blocks.isEmpty()) {
                 cancel()
                 return@delayRepeatingTask
             }
 
-            repeat(randInt(1, 10)) { _ ->
+            repeat(4) { _ ->
                 if (blocks.isNotEmpty()) {
                     blocks[0].let {
                         blocks.remove(it)
@@ -61,15 +80,13 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
                 }
             }
         }
-
-        return ActionResult(ActionResultType.SUCCESS, player.getHeldItem(hand))
     }
 
     fun floatBlock(pos: BlockPos, world: ServerWorld) {
-        world.addFallingBlock(pos.toVec3d(), pos.state(world), vec3D(y = 3), false).let {
+        world.addFallingBlock(pos.centerVec, pos.state(world), vec3D(y = 3), false).let {
             delayTask(5.ticks(TickUnit.SECONDS)) {
                 it.setNoGravity(false)
-                it.setVel(vec3D(randDouble(-1.5, 1.5), randDouble(-1.5, 1.5), randDouble(-1.5, 1.5)))
+                it.setVel(vec3D(randDouble(-1.5, 1.5), 1.5, randDouble(-1.5, 1.5)))
             }
         }
         pos.setToAir(world)
