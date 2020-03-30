@@ -22,10 +22,10 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
         setRegistryName("earth_shatterer")
     }
 
-    var airTime = 11.ticks(TickUnit.SECONDS)
-    var delayBetweenChunks = 5.ticks(TickUnit.TICKS)
-    var verticleRange = 70
-    var horizonalRange = 1
+    private var airTime = 11.ticks(TickUnit.SECONDS)
+    private var delayBetweenChunks = 5.ticks(TickUnit.TICKS)
+    private var verticalRange = 70
+    private var horizontalRange = 1
     var tickUseDuration = 100
 
     private fun burstVelocity(): Vec3d =
@@ -58,9 +58,9 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
     private fun trigger(player: PlayerEntity, world: ServerWorld) {
         val blocks = mutableListOf<BlockPos>().apply {
             player.rayTraceBlocks(100.0).run {
-                (-horizonalRange..horizonalRange).forEach { xo ->
-                    (-horizonalRange..horizonalRange).forEach { zo ->
-                        (-verticleRange..verticleRange).forEach { yo ->
+                (-horizontalRange..horizontalRange).forEach { xo ->
+                    (-horizontalRange..horizontalRange).forEach { zo ->
+                        (-verticalRange..verticalRange).forEach { yo ->
                             val newPos = hitVec.add(vec3D(xo, yo, zo)).toBlockPos()
                             if (!newPos.isAir(world)) {
                                 add(newPos.toImmutable())
