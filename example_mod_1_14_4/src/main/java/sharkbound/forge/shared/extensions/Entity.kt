@@ -26,6 +26,14 @@ fun Entity.setVel(x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
     setVelocity(x, y, z)
 }
 
+fun Entity.setVel(vec3d: Vec3d) {
+    setVelocity(vec3d.x, vec3d.y, vec3d.z)
+}
+
 fun Entity.addVel(x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
     addVelocity(x, y, z)
+}
+
+fun Entity.addVel(vec3d: Vec3d) {
+    addVelocity(vec3d.x, vec3d.y, vec3d.z)
 }

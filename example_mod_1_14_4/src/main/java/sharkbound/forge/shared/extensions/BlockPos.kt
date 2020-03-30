@@ -5,7 +5,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraft.world.chunk.IChunk
-import sharkbound.forge.shared.util.vector
+import sharkbound.forge.shared.util.vec3D
 
 val BlockPos.xd
     get() = x.toDouble()
@@ -58,7 +58,7 @@ fun BlockPos.isBlock(world: World, block: Block): Boolean =
         block(world) == block
 
 fun BlockPos.toVec3d(): Vec3d =
-        vector(x, y, z)
+        vec3D(x, y, z)
 
 fun BlockPos.isAir(world: World): Boolean =
         world.isAirBlock(this)

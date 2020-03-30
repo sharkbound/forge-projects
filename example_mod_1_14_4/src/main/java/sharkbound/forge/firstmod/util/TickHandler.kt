@@ -14,7 +14,7 @@ fun delayRepeatingTask(delayTicks: Int, handler: TickHandler.() -> Unit): TickHa
 
 fun addTickHandler(tickHandler: TickHandler): TickHandler =
         tickHandler.also {
-            ServerEvents.tickHandlers.add(it)
+            ServerEvents.tickHandlerAddQueue.add(it)
         }
 
 fun runningTickHandlers() =
