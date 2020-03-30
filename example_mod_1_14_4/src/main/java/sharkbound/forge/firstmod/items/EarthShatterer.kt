@@ -5,10 +5,10 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.*
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraft.world.server.ServerWorld
 import sharkbound.commonutils.util.randDouble
-import sharkbound.commonutils.util.randInt
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.util.delayRepeatingTask
 import sharkbound.forge.firstmod.util.delayTask
@@ -22,12 +22,21 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
         setRegistryName("earth_shatterer")
     }
 
+    var airTime = 11.ticks(TickUnit.SECONDS)
+    var delayBetweenChunks = 5.ticks(TickUnit.TICKS)
+    var verticleRange = 70
+    var horizonalRange = 1
+    var tickUseDuration = 100
+
+    private fun burstVelocity(): Vec3d =
+            vec3D(randDouble(-1, 1), 1.5, randDouble(-1, 1))
+
     override fun getUseAction(stack: ItemStack): UseAction {
         return UseAction.BOW
     }
 
     override fun getUseDuration(stack: ItemStack): Int {
-        return 100
+        return tickUseDuration
     }
 
     @ExperimentalContracts
@@ -48,8 +57,6 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
 
     private fun trigger(player: PlayerEntity, world: ServerWorld) {
         val blocks = mutableListOf<BlockPos>().apply {
-            val verticleRange = 70
-            val horizonalRange = 1
             player.rayTraceBlocks(100.0).run {
                 (-horizonalRange..horizonalRange).forEach { xo ->
                     (-horizonalRange..horizonalRange).forEach { zo ->
@@ -65,7 +72,7 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
         }
 
         blocks.sortByDescending { it.y }
-        delayRepeatingTask(5) {
+        delayRepeatingTask(delayBetweenChunks) {
             if (blocks.isEmpty()) {
                 cancel()
                 return@delayRepeatingTask
@@ -84,9 +91,9 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
 
     fun floatBlock(pos: BlockPos, world: ServerWorld) {
         world.addFallingBlock(pos.centerVec, pos.state(world), vec3D(y = 3), false).let {
-            delayTask(5.ticks(TickUnit.SECONDS)) {
+            delayTask(airTime) {
                 it.setNoGravity(false)
-                it.setVel(vec3D(randDouble(-1.5, 1.5), 1.5, randDouble(-1.5, 1.5)))
+                it.setVel(burstVelocity())
             }
         }
         pos.setToAir(world)
