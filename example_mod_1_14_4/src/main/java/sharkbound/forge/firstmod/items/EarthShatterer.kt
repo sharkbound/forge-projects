@@ -22,12 +22,6 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
         setRegistryName("earth_shatterer")
     }
 
-    private var airTime = 11.ticks(TickUnit.SECONDS)
-    private var delayBetweenChunks = 5.ticks(TickUnit.TICKS)
-    private var verticalRange = 70
-    private var horizontalRange = 1
-    var tickUseDuration = 100
-
     private fun burstVelocity(): Vec3d =
             vec3D(randDouble(-1, 1), 1.5, randDouble(-1, 1))
 
@@ -36,7 +30,7 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
     }
 
     override fun getUseDuration(stack: ItemStack): Int {
-        return tickUseDuration
+        return 100
     }
 
     @ExperimentalContracts
@@ -56,29 +50,16 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
     }
 
     private fun trigger(player: PlayerEntity, world: ServerWorld) {
-        val blocks = mutableListOf<BlockPos>().apply {
-            player.rayTraceBlocks(100.0).run {
-                (-horizontalRange..horizontalRange).forEach { xo ->
-                    (-horizontalRange..horizontalRange).forEach { zo ->
-                        (-verticalRange..verticalRange).forEach { yo ->
-                            val newPos = hitVec.add(vec3D(xo, yo, zo)).toBlockPos()
-                            if (!newPos.isAir(world)) {
-                                add(newPos.toImmutable())
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
+        val blocks = getAffectedBlocks(player, world)
         blocks.sortByDescending { it.y }
+        val delayBetweenChunks = 0.ticks(TickUnit.TICKS)
         delayRepeatingTask(delayBetweenChunks) {
             if (blocks.isEmpty()) {
                 cancel()
                 return@delayRepeatingTask
             }
 
-            repeat(4) { _ ->
+            repeat(1) { _ ->
                 if (blocks.isNotEmpty()) {
                     blocks[0].let {
                         blocks.remove(it)
@@ -89,7 +70,28 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
         }
     }
 
+    private fun getAffectedBlocks(player: PlayerEntity, world: ServerWorld): MutableList<BlockPos> {
+        val v = 20
+        val h = 2
+        return mutableListOf<BlockPos>().apply {
+            player.rayTraceBlocks(100.0).run {
+                val center = hitVec.subtract(vec3D(y = 1))
+                (-h..h).forEach { xo ->
+                    (-h..h).forEach { zo ->
+                        (-v..v).forEach { yo ->
+                            val newPos = center.add(vec3D(xo, yo, zo)).toBlockPos()
+                            if (!newPos.isAir(world)) {
+                                add(newPos.toImmutable())
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     fun floatBlock(pos: BlockPos, world: ServerWorld) {
+        val airTime = 11.ticks(TickUnit.SECONDS)
         world.addFallingBlock(pos.centerVec, pos.state(world), vec3D(y = 3), false).let {
             delayTask(airTime) {
                 it.setNoGravity(false)
