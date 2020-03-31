@@ -3,6 +3,7 @@ package sharkbound.forge.shared.extensions
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
+import net.minecraft.inventory.EquipmentSlotType
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.Hand
@@ -78,3 +79,9 @@ fun PlayerEntity.rayTraceBlocks(
             val start = startVec ?: eyePos
             world.rayTraceBlocks(RayTraceContext(start, start.add(lookVec.mul(distance)), blockMode, fluidMode, this))
         }
+
+operator fun PlayerEntity.get(hand: Hand): ItemStack =
+        getHeldItem(hand)
+
+operator fun PlayerEntity.get(equipmentSlotType: EquipmentSlotType): ItemStack =
+        getItemStackFromSlot(equipmentSlotType)

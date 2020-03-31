@@ -5,6 +5,7 @@ import net.minecraftforge.registries.ObjectHolder
 import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.items.MehBlockItem
 import sharkbound.forge.firstmod.items.MehWand
+import sharkbound.forge.firstmod.items.Repulser
 
 @Mod.EventBusSubscriber
 object ModItems {
@@ -15,4 +16,8 @@ object ModItems {
     @ObjectHolder("$MOD_ID:${MehBlockItem.REGISTRY_NAME}")
     @JvmStatic
     lateinit var MEH_BLOCK_ITEM: MehBlockItem
+
+    @ObjectHolder("$MOD_ID:${Repulser.REGISTRY_NAME}")
+    @JvmStatic
+    lateinit var REPULSER: Repulser
 }

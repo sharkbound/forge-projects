@@ -36,6 +36,7 @@ object RegistryEvents {
             register(MehWand())
             register(Striker())
             register(EarthShatterer())
+            register(Repulser())
         }
     }
 

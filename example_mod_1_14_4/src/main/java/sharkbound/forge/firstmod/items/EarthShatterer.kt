@@ -36,11 +36,11 @@ class EarthShatterer : Item(Properties().group(FirstModItemGroup).maxStackSize(1
     @ExperimentalContracts
     override fun onItemRightClick(world: World, player: PlayerEntity, hand: Hand): ActionResult<ItemStack> {
         if (!world.isServerWorld()) {
-            return player.getHeldItem(hand).toActionResult(ActionResultType.PASS)
+            return player[hand].toActionResult(ActionResultType.PASS)
         }
 
         player.activeHand = Hand.MAIN_HAND
-        return player.getHeldItem(hand).toActionResult(ActionResultType.SUCCESS)
+        return player[hand].toActionResult(ActionResultType.SUCCESS)
     }
 
     @ExperimentalContracts
