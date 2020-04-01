@@ -17,8 +17,12 @@ import sharkbound.commonutils.extensions.min
 import sharkbound.commonutils.util.randDouble
 import sharkbound.commonutils.util.randInt
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
+import sharkbound.forge.firstmod.gui.ModContainers
+import sharkbound.forge.firstmod.gui.container.RepulserContainer
+import sharkbound.forge.firstmod.gui.screen.RepulserScreen
 import sharkbound.forge.shared.extensions.addVel
 import sharkbound.forge.shared.extensions.get
+import sharkbound.forge.shared.extensions.isServerPlayer
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.mul
 import sharkbound.forge.shared.extensions.rayTraceBlocks
@@ -38,10 +42,15 @@ class Repulser : Item(Properties().group(FirstModItemGroup)) {
         val range = 30
         val maxForce = range * .3
         if (world.isServerWorld()) {
-            val ray = player.rayTraceBlocks(100.0, fluidMode = RayTraceContext.FluidMode.NONE)
-            world.getEntitiesWithinAABB(Entity::class.java, AxisAlignedBB(ray.hitVec.subtract(vec3D(range, range, range)), ray.hitVec.add(vec3D(range, range, range)))).forEach {
-                val vel = it.positionVec.subtract(ray.hitVec).normalize().mul((maxForce - it.positionVec.distanceTo(ray.hitVec)) max 0.0)
-                it.addVel(vel)
+            if (player.isServerPlayer() && player.isSneaking) {
+                player.send(player.currentWindowId)
+                player.openContainer(RepulserScreen(RepulserContainer(player.currentWindowId, player.inventory, player), player.inventory))
+            } else {
+                val ray = player.rayTraceBlocks(100.0, fluidMode = RayTraceContext.FluidMode.NONE)
+                world.getEntitiesWithinAABB(Entity::class.java, AxisAlignedBB(ray.hitVec.subtract(vec3D(range, range, range)), ray.hitVec.add(vec3D(range, range, range)))).forEach {
+                    val vel = it.positionVec.subtract(ray.hitVec).normalize().mul((maxForce - it.positionVec.distanceTo(ray.hitVec)) max 0.0)
+                    it.addVel(vel)
+                }
             }
         }
         return player[hand].toActionResult(ActionResultType.SUCCESS)

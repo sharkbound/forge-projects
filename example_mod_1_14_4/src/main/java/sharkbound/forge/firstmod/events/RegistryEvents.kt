@@ -1,11 +1,13 @@
 package sharkbound.forge.firstmod.events
 
 import net.minecraft.block.Block
+import net.minecraft.inventory.container.ContainerType
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.particles.ParticleType
 import net.minecraft.potion.Effect
 import net.minecraft.tileentity.TileEntityType
+import net.minecraftforge.common.extensions.IForgeContainerType
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
@@ -13,7 +15,9 @@ import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.blocks.MehBlock
 import sharkbound.forge.firstmod.data.ModBlocks
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
+import sharkbound.forge.firstmod.data.proxy
 import sharkbound.forge.firstmod.entities.MehBlockItemEntity
+import sharkbound.forge.firstmod.gui.container.RepulserContainer
 import sharkbound.forge.firstmod.items.*
 import sharkbound.forge.firstmod.potions.ChaosEffect
 import sharkbound.forge.shared.util.tileEntityRegistryBuilder
@@ -59,9 +63,11 @@ object RegistryEvents {
 
     @SubscribeEvent
     @JvmStatic
-    fun onParticleTypeRegistry(e: RegistryEvent.Register<ParticleType<*>>) {
+    fun onContainerRegistry(e: RegistryEvent.Register<ContainerType<*>>) {
         e.registry.run {
-//            TODO: register()
+            register(IForgeContainerType.create { id, inv, data ->
+                RepulserContainer(id, inv, inv.player)
+            }.setRegistryName(RepulserContainer.REGISTRY_NAME))
         }
     }
 }

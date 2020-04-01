@@ -5,7 +5,6 @@ import net.minecraftforge.registries.ObjectHolder
 import sharkbound.forge.firstmod.MOD_ID
 
 @Mod.EventBusSubscriber
-
 object ModEffects {
     @ObjectHolder("$MOD_ID:chaoseffect")
     @JvmStatic
