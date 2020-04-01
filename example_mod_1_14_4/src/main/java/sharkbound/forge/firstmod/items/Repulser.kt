@@ -4,6 +4,7 @@ import net.minecraft.block.Blocks
 import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ActionResult
@@ -41,19 +42,26 @@ class Repulser : Item(Properties().group(FirstModItemGroup)) {
     override fun onItemRightClick(world: World, player: PlayerEntity, hand: Hand): ActionResult<ItemStack> {
         val range = 30
         val maxForce = range * .3
-        if (world.isServerWorld()) {
-            if (player.isServerPlayer() && player.isSneaking) {
-                player.send(player.currentWindowId)
-                player.openContainer(RepulserScreen(RepulserContainer(player.currentWindowId, player.inventory, player), player.inventory))
+        if (world.isServerWorld() && player.isServerPlayer()) {
+            if (player.isSneaking && player.onGround) {
+                showGUI(player)
             } else {
-                val ray = player.rayTraceBlocks(100.0, fluidMode = RayTraceContext.FluidMode.NONE)
-                world.getEntitiesWithinAABB(Entity::class.java, AxisAlignedBB(ray.hitVec.subtract(vec3D(range, range, range)), ray.hitVec.add(vec3D(range, range, range)))).forEach {
-                    val vel = it.positionVec.subtract(ray.hitVec).normalize().mul((maxForce - it.positionVec.distanceTo(ray.hitVec)) max 0.0)
-                    it.addVel(vel)
-                }
+                pushMobs(player, world, range, maxForce)
             }
         }
         return player[hand].toActionResult(ActionResultType.SUCCESS)
+    }
+
+    private fun pushMobs(player: PlayerEntity, world: World, range: Int, maxForce: Double) {
+        val ray = player.rayTraceBlocks(100.0, fluidMode = RayTraceContext.FluidMode.NONE)
+        world.getEntitiesWithinAABB(Entity::class.java, AxisAlignedBB(ray.hitVec.subtract(vec3D(range, range, range)), ray.hitVec.add(vec3D(range, range, range)))).forEach {
+            val vel = it.positionVec.subtract(ray.hitVec).normalize().mul((maxForce - it.positionVec.distanceTo(ray.hitVec)) max 0.0)
+            it.addVel(vel)
+        }
+    }
+
+    private fun showGUI(player: ServerPlayerEntity) {
+        player.openContainer(RepulserScreen(RepulserContainer(player.currentWindowId, player.inventory, player), player.inventory))
     }
 
     companion object {
