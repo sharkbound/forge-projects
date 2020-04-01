@@ -16,9 +16,7 @@ class RepulserScreen(container: RepulserContainer, inv: PlayerInventory) : Conta
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {
         GlStateManager.color4f(1f, 1f, 1f, 1f)
         minecraft!!.textureManager.bindTexture(GUI)
-        val x = (width / xSize) / 2
-        val y = (height / ySize) / 2
-        blit(x, y, 0, 0, xSize, ySize)
+        blit(guiLeft, guiTop, 0, 0, xSize, ySize)
     }
 
     override fun render(mx: Int, my: Int, partialTicks: Float) {
