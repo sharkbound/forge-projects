@@ -43,7 +43,7 @@ class Repulser : Item(Properties().group(FirstModItemGroup)) {
         val range = 30
         val maxForce = range * .3
         if (world.isServerWorld() && player.isServerPlayer()) {
-            if (player.isSneaking && player.onGround) {
+            if (player.isSneaking) {
                 showGUI(player)
             } else {
                 pushMobs(player, world, range, maxForce)

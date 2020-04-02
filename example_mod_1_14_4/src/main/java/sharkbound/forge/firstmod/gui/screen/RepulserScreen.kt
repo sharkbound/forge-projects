@@ -9,10 +9,14 @@ import net.minecraft.inventory.container.INamedContainerProvider
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.ITextComponent
 import sharkbound.forge.firstmod.MOD_ID
+import sharkbound.forge.firstmod.gui.buttons.Button1
 import sharkbound.forge.firstmod.gui.container.RepulserContainer
 import sharkbound.forge.shared.util.toText
 
-class RepulserScreen(container: RepulserContainer, inv: PlayerInventory) : ContainerScreen<RepulserContainer>(container, inv, toText(TITLE)), INamedContainerProvider {
+class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : ContainerScreen<RepulserContainer>(container, inv, toText(TITLE)), INamedContainerProvider {
+    val player = inv.player
+    val button = addButton(Button1(player, guiTop + 10, guiLeft + 10, 88, 52))
+
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {
         GlStateManager.color4f(1f, 1f, 1f, 1f)
         minecraft!!.textureManager.bindTexture(GUI)
@@ -22,6 +26,7 @@ class RepulserScreen(container: RepulserContainer, inv: PlayerInventory) : Conta
     override fun render(mx: Int, my: Int, partialTicks: Float) {
         renderBackground()
         super.render(mx, my, partialTicks)
+        button.render(mx, my, partialTicks)
         renderHoveredToolTip(mx, my)
     }
 
@@ -29,9 +34,8 @@ class RepulserScreen(container: RepulserContainer, inv: PlayerInventory) : Conta
         return RepulserContainer(id, inv, player)
     }
 
-    override fun getDisplayName(): ITextComponent {
-        return toText(TITLE)
-    }
+    override fun getDisplayName(): ITextComponent =
+            toText(TITLE)
 
     companion object {
         const val TITLE = "&6Repulser Settings"
