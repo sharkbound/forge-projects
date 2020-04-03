@@ -64,7 +64,6 @@ class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : C
 //            minecraft.textureManager.bindTexture(GUI)
 //            GlStateManager.color4f(1f, 1f, 1f, 1f)
 //            blit(rx, ry, height, 0, width, height)
-//            // TODO
 //        }
 //
 //        override fun clicked(p_clicked_1_: Double, p_clicked_3_: Double): Boolean {
