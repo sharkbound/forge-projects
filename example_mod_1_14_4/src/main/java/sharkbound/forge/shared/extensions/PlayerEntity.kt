@@ -7,7 +7,9 @@ import net.minecraft.inventory.EquipmentSlotType
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.Hand
-import net.minecraft.util.math.*
+import net.minecraft.util.math.BlockRayTraceResult
+import net.minecraft.util.math.RayTraceContext
+import net.minecraft.util.math.Vec3d
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 

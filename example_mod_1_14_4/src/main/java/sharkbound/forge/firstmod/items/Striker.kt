@@ -2,15 +2,26 @@ package sharkbound.forge.firstmod.items
 
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.item.*
-import net.minecraft.util.*
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraft.util.ActionResult
+import net.minecraft.util.ActionResultType
+import net.minecraft.util.Hand
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.world.World
-import sharkbound.commonutils.util.*
+import sharkbound.commonutils.util.randDouble
+import sharkbound.commonutils.util.randRange
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.util.delayTask
-import sharkbound.forge.shared.extensions.*
-import sharkbound.forge.shared.util.*
+import sharkbound.forge.shared.extensions.addAll
+import sharkbound.forge.shared.extensions.doLightningStrike
+import sharkbound.forge.shared.extensions.heldItemInfo
+import sharkbound.forge.shared.extensions.isServerPlayer
+import sharkbound.forge.shared.extensions.isServerWorld
+import sharkbound.forge.shared.extensions.rayTraceBlocks
+import sharkbound.forge.shared.extensions.ticks
+import sharkbound.forge.shared.util.TickUnit
+import sharkbound.forge.shared.util.toText
 import kotlin.contracts.ExperimentalContracts
 
 class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {

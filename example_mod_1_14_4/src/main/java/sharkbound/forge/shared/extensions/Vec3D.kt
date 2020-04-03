@@ -1,6 +1,8 @@
 package sharkbound.forge.shared.extensions
 
-import net.minecraft.util.math.*
+import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Vec3d
+import net.minecraft.util.math.Vec3i
 import sharkbound.forge.shared.util.vec3D
 
 fun Vec3d.toVec3I(): Vec3i =

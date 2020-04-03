@@ -1,20 +1,17 @@
 package sharkbound.forge.firstmod.blocks
 
-import net.minecraft.block.*
+import net.minecraft.block.Block
+import net.minecraft.block.BlockState
+import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
-import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.tileentity.TileEntity
-import net.minecraft.util.Direction
-import net.minecraft.util.Hand
-import net.minecraft.util.math.*
-import net.minecraft.world.*
-import sharkbound.commonutils.extensions.choice
+import net.minecraft.util.math.BlockPos
+import net.minecraft.world.IBlockReader
+import net.minecraft.world.World
 import sharkbound.forge.firstmod.data.ModBlocks
-import sharkbound.forge.firstmod.data.ModItems
 import sharkbound.forge.firstmod.entities.MehBlockItemEntity
-import sharkbound.forge.firstmod.items.MehWand
-import sharkbound.forge.shared.extensions.*
-import kotlin.contracts.ExperimentalContracts
+import sharkbound.forge.shared.extensions.destroyBlock
+import sharkbound.forge.shared.extensions.isBlock
 
 class MehBlock : Block(
         Properties.create(Material.IRON)

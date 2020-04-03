@@ -1,8 +1,13 @@
 package sharkbound.forge.firstmod.particles
 
 import com.mojang.blaze3d.platform.GlStateManager
-import net.minecraft.client.particle.*
-import net.minecraft.client.renderer.*
+import net.minecraft.client.particle.IAnimatedSprite
+import net.minecraft.client.particle.IParticleFactory
+import net.minecraft.client.particle.IParticleRenderType
+import net.minecraft.client.particle.Particle
+import net.minecraft.client.renderer.ActiveRenderInfo
+import net.minecraft.client.renderer.BufferBuilder
+import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.Vec3d

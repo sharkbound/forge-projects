@@ -2,8 +2,12 @@ package sharkbound.forge.firstmod.items
 
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.item.*
-import net.minecraft.util.*
+import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
+import net.minecraft.item.UseAction
+import net.minecraft.util.ActionResult
+import net.minecraft.util.ActionResultType
+import net.minecraft.util.Hand
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
@@ -12,7 +16,19 @@ import sharkbound.commonutils.util.randDouble
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.util.delayRepeatingTask
 import sharkbound.forge.firstmod.util.delayTask
-import sharkbound.forge.shared.extensions.*
+import sharkbound.forge.shared.extensions.addFallingBlock
+import sharkbound.forge.shared.extensions.centerVec
+import sharkbound.forge.shared.extensions.get
+import sharkbound.forge.shared.extensions.isAir
+import sharkbound.forge.shared.extensions.isServerPlayer
+import sharkbound.forge.shared.extensions.isServerWorld
+import sharkbound.forge.shared.extensions.rayTraceBlocks
+import sharkbound.forge.shared.extensions.setToAir
+import sharkbound.forge.shared.extensions.setVel
+import sharkbound.forge.shared.extensions.state
+import sharkbound.forge.shared.extensions.ticks
+import sharkbound.forge.shared.extensions.toActionResult
+import sharkbound.forge.shared.extensions.toBlockPos
 import sharkbound.forge.shared.util.TickUnit
 import sharkbound.forge.shared.util.vec3D
 import kotlin.contracts.ExperimentalContracts

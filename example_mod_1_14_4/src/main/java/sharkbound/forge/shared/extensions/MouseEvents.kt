@@ -1,6 +1,5 @@
 package sharkbound.forge.shared.extensions
 
-import net.minecraftforge.client.event.GuiScreenEvent
 import net.minecraftforge.client.event.InputEvent
 
 val InputEvent.MouseScrollEvent.anyMouseKeyDown: Boolean

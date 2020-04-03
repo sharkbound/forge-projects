@@ -1,6 +1,8 @@
 package sharkbound.forge.firstmod.util
 
-import sharkbound.forge.firstmod.events.*
+import sharkbound.forge.firstmod.events.DefaultTickHandler
+import sharkbound.forge.firstmod.events.ServerEvents
+import sharkbound.forge.firstmod.events.TickHandler
 
 fun delayTask(delayTicks: Int, handler: TickHandler.() -> Unit): TickHandler =
         run {

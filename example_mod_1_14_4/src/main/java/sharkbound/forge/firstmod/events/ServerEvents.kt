@@ -4,7 +4,8 @@ import net.minecraftforge.event.TickEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.event.server.*
+import net.minecraftforge.fml.event.server.FMLServerStartedEvent
+import net.minecraftforge.fml.event.server.FMLServerStoppingEvent
 import sharkbound.forge.firstmod.data.forgeEventBus
 
 @Mod.EventBusSubscriber

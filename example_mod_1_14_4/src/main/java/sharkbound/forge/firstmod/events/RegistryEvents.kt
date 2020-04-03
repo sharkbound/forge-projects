@@ -2,9 +2,7 @@ package sharkbound.forge.firstmod.events
 
 import net.minecraft.block.Block
 import net.minecraft.inventory.container.ContainerType
-import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
-import net.minecraft.particles.ParticleType
 import net.minecraft.potion.Effect
 import net.minecraft.tileentity.TileEntityType
 import net.minecraftforge.common.extensions.IForgeContainerType
@@ -14,11 +12,13 @@ import net.minecraftforge.fml.common.Mod
 import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.blocks.MehBlock
 import sharkbound.forge.firstmod.data.ModBlocks
-import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.data.proxy
 import sharkbound.forge.firstmod.entities.MehBlockItemEntity
 import sharkbound.forge.firstmod.gui.container.RepulserContainer
-import sharkbound.forge.firstmod.items.*
+import sharkbound.forge.firstmod.items.EarthShatterer
+import sharkbound.forge.firstmod.items.MehBlockItem
+import sharkbound.forge.firstmod.items.MehWand
+import sharkbound.forge.firstmod.items.Repulser
+import sharkbound.forge.firstmod.items.Striker
 import sharkbound.forge.firstmod.potions.ChaosEffect
 import sharkbound.forge.shared.util.tileEntityRegistryBuilder
 

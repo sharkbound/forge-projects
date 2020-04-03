@@ -2,14 +2,15 @@ package sharkbound.forge.firstmod.data
 
 import net.minecraft.client.Minecraft
 import net.minecraft.particles.ParticleType
-import net.minecraft.world.World
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.DistExecutor
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext
 import net.minecraftforge.registries.ForgeRegistries
 import net.minecraftforge.registries.IForgeRegistry
 import org.apache.logging.log4j.LogManager
-import sharkbound.forge.firstmod.proxy.*
+import sharkbound.forge.firstmod.proxy.ClientProxy
+import sharkbound.forge.firstmod.proxy.CommonProxy
+import sharkbound.forge.firstmod.proxy.Proxy
 import java.util.function.Supplier
 
 val logger get() = LogManager.getLogger()!!

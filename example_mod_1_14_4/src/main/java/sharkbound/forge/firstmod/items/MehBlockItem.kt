@@ -1,6 +1,7 @@
 package sharkbound.forge.firstmod.items
 
-import net.minecraft.item.*
+import net.minecraft.item.BlockItem
+import net.minecraft.item.ItemStack
 import net.minecraft.util.text.ITextComponent
 import sharkbound.forge.firstmod.blocks.MehBlock
 import sharkbound.forge.firstmod.creative.FirstModItemGroup

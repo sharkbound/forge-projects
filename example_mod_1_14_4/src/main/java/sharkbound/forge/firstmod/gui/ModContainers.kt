@@ -2,7 +2,6 @@ package sharkbound.forge.firstmod.gui
 
 import net.minecraft.client.gui.ScreenManager
 import net.minecraft.inventory.container.ContainerType
-import net.minecraft.inventory.container.RepairContainer
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.registries.ObjectHolder
 import sharkbound.forge.firstmod.MOD_ID

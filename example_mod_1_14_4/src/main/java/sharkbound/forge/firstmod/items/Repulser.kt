@@ -1,8 +1,6 @@
 package sharkbound.forge.firstmod.items
 
-import net.minecraft.block.Blocks
 import net.minecraft.entity.Entity
-import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.item.Item
@@ -14,11 +12,7 @@ import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.RayTraceContext
 import net.minecraft.world.World
 import sharkbound.commonutils.extensions.max
-import sharkbound.commonutils.extensions.min
-import sharkbound.commonutils.util.randDouble
-import sharkbound.commonutils.util.randInt
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.gui.ModContainers
 import sharkbound.forge.firstmod.gui.container.RepulserContainer
 import sharkbound.forge.firstmod.gui.screen.RepulserScreen
 import sharkbound.forge.shared.extensions.addVel
@@ -27,8 +21,6 @@ import sharkbound.forge.shared.extensions.isServerPlayer
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.mul
 import sharkbound.forge.shared.extensions.rayTraceBlocks
-import sharkbound.forge.shared.extensions.send
-import sharkbound.forge.shared.extensions.setBlock
 import sharkbound.forge.shared.extensions.toActionResult
 import sharkbound.forge.shared.util.vec3D
 import kotlin.contracts.ExperimentalContracts

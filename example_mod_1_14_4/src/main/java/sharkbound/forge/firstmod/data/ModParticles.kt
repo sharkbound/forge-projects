@@ -4,7 +4,8 @@ import net.minecraft.particles.BasicParticleType
 import net.minecraft.particles.ParticleType
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
-import net.minecraftforge.registries.*
+import net.minecraftforge.registries.DeferredRegister
+import net.minecraftforge.registries.ForgeRegistries
 import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.particles.data.MehBoltParticleData
 

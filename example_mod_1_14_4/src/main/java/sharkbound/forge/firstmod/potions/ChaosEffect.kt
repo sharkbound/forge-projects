@@ -3,10 +3,14 @@ package sharkbound.forge.firstmod.potions
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.ai.attributes.AbstractAttributeMap
 import net.minecraft.particles.ParticleTypes
-import net.minecraft.potion.*
+import net.minecraft.potion.Effect
+import net.minecraft.potion.EffectType
 import net.minecraft.util.text.StringTextComponent
-import sharkbound.commonutils.util.*
-import sharkbound.forge.shared.extensions.*
+import sharkbound.commonutils.util.randDouble
+import sharkbound.forge.shared.extensions.color
+import sharkbound.forge.shared.extensions.isServerWorld
+import sharkbound.forge.shared.extensions.particle
+import sharkbound.forge.shared.extensions.teleportRelative
 import java.text.DecimalFormat
 import kotlin.contracts.ExperimentalContracts
 
