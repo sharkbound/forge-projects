@@ -21,7 +21,7 @@ import sharkbound.forge.shared.util.toText
 class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : ContainerScreen<RepulserContainer>(container, inv, toText(TITLE)), INamedContainerProvider {
     companion object {
         const val TITLE = "&6Repulser Settings"
-        val GUI = ResourceLocation(MOD_ID, "textures/gui/repulser/repulser.png")
+        val GUI_TEXTURE = ResourceLocation(MOD_ID, "textures/gui/repulser/repulser.png")
         val BUTTON_TEXTURE = ResourceLocation(MOD_ID, "textures/gui/repulser/button.png")
     }
 
@@ -53,12 +53,12 @@ class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : C
 
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {
         GlStateManager.color4f(1f, 1f, 1f, 1f)
-        minecraft!!.textureManager.bindTexture(GUI)
+        minecraft!!.textureManager.bindTexture(GUI_TEXTURE)
         blit(guiLeft, guiTop, 0, 0, xSize, ySize)
     }
 
     override fun render(mx: Int, my: Int, partialTicks: Float) {
-        minecraft!!.textureManager.bindTexture(GUI)
+        minecraft!!.textureManager.bindTexture(GUI_TEXTURE)
         addRangeButton.setPosition(guiLeft + 20, guiTop + 10)
         subRangeButton.setPosition(guiLeft + 60, guiTop + 10)
         super.render(mx, my, partialTicks)
