@@ -4,6 +4,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.util.math.Vec3i
 import sharkbound.forge.shared.util.vec3D
+import kotlin.math.absoluteValue
 
 fun Vec3d.toVec3I(): Vec3i =
         Vec3i(x, y, z)
@@ -16,3 +17,6 @@ fun Vec3d.mul(value: Int): Vec3d =
 
 fun Vec3d.toBlockPos(): BlockPos =
         BlockPos(this)
+
+infix fun Vec3d.dist(other: Vec3d): Double =
+        (x - other.x).absoluteValue + (y - other.y).absoluteValue + (z - other.z).absoluteValue

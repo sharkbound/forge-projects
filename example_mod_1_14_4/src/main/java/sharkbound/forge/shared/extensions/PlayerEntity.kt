@@ -56,7 +56,7 @@ class HeldItemInfo(val hand: Hand, val stack: ItemStack, val player: PlayerEntit
     }
 }
 
-val PlayerEntity.heldItemInfo: HeldItemInfo
+val PlayerEntity.item: HeldItemInfo
     get() {
         val hand = when {
             isHandActive -> activeHand

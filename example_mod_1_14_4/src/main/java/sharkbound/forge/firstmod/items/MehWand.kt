@@ -22,7 +22,7 @@ import sharkbound.forge.firstmod.networking.Network
 import sharkbound.forge.firstmod.networking.packets.MehWandModeSwitchPacket
 import sharkbound.forge.firstmod.potions.ModEffects
 import sharkbound.forge.shared.extensions.destroyBlock
-import sharkbound.forge.shared.extensions.heldItemInfo
+import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.instance
 import sharkbound.forge.shared.extensions.isBlock
 import sharkbound.forge.shared.extensions.isServerWorld
@@ -107,12 +107,12 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
     @ExperimentalContracts
     override fun onItemRightClick(worldIn: World, player: PlayerEntity, handIn: Hand): ActionResult<ItemStack> {
         if (worldIn.isServerWorld() && player.isSneaking) {
-            player.heldItemInfo.stack.run {
+            player.item.stack.run {
                 advanceMode(this)
                 sendModeUpdateMessage(player, this)
             }
         }
-        return ActionResult(ActionResultType.SUCCESS, player.heldItemInfo.stack)
+        return ActionResult(ActionResultType.SUCCESS, player.item.stack)
     }
 
     override fun itemInteractionForEntity(stack: ItemStack, playerIn: PlayerEntity, target: LivingEntity, hand: Hand): Boolean =

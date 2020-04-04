@@ -15,7 +15,7 @@ import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.util.delayTask
 import sharkbound.forge.shared.extensions.addAll
 import sharkbound.forge.shared.extensions.doLightningStrike
-import sharkbound.forge.shared.extensions.heldItemInfo
+import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.isServerPlayer
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.rayTraceBlocks
@@ -51,7 +51,7 @@ class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     @ExperimentalContracts
     override fun onItemRightClick(world: World, player: PlayerEntity, handIn: Hand): ActionResult<ItemStack> {
         callStrike(world, player)
-        return ActionResult(ActionResultType.SUCCESS, player.heldItemInfo.stack)
+        return ActionResult(ActionResultType.SUCCESS, player.item.stack)
     }
 
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<ITextComponent>, flagIn: ITooltipFlag) {

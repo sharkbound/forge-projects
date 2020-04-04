@@ -2,15 +2,20 @@ package sharkbound.forge.firstmod.gui.screen
 
 import com.mojang.blaze3d.platform.GlStateManager
 import net.minecraft.client.gui.screen.inventory.ContainerScreen
-import net.minecraft.client.gui.widget.button.ImageButton
+import net.minecraft.client.gui.widget.button.AbstractButton
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.container.Container
 import net.minecraft.inventory.container.INamedContainerProvider
 import net.minecraft.util.ResourceLocation
 import net.minecraft.util.text.ITextComponent
+import sharkbound.commonutils.extensions.max
 import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.gui.container.RepulserContainer
+import sharkbound.forge.firstmod.items.Repulser
+import sharkbound.forge.shared.extensions.item
+import sharkbound.forge.shared.extensions.send
+import sharkbound.forge.shared.util.imageButton
 import sharkbound.forge.shared.util.toText
 
 class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : ContainerScreen<RepulserContainer>(container, inv, toText(TITLE)), INamedContainerProvider {
@@ -22,18 +27,27 @@ class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : C
 
     val player = inv.player
 
-    val button = addButton(ImageButton(0, 0, 65, 35, 0, 0, 36, BUTTON_TEXTURE) {
-        println("HI!")
+    val addRangeButton = addButton(imageButton(0, 0, 25, 22, 0, 0, 0, BUTTON_TEXTURE) {
+        player.item.stack.let {
+            Repulser.setRadius(it, Repulser.radiusOf(it) + 10)
+            val newRadius = Repulser.radiusOf(it)
+            player.send("&aRadius updated to $newRadius")
+            Repulser.sendRadiusPacket(player.uniqueID, newRadius)
+        }
     })
 
-//    override fun keyPressed(x: Int, y: Int, k: Int): Boolean {
-//        return super.keyPressed(x, y, k)
-//    }
+    val subRangeButton = addButton(imageButton(0, 0, 25, 22, 25, 0, 0, BUTTON_TEXTURE) {
+        player.item.stack.let {
+            Repulser.setRadius(it, (Repulser.radiusOf(it) - 10) max 0)
+            val newRadius = Repulser.radiusOf(it)
+            player.send("&aRadius updated to $newRadius")
+            Repulser.sendRadiusPacket(player.uniqueID, newRadius)
+        }
+    })
 
     override fun mouseClicked(x: Double, y: Double, k: Int): Boolean {
-        if (button.isHovered) {
-            player.closeScreen()
-        }
+        addRangeButton.clickIfHovered(x, y)
+        subRangeButton.clickIfHovered(x, y)
         return super.mouseClicked(x, y, k)
     }
 
@@ -45,10 +59,11 @@ class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : C
 
     override fun render(mx: Int, my: Int, partialTicks: Float) {
         minecraft!!.textureManager.bindTexture(GUI)
-        button.x = guiLeft + 20
-        button.y = guiTop + 10
+        addRangeButton.setPosition(guiLeft + 20, guiTop + 10)
+        subRangeButton.setPosition(guiLeft + 60, guiTop + 10)
         super.render(mx, my, partialTicks)
-        button.render(mx, my, partialTicks)
+        addRangeButton.render(mx, my, partialTicks)
+        subRangeButton.render(mx, my, partialTicks)
         renderHoveredToolTip(mx, my)
     }
 
@@ -58,21 +73,10 @@ class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : C
 
     override fun getDisplayName(): ITextComponent =
             toText(TITLE)
+}
 
-//    class Button1(val player: PlayerEntity, val rx: Int, val ry: Int, width: Int, height: Int) : ImageButton(rx, ry, width, height) {
-//        override fun renderButton(p_renderButton_1_: Int, p_renderButton_2_: Int, p_renderButton_3_: Float) {
-//            minecraft.textureManager.bindTexture(GUI)
-//            GlStateManager.color4f(1f, 1f, 1f, 1f)
-//            blit(rx, ry, height, 0, width, height)
-//        }
-//
-//        override fun clicked(p_clicked_1_: Double, p_clicked_3_: Double): Boolean {
-//            println("CLICKED")
-//            return true
-//        }
-//
-//        override fun onClick(p_onClick_1_: Double, p_onClick_3_: Double) {
-//            println("ON CLICK")
-//        }
-//    }
+fun AbstractButton.clickIfHovered(x: Double, y: Double) {
+    if (isHovered) {
+        onClick(x, y)
+    }
 }
