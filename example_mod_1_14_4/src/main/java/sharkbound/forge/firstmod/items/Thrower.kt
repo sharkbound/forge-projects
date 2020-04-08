@@ -60,7 +60,7 @@ class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     val allEffects = Effects::class.java.declaredFields.mapNotNull { it.get(null) as? Effect }
 
     override fun onUsingTick(stack: ItemStack?, player: LivingEntity?, count: Int) {
-        if (player == null) return
+        if (player == null || player.world.isRemote) return
         val range = 2
         repeat(3) {
             PotionEntity(player.world, player).let { potion ->
