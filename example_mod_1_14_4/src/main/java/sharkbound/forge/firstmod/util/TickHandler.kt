@@ -4,14 +4,14 @@ import sharkbound.forge.firstmod.events.DefaultTickHandler
 import sharkbound.forge.firstmod.events.ServerEvents
 import sharkbound.forge.firstmod.events.TickHandler
 
-fun delayTask(delayTicks: Int, handler: TickHandler.() -> Unit): TickHandler =
+fun delayTask(delayTicks: Int = 0, startDelay: Int = 0, handler: TickHandler.() -> Unit): TickHandler =
         run {
-            addTickHandler(DefaultTickHandler(delayTicks, isRepeating = false, handler = handler))
+            addTickHandler(DefaultTickHandler(delayTicks, isRepeating = false, startDelay = startDelay, handler = handler))
         }
 
-fun delayRepeatingTask(delayTicks: Int, handler: TickHandler.() -> Unit): TickHandler =
+fun delayRepeatingTask(delayTicks: Int, startDelay: Int = 0, handler: TickHandler.() -> Unit): TickHandler =
         run {
-            addTickHandler(DefaultTickHandler(delayTicks, isRepeating = true, handler = handler))
+            addTickHandler(DefaultTickHandler(delayTicks, isRepeating = true, startDelay = startDelay, handler = handler))
         }
 
 fun addTickHandler(tickHandler: TickHandler): TickHandler =

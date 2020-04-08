@@ -41,6 +41,9 @@ class HeldItemInfo(val hand: Hand, val stack: ItemStack, val player: PlayerEntit
     infix fun isItem(other: Item): Boolean =
             item == other
 
+    infix fun isNotItem(other: Item): Boolean =
+            item != other
+
     override fun equals(other: Any?): Boolean =
             when (other) {
                 is Item -> item == other

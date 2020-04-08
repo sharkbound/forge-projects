@@ -2,13 +2,14 @@ package sharkbound.forge.firstmod.events
 
 import sharkbound.commonutils.extensions.max
 
-abstract class TickHandler(val delayTicks: Int, val isRepeating: Boolean = false) {
+abstract class TickHandler(val delayTicks: Int, val isRepeating: Boolean = false, val startDelay: Int = 0) {
     enum class State { RUNNING, COMPLETED, SUSPENDED }
 
     var ticksLeft = delayTicks
     var state = State.RUNNING
     var elapsedTicks = 0
     var totalActivates = 0
+    protected var currentStartDelay = startDelay
 
     abstract fun activate()
 
@@ -23,19 +24,24 @@ abstract class TickHandler(val delayTicks: Int, val isRepeating: Boolean = false
     fun reset() {
         ticksLeft = delayTicks
         state = State.RUNNING
+        currentStartDelay = startDelay
     }
 
     fun cancel() {
         state = State.COMPLETED
     }
 
+    val isStarted: Boolean
+        get() = currentStartDelay <= 0
+
     val isRunning: Boolean
-        get() = state == State.RUNNING
+        get() = isStarted && state == State.RUNNING
 
     val isCompleted: Boolean
         get() = state == State.COMPLETED
 
     open fun tick() {
+        if (currentStartDelay > 0) currentStartDelay--
         if (!isRunning) return
 
         ticksLeft = (ticksLeft - 1) max 0
@@ -47,8 +53,7 @@ abstract class TickHandler(val delayTicks: Int, val isRepeating: Boolean = false
         }
 
         if (state == State.COMPLETED && ticksLeft == 0 && isRepeating) {
-            ticksLeft = delayTicks
-            state = State.RUNNING
+            reset()
         }
     }
 
@@ -57,7 +62,7 @@ abstract class TickHandler(val delayTicks: Int, val isRepeating: Boolean = false
     }
 }
 
-class DefaultTickHandler(delayTicks: Int, isRepeating: Boolean, val handler: DefaultTickHandler.() -> Unit) : TickHandler(delayTicks, isRepeating) {
+class DefaultTickHandler(delayTicks: Int, isRepeating: Boolean, startDelay: Int = 0, val handler: DefaultTickHandler.() -> Unit) : TickHandler(delayTicks, isRepeating, startDelay) {
     override fun activate() {
         handler()
     }
