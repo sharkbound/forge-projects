@@ -19,6 +19,7 @@ import sharkbound.forge.firstmod.items.MehBlockItem
 import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.firstmod.items.Repulser
 import sharkbound.forge.firstmod.items.Striker
+import sharkbound.forge.firstmod.items.Thrower
 import sharkbound.forge.firstmod.potions.ChaosEffect
 import sharkbound.forge.shared.util.tileEntityRegistryBuilder
 
@@ -41,6 +42,7 @@ object RegistryEvents {
             register(Striker())
             register(EarthShatterer())
             register(Repulser())
+            register(Thrower())
         }
     }
 

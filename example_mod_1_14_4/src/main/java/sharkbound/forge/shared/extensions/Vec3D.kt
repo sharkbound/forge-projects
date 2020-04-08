@@ -20,3 +20,12 @@ fun Vec3d.toBlockPos(): BlockPos =
 
 infix fun Vec3d.dist(other: Vec3d): Double =
         (x - other.x).absoluteValue + (y - other.y).absoluteValue + (z - other.z).absoluteValue
+
+operator fun Vec3d.component1() =
+        x
+
+operator fun Vec3d.component2() =
+        y
+
+operator fun Vec3d.component3() =
+        z

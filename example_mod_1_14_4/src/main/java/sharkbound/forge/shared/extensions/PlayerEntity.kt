@@ -71,9 +71,6 @@ val PlayerEntity.item: HeldItemInfo
         return HeldItemInfo(hand, getHeldItem(hand), this)
     }
 
-val PlayerEntity.eyePos: Vec3d
-    get() = getEyePosition(1f)
-
 fun PlayerEntity.rayTraceBlocks(
         distance: Double,
         blockMode: RayTraceContext.BlockMode = RayTraceContext.BlockMode.OUTLINE,

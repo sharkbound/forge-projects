@@ -6,6 +6,7 @@ import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.items.MehBlockItem
 import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.firstmod.items.Repulser
+import sharkbound.forge.firstmod.items.Thrower
 
 @Mod.EventBusSubscriber
 object ModItems {
@@ -20,4 +21,8 @@ object ModItems {
     @ObjectHolder("$MOD_ID:${Repulser.REGISTRY_NAME}")
     @JvmStatic
     lateinit var REPULSER: Repulser
+
+    @ObjectHolder("$MOD_ID:${Thrower.REGISTRY_NAME}")
+    @JvmStatic
+    lateinit var THROWER: Thrower
 }
