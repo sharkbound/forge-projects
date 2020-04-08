@@ -4,7 +4,7 @@ import sharkbound.forge.firstmod.events.DefaultTickHandler
 import sharkbound.forge.firstmod.events.ServerEvents
 import sharkbound.forge.firstmod.events.TickHandler
 
-fun delayTask(delayTicks: Int = 0, startDelay: Int = 0, handler: TickHandler.() -> Unit): TickHandler =
+fun delayTask(startDelay: Int = 0, delayTicks: Int = 0, handler: TickHandler.() -> Unit): TickHandler =
         run {
             addTickHandler(DefaultTickHandler(delayTicks, isRepeating = false, startDelay = startDelay, handler = handler))
         }

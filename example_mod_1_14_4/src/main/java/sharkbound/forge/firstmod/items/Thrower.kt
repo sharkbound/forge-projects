@@ -17,7 +17,9 @@ import net.minecraft.util.text.ITextComponent
 import net.minecraft.world.World
 import sharkbound.commonutils.extensions.choice
 import sharkbound.commonutils.util.randDouble
+import sharkbound.commonutils.util.randInt
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
+import sharkbound.forge.firstmod.util.delayTask
 import sharkbound.forge.shared.extensions.component1
 import sharkbound.forge.shared.extensions.component2
 import sharkbound.forge.shared.extensions.component3
@@ -25,6 +27,7 @@ import sharkbound.forge.shared.extensions.eyePos
 import sharkbound.forge.shared.extensions.instance
 import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.mul
+import sharkbound.forge.shared.extensions.rayTraceBlocks
 import sharkbound.forge.shared.extensions.setVel
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.extensions.toActionResult
@@ -61,17 +64,19 @@ class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
 
     override fun onUsingTick(stack: ItemStack?, player: LivingEntity?, count: Int) {
         if (player == null || player.world.isRemote) return
-        val range = 2
-        repeat(3) {
-            PotionEntity(player.world, player).let { potion ->
-                potion.item = PotionUtils.appendEffects(
-                        ItemStack(Items.SPLASH_POTION),
-                        arrayListOf(allEffects.choice().instance(10.ticks(TickUnit.SECONDS), 3))
-                )
-                val (x, y, z) = player.eyePos
-                potion.setPosition(x + randDouble(-range, range), y + randDouble(-range, range), z + randDouble(-range, range))
-                potion.setVel(player.lookVec.normalize().mul(3))
-                player.world.addEntity(potion)
+        val range = 1
+        PotionEntity(player.world, player).let { potion ->
+            potion.item = PotionUtils.appendEffects(
+                    ItemStack(Items.SPLASH_POTION),
+                    arrayListOf(allEffects.choice().instance(10.ticks(TickUnit.SECONDS), 3))
+            )
+            val (x, y, z) = player.eyePos
+            potion.setPositionAndRotation(x + randDouble(-range, range), y + randDouble(-range, range), z + randDouble(-range, range), player.rotationYaw, player.rotationPitch)
+            potion.setVel(player.lookVec.normalize().mul(1))
+            potion.setNoGravity(true)
+            player.world.addEntity(potion)
+            delayTask(5.ticks(TickUnit.SECONDS)) {
+                if (potion.isAlive) potion.remove()
             }
         }
     }

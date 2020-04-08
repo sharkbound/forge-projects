@@ -1,6 +1,7 @@
 package sharkbound.forge.shared.extensions
 
 import net.minecraft.entity.Entity
+import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.inventory.EquipmentSlotType
@@ -71,16 +72,6 @@ val PlayerEntity.item: HeldItemInfo
         return HeldItemInfo(hand, getHeldItem(hand), this)
     }
 
-fun PlayerEntity.rayTraceBlocks(
-        distance: Double,
-        blockMode: RayTraceContext.BlockMode = RayTraceContext.BlockMode.OUTLINE,
-        fluidMode: RayTraceContext.FluidMode = RayTraceContext.FluidMode.SOURCE_ONLY,
-        startVec: Vec3d? = null
-): BlockRayTraceResult =
-        run {
-            val start = startVec ?: eyePos
-            world.rayTraceBlocks(RayTraceContext(start, start.add(lookVec.mul(distance)), blockMode, fluidMode, this))
-        }
 
 operator fun PlayerEntity.get(hand: Hand): ItemStack =
         getHeldItem(hand)
