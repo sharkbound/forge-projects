@@ -14,8 +14,8 @@ import net.minecraft.world.World
 import net.minecraft.world.server.ServerWorld
 import sharkbound.commonutils.util.randDouble
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.util.delayRepeatingTask
-import sharkbound.forge.firstmod.util.delayTask
+import sharkbound.forge.firstmod.events.delayRepeatingTask
+import sharkbound.forge.firstmod.events.delayTask
 import sharkbound.forge.shared.extensions.addFallingBlock
 import sharkbound.forge.shared.extensions.centerVec
 import sharkbound.forge.shared.extensions.get

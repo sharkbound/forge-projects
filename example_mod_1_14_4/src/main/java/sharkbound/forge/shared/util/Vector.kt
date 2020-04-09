@@ -14,3 +14,15 @@ fun vec3D(x: Long = 0, y: Long = 0, z: Long = 0): Vec3d =
 
 fun vec3D(x: Float = 0f, y: Float = 0f, z: Float = 0f): Vec3d =
         Vec3d(x.toDouble(), y.toDouble(), z.toDouble())
+
+fun vec3D(value: Int): Vec3d =
+        vec3D(value, value, value)
+
+fun vec3D(value: Long): Vec3d =
+        vec3D(value, value, value)
+
+fun vec3D(value: Float): Vec3d =
+        vec3D(value, value, value)
+
+fun vec3D(value: Double): Vec3d =
+        vec3D(value, value, value)

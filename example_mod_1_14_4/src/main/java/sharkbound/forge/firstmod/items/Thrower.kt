@@ -1,5 +1,6 @@
 package sharkbound.forge.firstmod.items
 
+import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.projectile.PotionEntity
@@ -9,36 +10,40 @@ import net.minecraft.item.Items
 import net.minecraft.item.UseAction
 import net.minecraft.potion.Effect
 import net.minecraft.potion.Effects
-import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionUtils
-import net.minecraft.potion.Potions
-import net.minecraft.stats.Stat
-import net.minecraft.stats.Stats
 import net.minecraft.util.ActionResult
 import net.minecraft.util.ActionResultType
 import net.minecraft.util.Hand
+import net.minecraft.util.math.AxisAlignedBB
+import net.minecraft.util.math.Vec3d
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.world.World
 import sharkbound.commonutils.extensions.choice
 import sharkbound.commonutils.util.randDouble
 import sharkbound.commonutils.util.randInt
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.util.delayTask
+import sharkbound.forge.firstmod.data.minecraft
+import sharkbound.forge.firstmod.events.delayTask
 import sharkbound.forge.shared.extensions.component1
 import sharkbound.forge.shared.extensions.component2
 import sharkbound.forge.shared.extensions.component3
+import sharkbound.forge.shared.extensions.dist
+import sharkbound.forge.shared.extensions.entitiesInAABB
 import sharkbound.forge.shared.extensions.eyePos
 import sharkbound.forge.shared.extensions.instance
 import sharkbound.forge.shared.extensions.isServerPlayer
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.mul
-import sharkbound.forge.shared.extensions.send
+import sharkbound.forge.shared.extensions.pos
+import sharkbound.forge.shared.extensions.rayTraceBlocks
+import sharkbound.forge.shared.extensions.setPos
 import sharkbound.forge.shared.extensions.setVel
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.extensions.toActionResult
 import sharkbound.forge.shared.util.TickUnit
 import sharkbound.forge.shared.util.toText
+import sharkbound.forge.shared.util.vec3D
 import kotlin.contracts.ExperimentalContracts
 
 class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
@@ -51,7 +56,7 @@ class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     }
 
     override fun getDisplayName(stack: ItemStack): ITextComponent {
-        return toText("&aThrower ")
+        return toText("&aThrower")
     }
 
     override fun getUseDuration(stack: ItemStack): Int {
@@ -69,6 +74,16 @@ class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
 
     val allEffects = Effects::class.java.declaredFields.mapNotNull { it.get(null) as? Effect }
 
+    private fun calcVelocity(hit: Vec3d, player: PlayerEntity, spawnVec: Vec3d): Vec3d {
+        val range = 5
+        val mobs = player.world.entitiesInAABB<Entity>(AxisAlignedBB(hit.subtract(vec3D(range)), hit.add(vec3D(range)))).filter { it != player && it.isLiving }
+
+        return (if (mobs.isEmpty())
+            hit.subtract(player.eyePos)
+        else
+            mobs.minBy { it dist player }!!.pos.subtract(spawnVec)).normalize().mul(1)
+    }
+
     @ExperimentalContracts
     override fun onUsingTick(stack: ItemStack?, player: LivingEntity?, count: Int) {
         if (!player.isServerPlayer() || !player.world.isServerWorld()) return
@@ -81,11 +96,13 @@ class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
                 potion.item = it
             }
             val (x, y, z) = player.eyePos
-            potion.setPositionAndRotation(x + randDouble(-range, range), y + randDouble(-range, range), z + randDouble(-range, range), player.rotationYaw, player.rotationPitch)
-            potion.setVel(player.lookVec.normalize().mul(1))
+            val hit = player.rayTraceBlocks(100.0).hitVec
+            val spawn = vec3D(x + randDouble(-range, range), y + randDouble(-range, range), z + randDouble(-range, range))
+            potion.setPos(spawn)
+            potion.setVel(calcVelocity(hit, player, spawn))
             potion.setNoGravity(true)
             player.world.addEntity(potion)
-            delayTask(10.ticks(TickUnit.SECONDS)) {
+            delayTask(15.ticks(TickUnit.SECONDS)) {
                 if (potion.isAlive) potion.remove()
             }
         }

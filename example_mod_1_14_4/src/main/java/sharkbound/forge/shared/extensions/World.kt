@@ -2,9 +2,12 @@ package sharkbound.forge.shared.extensions
 
 import net.minecraft.block.BlockState
 import net.minecraft.client.world.ClientWorld
+import net.minecraft.entity.Entity
+import net.minecraft.entity.EntityType
 import net.minecraft.entity.effect.LightningBoltEntity
 import net.minecraft.entity.item.FallingBlockEntity
 import net.minecraft.particles.IParticleData
+import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import net.minecraft.world.server.ServerWorld
@@ -51,3 +54,6 @@ fun ServerWorld.addFallingBlock(pos: Vec3d, blockState: BlockState, velocity: Ve
             it.fallTime = 1
             addEntity(it)
         }
+
+inline fun <reified T : Entity> World.entitiesInAABB(aabb: AxisAlignedBB) =
+        world.getEntitiesWithinAABB(T::class.java, aabb)

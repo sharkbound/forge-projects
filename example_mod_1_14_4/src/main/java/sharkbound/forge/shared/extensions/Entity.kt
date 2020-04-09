@@ -1,6 +1,7 @@
 package sharkbound.forge.shared.extensions
 
 import net.minecraft.entity.Entity
+import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.util.text.StringTextComponent
 
@@ -37,3 +38,15 @@ fun Entity.addVel(x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
 fun Entity.addVel(vec3d: Vec3d) {
     addVelocity(vec3d.x, vec3d.y, vec3d.z)
 }
+
+infix fun Entity.dist(other: Entity): Double =
+        positionVec dist other.positionVec
+
+infix fun Entity.dist(other: Vec3d): Double =
+        positionVec dist other
+
+val Entity.pos: Vec3d
+    get() = positionVec
+
+val Entity.block: BlockPos
+    get() = position
