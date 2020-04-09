@@ -1,31 +1,14 @@
 package sharkbound.forge.firstmod.events
 
-import net.minecraft.entity.EntityType
-import net.minecraft.entity.projectile.PotionEntity
-import net.minecraft.item.ItemStack
-import net.minecraft.item.Items
-import net.minecraft.potion.EffectInstance
-import net.minecraft.potion.Effects
-import net.minecraft.potion.PotionUtils
-import net.minecraft.potion.Potions
-import net.minecraft.world.dimension.DimensionType
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent
-import sharkbound.commonutils.util.randDouble
-import sharkbound.commonutils.util.randInt
+import sharkbound.forge.firstmod.data.ModCommands
 import sharkbound.forge.firstmod.data.forgeEventBus
-import sharkbound.forge.firstmod.util.delayRepeatingTask
-import sharkbound.forge.firstmod.util.delayTask
-import sharkbound.forge.shared.extensions.instance
-import sharkbound.forge.shared.extensions.send
-import sharkbound.forge.shared.extensions.ticks
-import sharkbound.forge.shared.util.TickUnit
-import sharkbound.forge.shared.util.playerList
-import sharkbound.forge.shared.util.server
 
 @Mod.EventBusSubscriber
 object ServerEvents {
@@ -51,6 +34,12 @@ object ServerEvents {
         tickHandlerAddQueue.clear()
         tickHandlers.clear()
         completedHandlers.clear()
+    }
+
+    @SubscribeEvent
+    @JvmStatic
+    fun onServerStarting(e: FMLServerStartingEvent) {
+        ModCommands.register(e.commandDispatcher)
     }
 
     @SubscribeEvent

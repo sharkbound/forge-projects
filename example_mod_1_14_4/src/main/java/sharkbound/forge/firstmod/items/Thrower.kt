@@ -9,7 +9,11 @@ import net.minecraft.item.Items
 import net.minecraft.item.UseAction
 import net.minecraft.potion.Effect
 import net.minecraft.potion.Effects
+import net.minecraft.potion.Potion
 import net.minecraft.potion.PotionUtils
+import net.minecraft.potion.Potions
+import net.minecraft.stats.Stat
+import net.minecraft.stats.Stats
 import net.minecraft.util.ActionResult
 import net.minecraft.util.ActionResultType
 import net.minecraft.util.Hand
@@ -25,14 +29,17 @@ import sharkbound.forge.shared.extensions.component2
 import sharkbound.forge.shared.extensions.component3
 import sharkbound.forge.shared.extensions.eyePos
 import sharkbound.forge.shared.extensions.instance
+import sharkbound.forge.shared.extensions.isServerPlayer
+import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.mul
-import sharkbound.forge.shared.extensions.rayTraceBlocks
+import sharkbound.forge.shared.extensions.send
 import sharkbound.forge.shared.extensions.setVel
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.extensions.toActionResult
 import sharkbound.forge.shared.util.TickUnit
 import sharkbound.forge.shared.util.toText
+import kotlin.contracts.ExperimentalContracts
 
 class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     companion object {
@@ -62,20 +69,23 @@ class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
 
     val allEffects = Effects::class.java.declaredFields.mapNotNull { it.get(null) as? Effect }
 
+    @ExperimentalContracts
     override fun onUsingTick(stack: ItemStack?, player: LivingEntity?, count: Int) {
-        if (player == null || player.world.isRemote) return
-        val range = 1
+        if (!player.isServerPlayer() || !player.world.isServerWorld()) return
+        val range = 2
+
         PotionEntity(player.world, player).let { potion ->
-            potion.item = PotionUtils.appendEffects(
-                    ItemStack(Items.SPLASH_POTION),
-                    arrayListOf(allEffects.choice().instance(10.ticks(TickUnit.SECONDS), 3))
-            )
+            ItemStack(Items.SPLASH_POTION).let {
+                it.orCreateTag.putInt("CustomPotionColor", randInt(0, 0xffffff))
+                PotionUtils.appendEffects(it, arrayListOf(allEffects.choice().instance(10.ticks(TickUnit.SECONDS), 3)))
+                potion.item = it
+            }
             val (x, y, z) = player.eyePos
             potion.setPositionAndRotation(x + randDouble(-range, range), y + randDouble(-range, range), z + randDouble(-range, range), player.rotationYaw, player.rotationPitch)
             potion.setVel(player.lookVec.normalize().mul(1))
             potion.setNoGravity(true)
             player.world.addEntity(potion)
-            delayTask(5.ticks(TickUnit.SECONDS)) {
+            delayTask(10.ticks(TickUnit.SECONDS)) {
                 if (potion.isAlive) potion.remove()
             }
         }
