@@ -78,10 +78,10 @@ class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
         val range = 5
         val mobs = player.world.entitiesInAABB<Entity>(AxisAlignedBB(hit.subtract(vec3D(range)), hit.add(vec3D(range)))).filter { it != player && it.isLiving }
 
-        return (if (mobs.isEmpty())
-            hit.subtract(player.eyePos)
-        else
-            mobs.minBy { it dist player }!!.pos.subtract(spawnVec)).normalize().mul(1)
+        return when {
+            mobs.isEmpty() -> hit.subtract(player.eyePos)
+            else -> mobs.minBy { it dist player }!!.pos.subtract(spawnVec)
+        }.normalize().mul(randDouble(.3, 3.0))
     }
 
     @ExperimentalContracts
@@ -103,6 +103,7 @@ class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
             potion.setNoGravity(true)
             player.world.addEntity(potion)
             delayTask(15.ticks(TickUnit.SECONDS)) {
+                // TODO add active tracking?
                 if (potion.isAlive) potion.remove()
             }
         }
