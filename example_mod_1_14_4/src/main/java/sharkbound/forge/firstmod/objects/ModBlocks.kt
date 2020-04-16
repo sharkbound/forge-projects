@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.data
+package sharkbound.forge.firstmod.objects
 
 import net.minecraft.tileentity.TileEntityType
 import net.minecraftforge.fml.common.Mod

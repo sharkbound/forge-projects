@@ -5,8 +5,8 @@ import net.minecraft.network.PacketBuffer
 import net.minecraft.particles.IParticleData
 import net.minecraft.particles.ParticleType
 import net.minecraft.util.math.Vec3d
-import sharkbound.forge.firstmod.data.ModParticles
-import sharkbound.forge.firstmod.data.forgeParticleRegistry
+import sharkbound.forge.firstmod.objects.ModParticles
+import sharkbound.forge.firstmod.objects.forgeParticleRegistry
 
 class MehBoltParticleData(tx: Double, ty: Double, tz: Double) : IParticleData {
     val target = Vec3d(tx, ty, tz)

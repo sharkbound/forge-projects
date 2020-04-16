@@ -6,10 +6,10 @@ import net.minecraftforge.api.distmarker.OnlyIn
 import net.minecraftforge.client.event.InputEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
-import sharkbound.forge.firstmod.data.ModItems
-import sharkbound.forge.firstmod.data.forgeEventBus
-import sharkbound.forge.firstmod.data.mcPlayer
-import sharkbound.forge.firstmod.data.minecraft
+import sharkbound.forge.firstmod.objects.ModItems
+import sharkbound.forge.firstmod.objects.forgeEventBus
+import sharkbound.forge.firstmod.objects.mcPlayer
+import sharkbound.forge.firstmod.objects.minecraft
 import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.shared.extensions.ScrollDirection
 import sharkbound.forge.shared.extensions.anyMouseKeyDown

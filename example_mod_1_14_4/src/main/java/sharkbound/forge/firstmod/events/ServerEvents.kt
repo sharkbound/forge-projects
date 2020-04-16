@@ -7,8 +7,8 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent
-import sharkbound.forge.firstmod.data.ModCommands
-import sharkbound.forge.firstmod.data.forgeEventBus
+import sharkbound.forge.firstmod.objects.ModCommands
+import sharkbound.forge.firstmod.objects.forgeEventBus
 
 @Mod.EventBusSubscriber
 object ServerEvents {

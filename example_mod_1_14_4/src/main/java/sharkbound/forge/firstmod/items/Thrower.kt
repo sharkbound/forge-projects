@@ -22,7 +22,6 @@ import sharkbound.commonutils.extensions.choice
 import sharkbound.commonutils.util.randDouble
 import sharkbound.commonutils.util.randInt
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.data.minecraft
 import sharkbound.forge.firstmod.events.delayTask
 import sharkbound.forge.shared.extensions.component1
 import sharkbound.forge.shared.extensions.component2

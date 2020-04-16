@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.blocks.MehBlock
-import sharkbound.forge.firstmod.data.ModBlocks
+import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.firstmod.entities.MehBlockItemEntity
 import sharkbound.forge.firstmod.gui.container.RepulserContainer
 import sharkbound.forge.firstmod.items.EarthShatterer

@@ -1,7 +1,7 @@
 package sharkbound.forge.shared.extensions
 
 import net.minecraftforge.eventbus.api.Event
-import sharkbound.forge.firstmod.data.logger
+import sharkbound.forge.firstmod.objects.logger
 
 fun Event.cancel() {
     if (isCancelable) {

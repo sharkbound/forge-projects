@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import org.lwjgl.opengl.GL11
-import sharkbound.forge.firstmod.data.minecraft
+import sharkbound.forge.firstmod.objects.minecraft
 import sharkbound.forge.firstmod.particles.data.MehBoltParticleData
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.util.TickUnit

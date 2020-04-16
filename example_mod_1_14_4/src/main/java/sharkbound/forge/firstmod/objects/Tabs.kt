@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.data
+package sharkbound.forge.firstmod.objects
 
 import sharkbound.forge.firstmod.MOD_ID
 

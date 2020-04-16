@@ -17,7 +17,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider
 import sharkbound.commonutils.extensions.choice
 import sharkbound.commonutils.extensions.len
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.data.ModBlocks
+import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.firstmod.networking.Network
 import sharkbound.forge.firstmod.networking.packets.MehWandModeSwitchPacket
 import sharkbound.forge.firstmod.potions.ModEffects

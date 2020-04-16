@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.data
+package sharkbound.forge.firstmod.objects
 
 import net.minecraft.client.Minecraft
 import net.minecraft.particles.ParticleType

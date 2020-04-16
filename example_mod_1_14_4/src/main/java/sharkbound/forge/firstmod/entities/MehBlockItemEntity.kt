@@ -3,8 +3,8 @@ package sharkbound.forge.firstmod.entities
 import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.TileEntity
 import sharkbound.commonutils.extensions.ifNotNull
-import sharkbound.forge.firstmod.data.ModBlocks
-import sharkbound.forge.firstmod.data.ModParticles
+import sharkbound.forge.firstmod.objects.ModBlocks
+import sharkbound.forge.firstmod.objects.ModParticles
 import sharkbound.forge.shared.extensions.centerVec
 import sharkbound.forge.shared.extensions.isClientWorld
 import sharkbound.forge.shared.extensions.ticks

@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.data
+package sharkbound.forge.firstmod.objects
 
 import com.mojang.brigadier.CommandDispatcher
 import net.minecraft.command.CommandSource
@@ -9,8 +9,5 @@ object ModCommands {
     fun register(dis: CommandDispatcher<CommandSource>) {
         FlyCommand.register(dis)
         WalkCommand.register(dis)
-//        used for nested commands
-//        dis.register(Commands.literal(MOD_ID)
-//                .then(FlyCommand.register(dis)))
     }
 }

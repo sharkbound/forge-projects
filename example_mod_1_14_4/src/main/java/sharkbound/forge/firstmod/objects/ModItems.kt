@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.data
+package sharkbound.forge.firstmod.objects
 
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.registries.ObjectHolder
