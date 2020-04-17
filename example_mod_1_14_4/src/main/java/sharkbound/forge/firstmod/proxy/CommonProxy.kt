@@ -28,7 +28,7 @@ open class CommonProxy : Proxy {
                 GenerationStage.Decoration.SURFACE_STRUCTURES,
                 ConfiguredFeature(
                         ModFeatures.REDSTONE_TREE,
-                        RedstoneTreeConfig(50, RedstoneTree.REDSTONE_TREE)))
+                        RedstoneTreeConfig(100, RedstoneTree.REDSTONE_TREE)))
     }
 
     override fun commonSetup(e: FMLCommonSetupEvent) {

@@ -18,18 +18,20 @@ class RedstoneTreeStart(structure: Structure<*>, chunkX: Int, chunkZ: Int, biome
     override fun init(generator: ChunkGenerator<*>, manager: TemplateManager?, chunkX: Int, chunkZ: Int, biome: Biome?) {
         val posX = chunkX shl 4
         val posZ = chunkZ shl 4
-        val height1 = generator.func_222532_b(posX + 3, posZ + 3, Heightmap.Type.OCEAN_FLOOR_WG)
-        val height2 = generator.func_222532_b(posX + 13, posZ + 3, Heightmap.Type.OCEAN_FLOOR_WG)
-        val height3 = generator.func_222532_b(posX + 3, posZ + 13, Heightmap.Type.OCEAN_FLOOR_WG)
-        val height4 = generator.func_222532_b(posX + 13, posZ + 13, Heightmap.Type.OCEAN_FLOOR_WG)
-        if (height1 == height2 && height1 == height3 && height1 == height4 && height1 >= generator.seaLevel) {
-            val pos = BlockPos(posX + 3, 90, posZ + 3)
-            val rotation: Rotation = enumValues<Rotation>().random()
-            val config: RedstoneTreeConfig? = generator.getStructureConfig(biome, ModFeatures.REDSTONE_TREE)
-            if (config != null && manager != null) {
-                components.add(RedstoneTreePiece(manager, pos, rotation, config))
-                recalculateStructureSize()
-            }
+//        val height1 = generator.func_222532_b(posX + 3, posZ + 3, Heightmap.Type.OCEAN_FLOOR_WG)
+//        val height2 = generator.func_222532_b(posX + 13, posZ + 3, Heightmap.Type.OCEAN_FLOOR_WG)
+//        val height3 = generator.func_222532_b(posX + 3, posZ + 13, Heightmap.Type.OCEAN_FLOOR_WG)
+//        val height4 = generator.func_222532_b(posX + 13, posZ + 13, Heightmap.Type.OCEAN_FLOOR_WG)
+//        if (height1 == height2 && height1 == height3 && height1 == height4 && height1 >= generator.seaLevel) {
+        // debug
+        println("YES!")
+        val pos = BlockPos(posX + 3, 90, posZ + 3)
+        val rotation: Rotation = enumValues<Rotation>().random()
+        val config: RedstoneTreeConfig? = generator.getStructureConfig(biome, ModFeatures.REDSTONE_TREE)
+        if (config != null && manager != null) {
+            components.add(RedstoneTreePiece(manager, pos, rotation, config))
+            recalculateStructureSize()
         }
+//        }
     }
 }

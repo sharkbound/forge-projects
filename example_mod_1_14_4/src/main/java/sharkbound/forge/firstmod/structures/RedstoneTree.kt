@@ -25,7 +25,7 @@ class RedstoneTree {
 }
 
 class RedstoneTreePiece(val manager: TemplateManager, val templateLocation: ResourceLocation) : TemplateStructurePiece(ModStructurePieceType.REDSTONE_TREE, 0) {
-    var rot = Rotation.NONE
+    var rot = Rotation.CLOCKWISE_90
 
     constructor(manager: TemplateManager, compound: CompoundNBT) : this(manager, ResourceLocation(compound.getString("Template"))) {
         rot = enumValueOf(compound.getString("Rot"))
@@ -46,14 +46,12 @@ class RedstoneTreePiece(val manager: TemplateManager, val templateLocation: Reso
                 templatePosition,
                 PlacementSettings()
                         .setRotation(rot)
-                        .setCenterOffset(BlockPos(5, 0, 5))
+                        .setCenterOffset(BlockPos(0, 0, 0))
                         .addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK)
                         .addProcessor(JigsawReplacementStructureProcessor.INSTANCE))
     }
 
     override fun handleDataMarker(function: String, pos: BlockPos, worldIn: IWorld, rand: Random, sbb: MutableBoundingBox) {
-        // debug
-        println("FUNCTION: $function")
     }
 
     override fun readAdditional(tag: CompoundNBT) {

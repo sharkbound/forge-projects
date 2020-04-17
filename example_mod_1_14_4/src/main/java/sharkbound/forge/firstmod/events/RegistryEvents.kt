@@ -5,6 +5,7 @@ import net.minecraft.inventory.container.ContainerType
 import net.minecraft.item.Item
 import net.minecraft.potion.Effect
 import net.minecraft.tileentity.TileEntityType
+import net.minecraft.util.registry.Registry
 import net.minecraft.world.gen.feature.Feature
 import net.minecraftforge.common.extensions.IForgeContainerType
 import net.minecraftforge.event.RegistryEvent
@@ -21,6 +22,7 @@ import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.firstmod.items.Repulser
 import sharkbound.forge.firstmod.items.Striker
 import sharkbound.forge.firstmod.items.Thrower
+import sharkbound.forge.firstmod.objects.ModFeatures
 import sharkbound.forge.firstmod.potions.ChaosEffect
 import sharkbound.forge.firstmod.structures.RedstoneTree
 import sharkbound.forge.firstmod.structures.RedstoneTreeStructure
@@ -55,6 +57,7 @@ object RegistryEvents {
     fun onFeatureRegistry(e: RegistryEvent.Register<Feature<*>>) {
         e.registry.run {
             register(RedstoneTreeStructure(RedstoneTreeConfig.Companion::deserialize).setRegistryName("redstone_tree"))
+//            ModFeatures.REDSTONE_TREE = Registry.register(Registry.FEATURE, "firstmod:" + RedstoneTree.REGISTRY_NAME, RedstoneTreeStructure(RedstoneTreeConfig.Companion::deserialize))
         }
     }
 
