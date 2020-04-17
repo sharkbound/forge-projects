@@ -20,20 +20,15 @@ open class CommonProxy : Proxy {
         get() = error("PROXY ERROR: trying to access client world from server")
 
     override fun init() {
-        ModFeatures.init()
+        ModFeatures
     }
 
     private fun addFeatureToBiome(biome: Biome) {
-        try {
-            biome.addFeature(
-                    GenerationStage.Decoration.SURFACE_STRUCTURES,
-                    ConfiguredFeature(
-                            ModFeatures.REDSTONE_TREE.get(),
-                            RedstoneTreeConfig(50, RedstoneTree.REDSTONE_TREE)))
-        } catch (e: Exception) {
-            println(e)
-            e.printStackTrace()
-        }
+        biome.addFeature(
+                GenerationStage.Decoration.SURFACE_STRUCTURES,
+                ConfiguredFeature(
+                        ModFeatures.REDSTONE_TREE,
+                        RedstoneTreeConfig(50, RedstoneTree.REDSTONE_TREE)))
     }
 
     override fun commonSetup(e: FMLCommonSetupEvent) {

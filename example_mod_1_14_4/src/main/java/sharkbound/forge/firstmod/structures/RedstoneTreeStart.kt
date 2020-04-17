@@ -25,7 +25,7 @@ class RedstoneTreeStart(structure: Structure<*>, chunkX: Int, chunkZ: Int, biome
         if (height1 == height2 && height1 == height3 && height1 == height4 && height1 >= generator.seaLevel) {
             val pos = BlockPos(posX + 3, 90, posZ + 3)
             val rotation: Rotation = enumValues<Rotation>().random()
-            val config: RedstoneTreeConfig? = generator.getStructureConfig(biome, ModFeatures.REDSTONE_TREE.get())
+            val config: RedstoneTreeConfig? = generator.getStructureConfig(biome, ModFeatures.REDSTONE_TREE)
             if (config != null && manager != null) {
                 components.add(RedstoneTreePiece(manager, pos, rotation, config))
                 recalculateStructureSize()

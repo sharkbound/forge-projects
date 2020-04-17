@@ -20,6 +20,7 @@ import java.util.*
 class RedstoneTree {
     companion object {
         val REDSTONE_TREE = ResourceLocation(MOD_ID, "redtree")
+        const val REGISTRY_NAME = "redstone_tree"
     }
 }
 
