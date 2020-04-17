@@ -13,6 +13,7 @@ class RedstoneTreeConfig(val chance: Int, val template: ResourceLocation) : IFea
             )))
 
     companion object {
+        @JvmStatic
         fun deserialize(dynamic: Dynamic<*>): RedstoneTreeConfig =
                 RedstoneTreeConfig(dynamic["chance"].asInt(0), ResourceLocation(dynamic["template"].asString("minecraft:empty")))
     }
