@@ -9,6 +9,7 @@ import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.IFeatureConfig
+import net.minecraft.world.server.ServerWorld
 import net.minecraftforge.common.extensions.IForgeContainerType
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -26,7 +27,9 @@ import sharkbound.forge.firstmod.items.Repulser
 import sharkbound.forge.firstmod.items.Striker
 import sharkbound.forge.firstmod.items.Thrower
 import sharkbound.forge.firstmod.objects.ModBlocks
+import sharkbound.forge.firstmod.objects.minecraft
 import sharkbound.forge.firstmod.potions.ChaosEffect
+import sharkbound.forge.shared.util.server
 import sharkbound.forge.shared.util.tileEntityRegistryBuilder
 
 @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)

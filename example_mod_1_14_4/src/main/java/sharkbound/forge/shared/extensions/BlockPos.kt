@@ -3,6 +3,7 @@ package sharkbound.forge.shared.extensions
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.Blocks
+import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.IWorld
@@ -67,3 +68,6 @@ fun BlockPos.toVec3d(): Vec3d =
 
 fun BlockPos.isAir(world: IWorld): Boolean =
         world.isAirBlock(this)
+
+fun BlockPos.tileEntity(world: IWorld): TileEntity? =
+        world.getTileEntity(this)
