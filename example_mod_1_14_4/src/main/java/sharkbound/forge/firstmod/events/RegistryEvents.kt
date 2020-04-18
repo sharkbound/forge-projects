@@ -1,18 +1,20 @@
 package sharkbound.forge.firstmod.events
 
+import com.mojang.datafixers.Dynamic
 import net.minecraft.block.Block
 import net.minecraft.inventory.container.ContainerType
 import net.minecraft.item.Item
 import net.minecraft.potion.Effect
 import net.minecraft.tileentity.TileEntityType
+import net.minecraft.util.registry.Registry
 import net.minecraft.world.gen.feature.Feature
+import net.minecraft.world.gen.feature.IFeatureConfig
 import net.minecraftforge.common.extensions.IForgeContainerType
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.blocks.MehBlock
-import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.firstmod.entities.MehBlockItemEntity
 import sharkbound.forge.firstmod.features.TestFeature
 import sharkbound.forge.firstmod.features.config.TestFeatureConfig
@@ -23,6 +25,7 @@ import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.firstmod.items.Repulser
 import sharkbound.forge.firstmod.items.Striker
 import sharkbound.forge.firstmod.items.Thrower
+import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.firstmod.potions.ChaosEffect
 import sharkbound.forge.shared.util.tileEntityRegistryBuilder
 
@@ -80,7 +83,12 @@ object RegistryEvents {
     @JvmStatic
     fun onFeatureRegistry(e: RegistryEvent.Register<Feature<*>>) {
         e.registry.run {
-            register(TestFeature(TestFeatureConfig.Companion::deserialize))
+            ModFeatures.TEST = FeatureUtil.registerFeature("$MOD_ID:${TestFeature.REGISTRY_NAME}", TestFeature { TestFeatureConfig.deserialize(it as Dynamic<*>) })
         }
     }
+}
+
+private object FeatureUtil {
+    fun <C : IFeatureConfig?, F : Feature<C>?> registerFeature(key: String, value: F): F =
+            Registry.register<Feature<*>>(Registry.FEATURE, key, value) as F
 }
