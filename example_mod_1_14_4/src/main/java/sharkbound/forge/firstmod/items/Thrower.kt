@@ -102,7 +102,6 @@ class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
             potion.setNoGravity(true)
             player.world.addEntity(potion)
             delayTask(15.ticks(TickUnit.SECONDS)) {
-                // TODO add active tracking?
                 if (potion.isAlive) potion.remove()
             }
         }
