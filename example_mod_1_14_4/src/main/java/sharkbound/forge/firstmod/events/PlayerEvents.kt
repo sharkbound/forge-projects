@@ -13,6 +13,8 @@ import net.minecraftforge.fml.common.Mod
 import sharkbound.commonutils.rand
 import sharkbound.forge.firstmod.objects.forgeEventBus
 import sharkbound.forge.firstmod.modResourceId
+import sharkbound.forge.firstmod.objects.Flags
+import sharkbound.forge.shared.extensions.hasNBTKey
 import sharkbound.forge.shared.extensions.isItem
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.rayTraceBlocks
@@ -35,16 +37,15 @@ object PlayerEvents {
     @ExperimentalContracts
     @SubscribeEvent
     @JvmStatic
-    fun onPlayerInteract(e: PlayerInteractEvent) {
+    fun playerRightClickItem(e: PlayerInteractEvent.RightClickItem) {
         if (e.side != LogicalSide.SERVER) return
 
         val world = e.world
-        if (e.itemStack isItem Items.NETHER_STAR && world.isServerWorld()) {
+        if (e.itemStack hasNBTKey Flags.DUNGEON_SPAWNER_KEY && world.isServerWorld()) {
             val path = modResourceId("glass_box")
             val template = world.structureTemplateManager.getTemplate(path) ?: return
             val settings = PlacementSettings()
             val pos = e.player.rayTraceBlocks(30.0).pos
-            val world = e.world
             template.addBlocksToWorld(e.world, pos, settings)
             for (value in template.func_215381_a(pos, settings, Blocks.STRUCTURE_BLOCK)) {
                 when (value.nbt["metadata"]?.string) {

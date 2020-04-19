@@ -18,3 +18,13 @@ fun ItemStack.toActionResult(result: ActionResultType): ActionResult<ItemStack> 
 inline infix fun ItemStack.modifyNBT(block: CompoundNBT.() -> Unit) {
     orCreateTag.block()
 }
+
+infix fun ItemStack?.hasNBTKey(key: String): Boolean =
+        this?.tag?.contains(key) == true
+
+val ItemStack?.name: String
+    get() = when {
+        this == null -> ""
+        hasDisplayName() -> displayName.formattedText
+        else -> item.name.formattedText
+    }
