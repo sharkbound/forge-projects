@@ -20,7 +20,6 @@ class DisplacementEnchantment : Enchantment(Rarity.COMMON, EnchantmentType.ALL, 
     @ExperimentalContracts
     override fun onEntityDamaged(user: LivingEntity, target: Entity, level: Int) {
         if (target.isLivingEntity()) {
-            val startPos = target.pos
             val maxVel = 2
             target.setVel(vec3D(randDouble(-maxVel, maxVel), randDouble(.5, 2.0), randDouble(-maxVel, maxVel)))
         }
