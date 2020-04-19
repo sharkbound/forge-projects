@@ -1,9 +1,12 @@
 package sharkbound.forge.shared.extensions
 
 import net.minecraft.entity.Entity
+import net.minecraft.entity.LivingEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.util.text.StringTextComponent
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
 
 fun Entity.setInAir() {
     isAirBorne = true
@@ -11,6 +14,10 @@ fun Entity.setInAir() {
 }
 
 fun Entity.teleportRelative(x: Double = 0.0, y: Double = 0.0, z: Double = 0.0) {
+    teleportKeepLoaded(posX + x, posY + y, posZ + z)
+}
+
+fun Entity.teleportRelative(x: Int = 0, y: Int = 0, z: Int = 0) {
     teleportKeepLoaded(posX + x, posY + y, posZ + z)
 }
 
@@ -50,3 +57,11 @@ val Entity.pos: Vec3d
 
 val Entity.block: BlockPos
     get() = position
+
+@ExperimentalContracts
+fun Entity.isLivingEntity(): Boolean {
+    contract {
+        returns(true) implies (this@isLivingEntity is LivingEntity)
+    }
+    return this is LivingEntity
+}

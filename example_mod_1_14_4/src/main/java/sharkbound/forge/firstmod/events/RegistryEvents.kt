@@ -2,6 +2,7 @@ package sharkbound.forge.firstmod.events
 
 import com.mojang.datafixers.Dynamic
 import net.minecraft.block.Block
+import net.minecraft.enchantment.Enchantment
 import net.minecraft.inventory.container.ContainerType
 import net.minecraft.item.Item
 import net.minecraft.potion.Effect
@@ -16,6 +17,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import sharkbound.forge.firstmod.MOD_ID
 import sharkbound.forge.firstmod.blocks.MehBlock
+import sharkbound.forge.firstmod.enchantments.DisplacementEnchantment
 import sharkbound.forge.firstmod.entities.MehBlockItemEntity
 import sharkbound.forge.firstmod.features.TestFeature
 import sharkbound.forge.firstmod.features.config.TestFeatureConfig
@@ -87,6 +89,14 @@ object RegistryEvents {
     fun onFeatureRegistry(e: RegistryEvent.Register<Feature<*>>) {
         e.registry.run {
             ModFeatures.TEST = FeatureUtil.registerFeature("$MOD_ID:${TestFeature.REGISTRY_NAME}", TestFeature { TestFeatureConfig.deserialize(it as Dynamic<*>) })
+        }
+    }
+
+    @SubscribeEvent
+    @JvmStatic
+    fun onEnchantmentRegistry(e: RegistryEvent.Register<Enchantment>) {
+        e.registry.run {
+            register(DisplacementEnchantment().setRegistryName(DisplacementEnchantment.REGISTRY_NAME))
         }
     }
 }
