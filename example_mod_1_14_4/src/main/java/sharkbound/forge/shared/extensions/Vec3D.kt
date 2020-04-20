@@ -21,11 +21,23 @@ fun Vec3d.toBlockPos(): BlockPos =
 infix fun Vec3d.dist(other: Vec3d): Double =
         (x - other.x).absoluteValue + (y - other.y).absoluteValue + (z - other.z).absoluteValue
 
-operator fun Vec3d.component1() =
+operator fun Vec3d.component1(): Double =
         x
 
-operator fun Vec3d.component2() =
+operator fun Vec3d.component2(): Double =
         y
 
-operator fun Vec3d.component3() =
+operator fun Vec3d.component3(): Double =
         z
+
+fun Vec3d.subtract(value: Double): Vec3d =
+        subtract(value, value, value)
+
+fun Vec3d.subtract(value: Int): Vec3d =
+        subtract(value.toDouble(), value.toDouble(), value.toDouble())
+
+fun Vec3d.add(value: Double): Vec3d =
+        add(value, value, value)
+
+fun Vec3d.add(value: Int): Vec3d =
+        add(value.toDouble(), value.toDouble(), value.toDouble())
