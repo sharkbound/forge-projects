@@ -27,7 +27,8 @@ class DuplicatorBlock : Block(
     }
 
     override fun createTileEntity(state: BlockState?, world: IBlockReader?): TileEntity? {
-        return TODO()
+        println("TODO!!!")
+        return null
     }
 
     companion object {

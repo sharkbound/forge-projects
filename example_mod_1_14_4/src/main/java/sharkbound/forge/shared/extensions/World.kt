@@ -9,6 +9,7 @@ import net.minecraft.entity.item.FallingBlockEntity
 import net.minecraft.particles.IParticleData
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.Vec3d
+import net.minecraft.world.IWorld
 import net.minecraft.world.World
 import net.minecraft.world.server.ServerWorld
 import kotlin.contracts.ExperimentalContracts
@@ -55,5 +56,5 @@ fun ServerWorld.addFallingBlock(pos: Vec3d, blockState: BlockState, velocity: Ve
             addEntity(it)
         }
 
-inline fun <reified T : Entity> World.entitiesInAABB(aabb: AxisAlignedBB) =
+inline fun <reified T : Entity> IWorld.entitiesInAABB(aabb: AxisAlignedBB) =
         world.getEntitiesWithinAABB(T::class.java, aabb)
