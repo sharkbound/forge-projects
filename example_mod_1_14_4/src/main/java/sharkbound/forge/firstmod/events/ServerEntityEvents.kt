@@ -32,14 +32,9 @@ object ServerEntityEvents {
         ent.goalSelector.addGoal(100, CreeperFollowPlayerGoal(ent))
     }
 
-    @ExperimentalContracts
-    @SubscribeEvent
-    @JvmStatic
-    fun playerMove(e: LivingEvent.LivingUpdateEvent) {
-        val player = e.entity as? ServerPlayerEntity ?: return
-        val width = 50
-        player.world.entitiesInAABB<MobEntity>(createAABB(player, width, 1, width)).forEach {
-            it.addPotionEffect(Effects.GLOWING.instance(2, particles = false))
-        }
-    }
+//    @ExperimentalContracts
+//    @SubscribeEvent
+//    @JvmStatic
+//    fun playerMove(e: LivingEvent.LivingUpdateEvent) {
+//    }
 }
