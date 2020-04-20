@@ -1,14 +1,25 @@
 package sharkbound.forge.firstmod.events
 
+import net.minecraft.entity.MobEntity
 import net.minecraft.entity.ai.goal.FollowOwnerGoal
 import net.minecraft.entity.ai.goal.MeleeAttackGoal
 import net.minecraft.entity.monster.CreeperEntity
+import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.entity.player.ServerPlayerEntity
+import net.minecraft.potion.Effects
 import net.minecraftforge.event.entity.EntityJoinWorldEvent
+import net.minecraftforge.event.entity.living.LivingEvent
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import sharkbound.forge.firstmod.entities.goals.CreeperFollowPlayerGoal
+import sharkbound.forge.shared.extensions.entitiesInAABB
+import sharkbound.forge.shared.extensions.instance
+import sharkbound.forge.shared.extensions.isServerWorld
+import sharkbound.forge.shared.extensions.pos
 import sharkbound.forge.shared.extensions.removeAllGoals
+import sharkbound.forge.shared.util.createAABB
+import kotlin.contracts.ExperimentalContracts
 
 @Mod.EventBusSubscriber
 object ServerEntityEvents {
@@ -19,6 +30,16 @@ object ServerEntityEvents {
         if (ent.world.isRemote || ent !is CreeperEntity) return
         ent.removeAllGoals()
         ent.goalSelector.addGoal(100, CreeperFollowPlayerGoal(ent))
-//        ent.goalSelector.addGoal(0, MeleeAttackGoal(ent, 1.0, false))
+    }
+
+    @ExperimentalContracts
+    @SubscribeEvent
+    @JvmStatic
+    fun playerMove(e: LivingEvent.LivingUpdateEvent) {
+        val player = e.entity as? ServerPlayerEntity ?: return
+        val width = 50
+        player.world.entitiesInAABB<MobEntity>(createAABB(player, width, 1, width)).forEach {
+            it.addPotionEffect(Effects.GLOWING.instance(2, particles = false))
+        }
     }
 }
