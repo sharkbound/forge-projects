@@ -89,15 +89,15 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
         if (c.world.isServerWorld()) {
             c.run {
                 val mode = modeOf(item)
-                val isMehBlock = pos.isBlock(world, ModBlocks.MEH_BLOCK)
+                val isMehBlock = pos.isBlock(world, ModBlocks.MEH)
                 when {
                     mode == Mode.DESTROY -> pos.destroyBlock(world)
                     mode == Mode.DUPLICATE && isMehBlock -> {
-                        pos.offset(allDirections.choice()).setBlock(world, ModBlocks.MEH_BLOCK)
+                        pos.offset(allDirections.choice()).setBlock(world, ModBlocks.MEH)
                     }
-                    mode == Mode.DESTROY_CHAIN && isMehBlock -> ModBlocks.MEH_BLOCK.destroyChain(pos, world)
-                    mode == Mode.REPLACE -> pos.setBlock(world, ModBlocks.MEH_BLOCK)
-                    mode == Mode.REPLACE_OFFSET -> pos.offset(face).setBlock(world, ModBlocks.MEH_BLOCK)
+                    mode == Mode.DESTROY_CHAIN && isMehBlock -> ModBlocks.MEH.destroyChain(pos, world)
+                    mode == Mode.REPLACE -> pos.setBlock(world, ModBlocks.MEH)
+                    mode == Mode.REPLACE_OFFSET -> pos.offset(face).setBlock(world, ModBlocks.MEH)
                 }
             }
         }

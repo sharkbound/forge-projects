@@ -13,11 +13,11 @@ import sharkbound.forge.firstmod.entities.MehBlockItemEntity
 import sharkbound.forge.shared.extensions.destroyBlock
 import sharkbound.forge.shared.extensions.isBlock
 
-class MehBlock : Block(
+class DuplicatorBlock : Block(
         Properties.create(Material.IRON)
                 .sound(SoundType.METAL)
                 .hardnessAndResistance(2f)
-                .lightValue(14)) {
+                .lightValue(0)) {
     init {
         setRegistryName(REGISTRY_NAME)
     }
@@ -30,19 +30,7 @@ class MehBlock : Block(
         return MehBlockItemEntity()
     }
 
-    fun destroyChain(pos: BlockPos, world: World) {
-        if (pos.isBlock(world, ModBlocks.MEH)) {
-            pos.destroyBlock(world)
-            destroyChain(pos.east(), world)
-            destroyChain(pos.west(), world)
-            destroyChain(pos.north(), world)
-            destroyChain(pos.south(), world)
-            destroyChain(pos.up(), world)
-            destroyChain(pos.down(), world)
-        }
-    }
-
     companion object {
-        const val REGISTRY_NAME = "mehblock"
+        const val REGISTRY_NAME = "duplicator"
     }
 }

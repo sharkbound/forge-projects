@@ -8,7 +8,7 @@ import sharkbound.forge.firstmod.objects.Tabs
 
 object FirstModItemGroup : ItemGroup(Tabs.FIRST_MOD_TAB) {
     override fun createIcon(): ItemStack =
-            ItemStack(ModBlocks.MEH_BLOCK)
+            ItemStack(ModBlocks.MEH)
 
     fun init() {
 

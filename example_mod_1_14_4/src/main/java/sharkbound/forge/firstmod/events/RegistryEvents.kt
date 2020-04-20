@@ -4,19 +4,21 @@ import com.mojang.datafixers.Dynamic
 import net.minecraft.block.Block
 import net.minecraft.enchantment.Enchantment
 import net.minecraft.inventory.container.ContainerType
+import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
 import net.minecraft.potion.Effect
 import net.minecraft.tileentity.TileEntityType
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.gen.feature.Feature
 import net.minecraft.world.gen.feature.IFeatureConfig
-import net.minecraft.world.server.ServerWorld
 import net.minecraftforge.common.extensions.IForgeContainerType
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import sharkbound.forge.firstmod.MOD_ID
+import sharkbound.forge.firstmod.blocks.DuplicatorBlock
 import sharkbound.forge.firstmod.blocks.MehBlock
+import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.enchantments.DisplacementEnchantment
 import sharkbound.forge.firstmod.entities.MehBlockItemEntity
 import sharkbound.forge.firstmod.features.TestFeature
@@ -29,9 +31,7 @@ import sharkbound.forge.firstmod.items.Repulser
 import sharkbound.forge.firstmod.items.Striker
 import sharkbound.forge.firstmod.items.Thrower
 import sharkbound.forge.firstmod.objects.ModBlocks
-import sharkbound.forge.firstmod.objects.minecraft
 import sharkbound.forge.firstmod.potions.ChaosEffect
-import sharkbound.forge.shared.util.server
 import sharkbound.forge.shared.util.tileEntityRegistryBuilder
 
 @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -41,6 +41,7 @@ object RegistryEvents {
     fun onBlockRegistry(e: RegistryEvent.Register<Block>) {
         e.registry.run {
             register(MehBlock())
+            register(DuplicatorBlock())
         }
     }
 
@@ -48,7 +49,8 @@ object RegistryEvents {
     @JvmStatic
     fun onItemsRegistry(e: RegistryEvent.Register<Item>) {
         e.registry.run {
-            register(MehBlockItem(ModBlocks.MEH_BLOCK))
+            register(MehBlockItem(ModBlocks.MEH))
+            register(BlockItem(ModBlocks.DUPLICATOR, Item.Properties().group(FirstModItemGroup)).setRegistryName(DuplicatorBlock.REGISTRY_NAME))
             register(MehWand())
             register(Striker())
             register(EarthShatterer())
@@ -70,7 +72,7 @@ object RegistryEvents {
     @JvmStatic
     fun onTileEntityRegistry(e: RegistryEvent.Register<TileEntityType<*>>) {
         e.registry.run {
-            register(tileEntityRegistryBuilder({ MehBlockItemEntity() }, ModBlocks.MEH_BLOCK).build(null).setRegistryName(MehBlockItemEntity.REGISTRY_NAME))
+            register(tileEntityRegistryBuilder({ MehBlockItemEntity() }, ModBlocks.MEH).build(null).setRegistryName(MehBlockItemEntity.REGISTRY_NAME))
         }
     }
 
