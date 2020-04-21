@@ -12,7 +12,7 @@ import sharkbound.forge.shared.util.Incrementer
 import sharkbound.forge.shared.util.TickUnit
 import kotlin.contracts.ExperimentalContracts
 
-class MehBlockItemEntity : TileEntity(ModBlocks.MEH_BLOCK_TILE_ENTITY), ITickableTileEntity {
+class MehBlockTileEntity : TileEntity(ModBlocks.MEH_TILE_ENTITY), ITickableTileEntity {
     private val incr = Incrementer(1.ticks(TickUnit.SECONDS))
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -22,7 +22,6 @@ class MehBlockItemEntity : TileEntity(ModBlocks.MEH_BLOCK_TILE_ENTITY), ITickabl
             if (w.isClientWorld() && incr.next()) {
                 pos.centerVec.run {
                     w.addParticle(ModParticles.MEH.get(), x, y, z, 0.0, 0.0, 0.0)
-//                    w.addParticle(MehBoltParticleData(add(newVec3D(y = 10))), x, y, z, 0.0, 0.0, 0.0)
                 }
             }
         }

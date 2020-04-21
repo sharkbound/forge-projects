@@ -31,10 +31,4 @@ object ServerEntityEvents {
         ent.removeAllGoals()
         ent.goalSelector.addGoal(100, CreeperFollowPlayerGoal(ent))
     }
-
-//    @ExperimentalContracts
-//    @SubscribeEvent
-//    @JvmStatic
-//    fun playerMove(e: LivingEvent.LivingUpdateEvent) {
-//    }
 }

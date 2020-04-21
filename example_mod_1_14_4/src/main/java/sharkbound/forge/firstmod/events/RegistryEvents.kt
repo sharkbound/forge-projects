@@ -20,9 +20,11 @@ import sharkbound.forge.firstmod.blocks.DuplicatorBlock
 import sharkbound.forge.firstmod.blocks.MehBlock
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.enchantments.DisplacementEnchantment
-import sharkbound.forge.firstmod.entities.MehBlockItemEntity
+import sharkbound.forge.firstmod.entities.DuplicatorBlockTileEntity
+import sharkbound.forge.firstmod.entities.MehBlockTileEntity
 import sharkbound.forge.firstmod.features.TestFeature
 import sharkbound.forge.firstmod.features.config.TestFeatureConfig
+import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
 import sharkbound.forge.firstmod.gui.container.RepulserContainer
 import sharkbound.forge.firstmod.items.EarthShatterer
 import sharkbound.forge.firstmod.items.MehBlockItem
@@ -72,7 +74,8 @@ object RegistryEvents {
     @JvmStatic
     fun onTileEntityRegistry(e: RegistryEvent.Register<TileEntityType<*>>) {
         e.registry.run {
-            register(tileEntityRegistryBuilder({ MehBlockItemEntity() }, ModBlocks.MEH).build(null).setRegistryName(MehBlockItemEntity.REGISTRY_NAME))
+            register(tileEntityRegistryBuilder({ MehBlockTileEntity() }, ModBlocks.MEH).build(null).setRegistryName(MehBlockTileEntity.REGISTRY_NAME))
+            register(tileEntityRegistryBuilder({ DuplicatorBlockTileEntity() }, ModBlocks.DUPLICATOR).build(null).setRegistryName(DuplicatorBlock.REGISTRY_NAME))
         }
     }
 
@@ -80,9 +83,15 @@ object RegistryEvents {
     @JvmStatic
     fun onContainerRegistry(e: RegistryEvent.Register<ContainerType<*>>) {
         e.registry.run {
+            // repulser container
             register(IForgeContainerType.create { id, inv, data ->
                 RepulserContainer(id, inv, inv.player)
             }.setRegistryName(RepulserContainer.REGISTRY_NAME))
+
+            // duplicator container
+            register(IForgeContainerType.create { id, inv, data ->
+                DuplicatorContainer(id, inv, inv.player)
+            }.setRegistryName(DuplicatorContainer.REGISTRY_NAME))
         }
     }
 
