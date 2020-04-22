@@ -9,6 +9,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent
 import sharkbound.forge.firstmod.objects.ModCommands
 import sharkbound.forge.firstmod.objects.forgeEventBus
+import kotlin.contracts.ExperimentalContracts
 
 @Mod.EventBusSubscriber
 object ServerEvents {
@@ -36,6 +37,7 @@ object ServerEvents {
         completedHandlers.clear()
     }
 
+    @ExperimentalContracts
     @SubscribeEvent
     @JvmStatic
     fun onServerStarting(e: FMLServerStartingEvent) {

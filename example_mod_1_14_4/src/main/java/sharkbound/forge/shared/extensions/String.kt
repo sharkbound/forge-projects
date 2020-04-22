@@ -1,5 +1,8 @@
 package sharkbound.forge.shared.extensions
 
+import net.minecraft.util.text.StringTextComponent
+import sharkbound.forge.shared.util.toText
+
 const val MAGIC_SYMBOL = '§'
 
 fun String.color(altChar: Char = '&') =
@@ -7,3 +10,6 @@ fun String.color(altChar: Char = '&') =
 
 fun color(string: String) =
         string.color()
+
+fun String.toText(): StringTextComponent =
+        toText(this)
