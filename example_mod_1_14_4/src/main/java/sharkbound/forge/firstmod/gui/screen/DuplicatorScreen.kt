@@ -19,7 +19,7 @@ import sharkbound.forge.shared.extensions.send
 import sharkbound.forge.shared.util.imageButton
 import sharkbound.forge.shared.util.toText
 
-class DuplicatorScreen(container: DuplicatorContainer, val inv: PlayerInventory) : ContainerScreen<DuplicatorContainer>(container, inv, toText(TITLE)), INamedContainerProvider {
+class DuplicatorScreen(container: DuplicatorContainer, val inv: PlayerInventory) : ContainerScreen<DuplicatorContainer>(container, inv, toText(TITLE)) {
     companion object {
         const val TITLE = "&6Duplicator"
         val GUI_TEXTURE = ResourceLocation(MOD_ID, "textures/gui/duplicator/duplicator.png")
@@ -45,11 +45,4 @@ class DuplicatorScreen(container: DuplicatorContainer, val inv: PlayerInventory)
         super.render(mx, my, partialTicks)
         renderHoveredToolTip(mx, my)
     }
-
-    override fun createMenu(id: Int, inv: PlayerInventory, player: PlayerEntity): Container? {
-        return DuplicatorContainer(id, inv, player)
-    }
-
-    override fun getDisplayName(): ITextComponent =
-            toText(TITLE)
 }
