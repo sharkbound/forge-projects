@@ -140,7 +140,7 @@ jar {
     from {
 //         NEEDED FOR KOTLIN JAR
         configurations.compile.findAll {
-            println "${it.name}";
+//            println "${it.name}";
             it.name.contains("kotlin") || it.name == "CommonUtilities.jar"
         }.collect { it.isDirectory() ? it : zipTree(it) }
     }

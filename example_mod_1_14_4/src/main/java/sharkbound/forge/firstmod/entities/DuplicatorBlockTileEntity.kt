@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.ItemStackHelper
 import net.minecraft.inventory.container.Container
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.CompoundNBT
 import net.minecraft.tileentity.LockableTileEntity
 import net.minecraft.util.NonNullList
 import net.minecraft.util.text.ITextComponent
@@ -17,15 +18,17 @@ import sharkbound.forge.shared.util.TickUnit
 import sharkbound.forge.shared.util.toText
 
 class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_ENTITY) {
-    private val incr = Incrementer(1.ticks(TickUnit.SECONDS))
-    val items = NonNullList.withSize(2, ItemStack.EMPTY)
-
     companion object {
         const val REGISTRY_NAME = "duplicator"
+        private fun createDefaultItemList(): NonNullList<ItemStack> =
+                NonNullList.withSize(2, ItemStack.EMPTY)
     }
 
+    private val incr = Incrementer(1.ticks(TickUnit.SECONDS))
+    var items = createDefaultItemList()
+
     override fun getStackInSlot(index: Int): ItemStack {
-        return items[index - 36]
+        return items[index]
     }
 
     override fun removeStackFromSlot(index: Int): ItemStack =
@@ -43,8 +46,24 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
     }
 
     override fun setInventorySlotContents(index: Int, stack: ItemStack) {
-        println("$index $stack $items")
-        items[index] = stack
+        if (index == 0) {
+            items[index] = stack
+            items[1] = stack.copy()
+            markDirty()
+        }
+    }
+
+    override fun read(compound: CompoundNBT) {
+        super.read(compound)
+        items = createDefaultItemList()
+        ItemStackHelper.loadAllItems(compound, items)
+    }
+
+    override fun write(compound: CompoundNBT): CompoundNBT {
+        return compound.apply {
+            super.write(this)
+            ItemStackHelper.saveAllItems(this, items)
+        }
     }
 
     override fun clear() {
@@ -59,7 +78,6 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
             true
 
     override fun createMenu(id: Int, player: PlayerInventory): Container {
-        // todo get extra data working
-        return DuplicatorContainer(id, player, player.player)
+        return DuplicatorContainer(id, player, player.player, this)
     }
 }
