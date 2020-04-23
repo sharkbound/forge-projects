@@ -12,6 +12,8 @@ import net.minecraft.util.text.ITextComponent
 import sharkbound.commonutils.extensions.len
 import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
 import sharkbound.forge.firstmod.objects.ModBlocks
+import sharkbound.forge.shared.extensions.areItemsEqual
+import sharkbound.forge.shared.extensions.freeAmount
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.util.Incrementer
 import sharkbound.forge.shared.util.TickUnit
@@ -24,8 +26,9 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
                 NonNullList.withSize(2, ItemStack.EMPTY)
     }
 
-    private val incr = Incrementer(1.ticks(TickUnit.SECONDS))
     var items = createDefaultItemList()
+    var container: DuplicatorContainer? = null
+    var player: PlayerEntity? = null
 
     override fun getStackInSlot(index: Int): ItemStack {
         return items[index]
@@ -47,9 +50,9 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
 
     override fun setInventorySlotContents(index: Int, stack: ItemStack) {
         if (index == 0) {
-            items[index] = stack
+            items[0] = stack
             items[1] = stack.copy()
-            markDirty()
+            container?.detectAndSendChanges()
         }
     }
 
@@ -77,7 +80,10 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
     override fun isUsableByPlayer(player: PlayerEntity): Boolean =
             true
 
-    override fun createMenu(id: Int, player: PlayerInventory): Container {
-        return DuplicatorContainer(id, player, player.player, this)
+    override fun createMenu(id: Int, playerInv: PlayerInventory): Container {
+        return DuplicatorContainer(id, playerInv, playerInv.player, this).also {
+            container = it
+            player = playerInv.player
+        }
     }
 }

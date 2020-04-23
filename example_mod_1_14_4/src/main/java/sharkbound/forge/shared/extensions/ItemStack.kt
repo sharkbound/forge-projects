@@ -28,3 +28,22 @@ val ItemStack?.name: String
         hasDisplayName() -> displayName.formattedText
         else -> item.name.formattedText
     }
+
+infix fun ItemStack?.areEqual(other: ItemStack?): Boolean {
+    return ItemStack.areItemStacksEqual(this ?: return false, other ?: return false)
+}
+
+infix fun ItemStack?.areEqualIgnoreDurability(other: ItemStack?): Boolean {
+    return ItemStack.areItemsEqualIgnoreDurability(this ?: return false, other ?: return false)
+}
+
+infix fun ItemStack?.areTagsEqual(other: ItemStack?): Boolean {
+    return ItemStack.areItemStackTagsEqual(this ?: return false, other ?: return false)
+}
+
+infix fun ItemStack?.areItemsEqual(other: ItemStack?): Boolean {
+    return ItemStack.areItemsEqual(this ?: return false, other ?: return false)
+}
+
+val ItemStack?.freeAmount
+    get() = this?.run { maxStackSize - count } ?: 0
