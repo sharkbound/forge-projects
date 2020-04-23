@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.GrassFeatureConfig
 import net.minecraft.world.gen.placement.FrequencyConfig
 import net.minecraft.world.gen.placement.NoiseDependant
 import net.minecraft.world.gen.placement.Placement
+import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.events.ModFeatures
@@ -17,6 +18,8 @@ import sharkbound.forge.firstmod.features.config.TestFeatureConfig
 import sharkbound.forge.firstmod.networking.Network
 
 open class CommonProxy : Proxy {
+    override val side: LogicalSide = LogicalSide.SERVER
+
     override val world: World
         get() = error("PROXY ERROR: trying to access client world from server")
 

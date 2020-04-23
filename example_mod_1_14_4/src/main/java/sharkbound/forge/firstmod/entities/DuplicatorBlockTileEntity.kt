@@ -6,20 +6,18 @@ import net.minecraft.inventory.ItemStackHelper
 import net.minecraft.inventory.container.Container
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT
+import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.LockableTileEntity
 import net.minecraft.util.NonNullList
 import net.minecraft.util.text.ITextComponent
 import sharkbound.commonutils.extensions.len
 import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
 import sharkbound.forge.firstmod.objects.ModBlocks
-import sharkbound.forge.shared.extensions.areItemsEqual
-import sharkbound.forge.shared.extensions.freeAmount
-import sharkbound.forge.shared.extensions.ticks
-import sharkbound.forge.shared.util.Incrementer
-import sharkbound.forge.shared.util.TickUnit
+import sharkbound.forge.firstmod.objects.proxy
+import sharkbound.forge.shared.util.classes.MutableIndexVar
 import sharkbound.forge.shared.util.toText
 
-class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_ENTITY) {
+class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_ENTITY), ITickableTileEntity {
     companion object {
         const val REGISTRY_NAME = "duplicator"
         private fun createDefaultItemList(): NonNullList<ItemStack> =
@@ -30,15 +28,26 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
     var container: DuplicatorContainer? = null
     var player: PlayerEntity? = null
 
+    var input by MutableIndexVar(0, items)
+    var output by MutableIndexVar(1, items)
+
+    override fun tick() {
+        if (!input.isEmpty && output.isEmpty) {
+            output = input.copy()
+        }
+    }
+
     override fun getStackInSlot(index: Int): ItemStack {
         return items[index]
     }
 
-    override fun removeStackFromSlot(index: Int): ItemStack =
-            ItemStackHelper.getAndRemove(items, index)
+    override fun removeStackFromSlot(index: Int): ItemStack {
+        return ItemStackHelper.getAndRemove(items, index)
+    }
 
-    override fun decrStackSize(index: Int, count: Int): ItemStack =
-            ItemStackHelper.getAndSplit(items, index, count)
+    override fun decrStackSize(index: Int, count: Int): ItemStack {
+        return ItemStackHelper.getAndSplit(items, index, count)
+    }
 
     override fun isEmpty(): Boolean {
         return items.all { it.isEmpty }
@@ -50,8 +59,8 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
 
     override fun setInventorySlotContents(index: Int, stack: ItemStack) {
         if (index == 0) {
-            items[0] = stack
-            items[1] = stack.copy()
+            input = stack
+            output = stack.copy()
             container?.detectAndSendChanges()
         }
     }
