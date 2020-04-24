@@ -2,7 +2,7 @@ package sharkbound.forge.shared.util.classes
 
 import kotlin.reflect.KProperty
 
-class MutableIndexVar<T>(val index: Int, val list: MutableList<T>) {
+class IndexVar<T>(val index: Int, val list: MutableList<T>) {
     operator fun getValue(ref: Any?, prop: KProperty<*>) =
             list[index]
 

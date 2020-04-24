@@ -13,8 +13,7 @@ import net.minecraft.util.text.ITextComponent
 import sharkbound.commonutils.extensions.len
 import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
 import sharkbound.forge.firstmod.objects.ModBlocks
-import sharkbound.forge.firstmod.objects.proxy
-import sharkbound.forge.shared.util.classes.MutableIndexVar
+import sharkbound.forge.shared.util.classes.IndexVar
 import sharkbound.forge.shared.util.toText
 
 class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_ENTITY), ITickableTileEntity {
@@ -28,12 +27,13 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
     var container: DuplicatorContainer? = null
     var player: PlayerEntity? = null
 
-    var input by MutableIndexVar(0, items)
-    var output by MutableIndexVar(1, items)
+    var input by IndexVar(0, items)
+    var output by IndexVar(1, items)
 
     override fun tick() {
         if (!input.isEmpty && output.isEmpty) {
             output = input.copy()
+            container?.detectAndSendChanges()
         }
     }
 
