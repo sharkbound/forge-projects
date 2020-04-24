@@ -13,8 +13,11 @@ import net.minecraft.util.text.ITextComponent
 import sharkbound.commonutils.extensions.len
 import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
 import sharkbound.forge.firstmod.objects.ModBlocks
+import sharkbound.forge.firstmod.objects.proxy
+import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.util.classes.IndexVar
 import sharkbound.forge.shared.util.toText
+import kotlin.contracts.ExperimentalContracts
 
 class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_ENTITY), ITickableTileEntity {
     companion object {
@@ -30,10 +33,11 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
     var input by IndexVar(0, items)
     var output by IndexVar(1, items)
 
+    @ExperimentalContracts
     override fun tick() {
-        if (!input.isEmpty && output.isEmpty) {
+        if (world.isServerWorld() && !input.isEmpty && output.isEmpty) {
             output = input.copy()
-            container?.detectAndSendChanges()
+            updateSlots()
         }
     }
 
@@ -61,8 +65,13 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
         if (index == 0) {
             input = stack
             output = stack.copy()
-            container?.detectAndSendChanges()
+            updateSlots()
         }
+    }
+
+    private fun updateSlots() {
+        container?.detectAndSendChanges()
+        markDirty()
     }
 
     override fun read(compound: CompoundNBT) {

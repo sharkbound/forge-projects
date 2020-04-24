@@ -18,6 +18,7 @@ import sharkbound.forge.firstmod.gui.ModContainers
 import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
 import sharkbound.forge.firstmod.gui.screen.DuplicatorScreen
 import sharkbound.forge.firstmod.objects.ModBlocks
+import sharkbound.forge.shared.extensions.tileEntity
 
 class DuplicatorBlock : Block(
         Properties.create(Material.IRON)
@@ -30,7 +31,7 @@ class DuplicatorBlock : Block(
 
     override fun onBlockActivated(state: BlockState, worldIn: World, pos: BlockPos, player: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): Boolean {
         if (player is ServerPlayerEntity) {
-            worldIn.getTileEntity(pos)?.let {
+            pos.tileEntity(worldIn)?.let {
                 if (it is DuplicatorBlockTileEntity) {
                     player.openContainer(it)
                 }
