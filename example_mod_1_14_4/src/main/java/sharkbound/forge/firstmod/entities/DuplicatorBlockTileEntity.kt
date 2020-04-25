@@ -14,6 +14,7 @@ import sharkbound.commonutils.extensions.len
 import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
 import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.firstmod.objects.proxy
+import sharkbound.forge.shared.extensions.isServer
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.util.classes.IndexVar
 import sharkbound.forge.shared.util.toText
@@ -33,9 +34,17 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
     var input by IndexVar(0, items)
     var output by IndexVar(1, items)
 
+    var ticks = 0
+
     @ExperimentalContracts
     override fun tick() {
-        if (world.isServerWorld() && !input.isEmpty && output.isEmpty) {
+        // ticks used for logging inv
+        ticks++
+        if (ticks % 20 == 0) {
+            // debug  info
+            println("server=${world.isServer()} - ${items.joinToString(", ")}")
+        }
+        if (world.isServer() && !input.isEmpty && output.isEmpty) {
             output = input.copy()
             updateSlots()
         }
@@ -63,15 +72,15 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
 
     override fun setInventorySlotContents(index: Int, stack: ItemStack) {
         if (index == 0) {
-            input = stack
+            input = stack.copy()
             output = stack.copy()
             updateSlots()
         }
     }
 
     private fun updateSlots() {
-        container?.detectAndSendChanges()
         markDirty()
+        container?.detectAndSendChanges()
     }
 
     override fun read(compound: CompoundNBT) {

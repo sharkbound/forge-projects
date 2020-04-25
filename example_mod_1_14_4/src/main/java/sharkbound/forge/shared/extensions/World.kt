@@ -58,3 +58,19 @@ fun ServerWorld.addFallingBlock(pos: Vec3d, blockState: BlockState, velocity: Ve
 
 inline fun <reified T : Entity> IWorld.entitiesInAABB(aabb: AxisAlignedBB) =
         world.getEntitiesWithinAABB(T::class.java, aabb)
+
+@ExperimentalContracts
+fun IWorld?.isClient(): Boolean {
+    contract {
+        returns(true) implies (this@isClient != null)
+    }
+    return this?.isRemote == true
+}
+
+@ExperimentalContracts
+fun IWorld?.isServer(): Boolean {
+    contract {
+        returns(true) implies (this@isServer != null)
+    }
+    return this?.isRemote == false
+}
