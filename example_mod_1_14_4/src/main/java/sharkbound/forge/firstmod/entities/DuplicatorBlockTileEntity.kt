@@ -7,32 +7,32 @@ import net.minecraft.inventory.container.Container
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.CompoundNBT
 import net.minecraft.tileentity.ITickableTileEntity
-import net.minecraft.tileentity.LockableTileEntity
+import net.minecraft.tileentity.LockableLootTileEntity
 import net.minecraft.util.NonNullList
 import net.minecraft.util.text.ITextComponent
+import net.minecraftforge.fml.network.NetworkRegistry
 import sharkbound.commonutils.extensions.len
 import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
 import sharkbound.forge.firstmod.objects.ModBlocks
-import sharkbound.forge.firstmod.objects.proxy
 import sharkbound.forge.shared.extensions.isServer
-import sharkbound.forge.shared.extensions.isServerWorld
+import sharkbound.forge.shared.extensions.name
 import sharkbound.forge.shared.util.classes.IndexVar
 import sharkbound.forge.shared.util.toText
 import kotlin.contracts.ExperimentalContracts
 
-class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_ENTITY), ITickableTileEntity {
+class DuplicatorBlockTileEntity : LockableLootTileEntity(ModBlocks.DUPLICATOR_TILE_ENTITY), ITickableTileEntity {
     companion object {
         const val REGISTRY_NAME = "duplicator"
         private fun createDefaultItemList(): NonNullList<ItemStack> =
                 NonNullList.withSize(2, ItemStack.EMPTY)
     }
 
-    var items = createDefaultItemList()
+    var tileItems = createDefaultItemList()
     var container: DuplicatorContainer? = null
     var player: PlayerEntity? = null
 
-    var input by IndexVar(0, items)
-    var output by IndexVar(1, items)
+    var input by IndexVar(0, tileItems)
+    var output by IndexVar(1, tileItems)
 
     var ticks = 0
 
@@ -42,28 +42,28 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
         ticks++
         if (ticks % 20 == 0) {
             // debug info
-            println("server=${world.isServer()} - ${items.joinToString(", ")}")
+            println("server=${world.isServer()} - ${tileItems.joinToString(", ") { it?.name ?: "NONAME" }}")
         }
-        if (world.isServer() && !input.isEmpty && output.isEmpty) {
+        if (!input.isEmpty && output.isEmpty) {
             output = input.copy()
             updateSlots()
         }
     }
 
     override fun getStackInSlot(index: Int): ItemStack {
-        return items[index]
+        return tileItems[index]
     }
 
     override fun removeStackFromSlot(index: Int): ItemStack {
-        return ItemStackHelper.getAndRemove(items, index)
+        return ItemStackHelper.getAndRemove(tileItems, index)
     }
 
     override fun decrStackSize(index: Int, count: Int): ItemStack {
-        return ItemStackHelper.getAndSplit(items, index, count)
+        return ItemStackHelper.getAndSplit(tileItems, index, count)
     }
 
     override fun isEmpty(): Boolean {
-        return items.all { it.isEmpty }
+        return tileItems.all { it.isEmpty }
     }
 
     override fun getDefaultName(): ITextComponent {
@@ -85,23 +85,31 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
 
     override fun read(compound: CompoundNBT) {
         super.read(compound)
-        items = createDefaultItemList()
-        ItemStackHelper.loadAllItems(compound, items)
+        tileItems = createDefaultItemList()
+        ItemStackHelper.loadAllItems(compound, tileItems)
     }
 
     override fun write(compound: CompoundNBT): CompoundNBT {
         return compound.apply {
             super.write(this)
-            ItemStackHelper.saveAllItems(this, items)
+            ItemStackHelper.saveAllItems(this, tileItems)
         }
     }
 
     override fun clear() {
-        items.clear()
+        tileItems.clear()
+    }
+
+    override fun getItems(): NonNullList<ItemStack> {
+        return tileItems
+    }
+
+    override fun setItems(itemsIn: NonNullList<ItemStack>) {
+        tileItems = itemsIn
     }
 
     override fun getSizeInventory(): Int {
-        return items.len
+        return tileItems.len
     }
 
     override fun isUsableByPlayer(player: PlayerEntity): Boolean =

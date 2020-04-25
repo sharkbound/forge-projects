@@ -18,7 +18,9 @@ import sharkbound.forge.firstmod.gui.ModContainers
 import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
 import sharkbound.forge.firstmod.gui.screen.DuplicatorScreen
 import sharkbound.forge.firstmod.objects.ModBlocks
+import sharkbound.forge.shared.extensions.isServer
 import sharkbound.forge.shared.extensions.tileEntity
+import kotlin.contracts.ExperimentalContracts
 
 class DuplicatorBlock : Block(
         Properties.create(Material.IRON)
@@ -29,8 +31,9 @@ class DuplicatorBlock : Block(
         setRegistryName(REGISTRY_NAME)
     }
 
+    @ExperimentalContracts
     override fun onBlockActivated(state: BlockState, worldIn: World, pos: BlockPos, player: PlayerEntity, handIn: Hand, hit: BlockRayTraceResult): Boolean {
-        if (player is ServerPlayerEntity) {
+        if (worldIn.isServer() && !player.isSneaking) {
             pos.tileEntity(worldIn)?.let {
                 if (it is DuplicatorBlockTileEntity) {
                     player.openContainer(it)
