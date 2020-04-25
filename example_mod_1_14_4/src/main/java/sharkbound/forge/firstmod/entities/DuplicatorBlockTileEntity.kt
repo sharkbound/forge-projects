@@ -41,7 +41,7 @@ class DuplicatorBlockTileEntity : LockableTileEntity(ModBlocks.DUPLICATOR_TILE_E
         // ticks used for logging inv
         ticks++
         if (ticks % 20 == 0) {
-            // debug  info
+            // debug info
             println("server=${world.isServer()} - ${items.joinToString(", ")}")
         }
         if (world.isServer() && !input.isEmpty && output.isEmpty) {
