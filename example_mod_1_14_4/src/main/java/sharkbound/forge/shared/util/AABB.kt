@@ -4,6 +4,8 @@ import net.minecraft.entity.Entity
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
+import sharkbound.forge.shared.extensions.minus
+import sharkbound.forge.shared.extensions.plus
 import sharkbound.forge.shared.extensions.pos
 
 // min max
@@ -33,3 +35,6 @@ fun createAABB(entity: Entity, sizeX: Int = 0, sizeY: Int = 0, sizeZ: Int = 0): 
 
 fun createAABB(entity: Entity, sizeX: Double = 0.0, sizeY: Double = 0.0, sizeZ: Double = 0.0): AxisAlignedBB =
         AxisAlignedBB(entity.positionVec, entity.positionVec).grow(sizeX, sizeY, sizeZ)
+
+fun createAABBSquare(center: Vec3d, radius: Double): AxisAlignedBB =
+        AxisAlignedBB(center - radius, center + radius)

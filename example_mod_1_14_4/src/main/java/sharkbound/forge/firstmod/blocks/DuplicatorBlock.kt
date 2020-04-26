@@ -2,11 +2,9 @@ package sharkbound.forge.firstmod.blocks
 
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
-import net.minecraft.block.ITileEntityProvider
 import net.minecraft.block.SoundType
 import net.minecraft.block.material.Material
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.Hand
 import net.minecraft.util.math.BlockPos
@@ -14,10 +12,6 @@ import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
 import sharkbound.forge.firstmod.entities.DuplicatorBlockTileEntity
-import sharkbound.forge.firstmod.gui.ModContainers
-import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
-import sharkbound.forge.firstmod.gui.screen.DuplicatorScreen
-import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.shared.extensions.isServer
 import sharkbound.forge.shared.extensions.tileEntity
 import kotlin.contracts.ExperimentalContracts
