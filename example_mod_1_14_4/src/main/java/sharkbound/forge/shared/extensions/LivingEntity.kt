@@ -5,9 +5,6 @@ import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.util.math.RayTraceContext
 import net.minecraft.util.math.Vec3d
 
-val LivingEntity.eyePos: Vec3d
-    get() = getEyePosition(1f)
-
 fun LivingEntity.rayTraceBlocks(
         distance: Double,
         blockMode: RayTraceContext.BlockMode = RayTraceContext.BlockMode.OUTLINE,

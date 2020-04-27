@@ -9,38 +9,37 @@ import kotlin.math.abs
 import kotlin.math.absoluteValue
 import kotlin.math.sqrt
 
-/**
- * source: https://forum.unity.com/threads/how-to-check-a-vector3-position-is-between-two-other-vector3-along-a-line.461474/
- */
-fun Vec3d.isBetween(a: Vec3d, b: Vec3d): Boolean {
-    return (b - a).normalize().dotProduct((this - b).normalize()) < 0 && (a - b).normalize().dotProduct((this - a).normalize()) < 0
-}
+///**
+// * source: https://forum.unity.com/threads/how-to-check-a-vector3-position-is-between-two-other-vector3-along-a-line.461474/
+// */
+//fun Vec3d.isBetween(a: Vec3d, b: Vec3d): Boolean {
+//    return (b - a).normalize().dotProduct((this - b).normalize()) < 0 && (a - b).normalize().dotProduct((this - a).normalize()) < 0
+//}
+//
+///**
+// * source: https://forum.unity.com/threads/how-to-check-a-vector3-position-is-between-two-other-vector3-along-a-line.461474/
+// */
+//fun Vec3d.project(onNormal: Vec3d): Vec3d {
+//    val num = onNormal.dotProduct(onNormal)
+//    return if (num < Numbers.EPSILON) Vec3d.ZERO else (onNormal * dotProduct(onNormal) / num)
+//}
 
-/**
- * source: https://forum.unity.com/threads/how-to-check-a-vector3-position-is-between-two-other-vector3-along-a-line.461474/
- */
-fun Vec3d.project(onNormal: Vec3d): Vec3d {
-    val num = onNormal.dotProduct(onNormal)
-    return if (num < Numbers.EPSILON) Vec3d.ZERO else (onNormal * dotProduct(onNormal) / num)
-}
-
-/**
- * source: https://forum.unity.com/threads/how-to-check-a-vector3-position-is-between-two-other-vector3-along-a-line.461474/
- *
- * [this] is the C in the equation
- */
-fun Vec3d.onSameLineAs(a: Vec3d, b: Vec3d, errorMargin: Double): Boolean {
-    /*
-    return Mathf.Approximately(
-        Vector3.Project( A-B , A-C ).magnitude ,
-        (A-B).magnitude
-    );
-    */
-    // todo fix accuracy issue
-    val abac = (a - b).project(a - this).magnitude()
-    val ab = (a - b).magnitude()
-    return abs(abac - ab) <= errorMargin
-}
+///**
+// * source: https://forum.unity.com/threads/how-to-check-a-vector3-position-is-between-two-other-vector3-along-a-line.461474/
+// *
+// * [this] is the C in the equation
+// */
+//fun Vec3d.onSameLineAs(a: Vec3d, b: Vec3d, errorMargin: Double): Boolean {
+//    /*
+//    return Mathf.Approximately(
+//        Vector3.Project( A-B , A-C ).magnitude ,
+//        (A-B).magnitude
+//    );
+//    */
+//    val abac = (a - b).project(a - this).magnitude()
+//    val ab = (a - b).magnitude()
+//    return abs(abac - ab) <= errorMargin
+//}
 
 fun Vec3d.magnitude() =
         sqrt(x * x + y * y + z * z)

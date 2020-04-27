@@ -65,3 +65,6 @@ fun Entity.isLivingEntity(): Boolean {
     }
     return this is LivingEntity
 }
+
+val Entity.eyePos: Vec3d
+    get() = getEyePosition(1f)

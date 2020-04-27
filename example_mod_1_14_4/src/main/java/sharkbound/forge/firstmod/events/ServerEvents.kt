@@ -13,6 +13,8 @@ import kotlin.contracts.ExperimentalContracts
 
 @Mod.EventBusSubscriber
 object ServerEvents {
+    var serverRunning = false
+
     init {
         forgeEventBus.register(this)
     }
@@ -24,6 +26,7 @@ object ServerEvents {
     @SubscribeEvent
     @JvmStatic
     fun onServerShutdown(e: FMLServerStoppingEvent) {
+        serverRunning = false
         tickHandlerAddQueue.clear()
         tickHandlers.clear()
         completedHandlers.clear()
@@ -32,6 +35,7 @@ object ServerEvents {
     @SubscribeEvent
     @JvmStatic
     fun onServerStarted(e: FMLServerStartedEvent) {
+        serverRunning = true
         tickHandlerAddQueue.clear()
         tickHandlers.clear()
         completedHandlers.clear()

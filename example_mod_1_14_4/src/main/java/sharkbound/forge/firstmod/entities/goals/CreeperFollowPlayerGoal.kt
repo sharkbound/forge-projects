@@ -24,7 +24,8 @@ class CreeperFollowPlayerGoal(val creeper: CreeperEntity) : Goal() {
                 creeper.attackTarget = null
             }
         }
-        creeper.attackTarget = creeper.world.entitiesInAABB<PlayerEntity>(AxisAlignedBB(creeper.pos.subtract(10), creeper.pos.add(10))).firstOrNull()
+        creeper.attackTarget = creeper.world.entitiesInAABB<PlayerEntity>(AxisAlignedBB(creeper.pos.subtract(10), creeper.pos.add(10)))
+                .firstOrNull { !it.isCreative && !it.isSpectator }
         creeper.navigator.tryMoveToEntityLiving(creeper.attackTarget ?: return, 1.0)
     }
 }
