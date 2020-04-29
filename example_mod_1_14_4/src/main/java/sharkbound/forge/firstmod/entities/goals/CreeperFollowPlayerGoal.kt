@@ -7,11 +7,17 @@ import net.minecraft.util.math.AxisAlignedBB
 import sharkbound.forge.shared.extensions.add
 import sharkbound.forge.shared.extensions.dist
 import sharkbound.forge.shared.extensions.entitiesInAABB
+import sharkbound.forge.shared.extensions.minus
+import sharkbound.forge.shared.extensions.plus
 import sharkbound.forge.shared.extensions.pos
 import sharkbound.forge.shared.extensions.send
 import sharkbound.forge.shared.extensions.subtract
 
 class CreeperFollowPlayerGoal(val creeper: CreeperEntity) : Goal() {
+    companion object {
+        const val PRIORITY = 2
+    }
+
     var ticks = 0
 
     override fun shouldExecute(): Boolean {
@@ -24,7 +30,7 @@ class CreeperFollowPlayerGoal(val creeper: CreeperEntity) : Goal() {
                 creeper.attackTarget = null
             }
         }
-        creeper.attackTarget = creeper.world.entitiesInAABB<PlayerEntity>(AxisAlignedBB(creeper.pos.subtract(10), creeper.pos.add(10)))
+        creeper.attackTarget = creeper.world.entitiesInAABB<PlayerEntity>(AxisAlignedBB(creeper.pos - 10, creeper.pos + 10))
                 .firstOrNull { !it.isCreative && !it.isSpectator }
         creeper.navigator.tryMoveToEntityLiving(creeper.attackTarget ?: return, 1.0)
     }

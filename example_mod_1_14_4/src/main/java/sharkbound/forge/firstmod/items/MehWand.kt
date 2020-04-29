@@ -28,7 +28,7 @@ import sharkbound.forge.shared.extensions.isBlock
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.send
 import sharkbound.forge.shared.extensions.setBlock
-import sharkbound.forge.shared.util.toText
+import sharkbound.forge.shared.util.asText
 import java.util.*
 import kotlin.contracts.ExperimentalContracts
 
@@ -61,7 +61,7 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
     }
 
     override fun getDisplayName(stack: ItemStack): ITextComponent =
-            toText("&aMeh Wand (&e${modeOf(stack)}&a)")
+            asText("&aMeh Wand (&e${modeOf(stack)}&a)")
 
     init {
         setRegistryName(REGISTRY_NAME)
@@ -69,7 +69,7 @@ class MehWand : Item(Properties().maxStackSize(64).group(FirstModItemGroup)) {
 
     override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<ITextComponent>, flagIn: ITooltipFlag) {
         tooltip.addAll(listOf(
-                toText("&3Mode: ${modeOf(stack)}")
+                asText("&3Mode: ${modeOf(stack)}")
         ))
     }
 

@@ -21,7 +21,7 @@ import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.rayTraceBlocks
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.util.TickUnit
-import sharkbound.forge.shared.util.toText
+import sharkbound.forge.shared.util.asText
 import kotlin.contracts.ExperimentalContracts
 
 class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
@@ -30,7 +30,7 @@ class Striker : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     }
 
     override fun getDisplayName(stack: ItemStack): ITextComponent {
-        return toText("&6Striker")
+        return asText("&6Striker")
     }
 
     val r get() = randDouble(-4, 4)

@@ -52,12 +52,13 @@ object ServerEvents {
     @JvmStatic
     fun taskServerTickProcessor(e: TickEvent.ServerTickEvent) {
         if (e.side == LogicalSide.CLIENT) return
-        for (tickHandler in tickHandlers) {
-            if (tickHandler.state == TickHandler.State.COMPLETED) {
-                completedHandlers.add(tickHandler)
+
+        for (handler in tickHandlers) {
+            if (handler.state == TickHandler.State.COMPLETED) {
+                completedHandlers.add(handler)
                 continue
             }
-            tickHandler.tick()
+            handler.tick()
         }
 
         completedHandlers.let {

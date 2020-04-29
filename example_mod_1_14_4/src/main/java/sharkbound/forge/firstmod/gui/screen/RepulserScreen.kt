@@ -16,9 +16,9 @@ import sharkbound.forge.firstmod.items.Repulser
 import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.send
 import sharkbound.forge.shared.util.imageButton
-import sharkbound.forge.shared.util.toText
+import sharkbound.forge.shared.util.asText
 
-class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : ContainerScreen<RepulserContainer>(container, inv, toText(TITLE)), INamedContainerProvider {
+class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : ContainerScreen<RepulserContainer>(container, inv, asText(TITLE)), INamedContainerProvider {
     companion object {
         const val TITLE = "&6Repulser Settings"
         val GUI_TEXTURE = ResourceLocation(MOD_ID, "textures/gui/repulser/repulser.png")
@@ -72,7 +72,7 @@ class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : C
     }
 
     override fun getDisplayName(): ITextComponent =
-            toText(TITLE)
+            asText(TITLE)
 }
 
 fun AbstractButton.clickIfHovered(x: Double, y: Double) {

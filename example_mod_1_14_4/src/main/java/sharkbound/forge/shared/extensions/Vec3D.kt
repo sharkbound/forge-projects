@@ -9,13 +9,13 @@ import kotlin.math.abs
 import kotlin.math.absoluteValue
 import kotlin.math.sqrt
 
-///**
-// * source: https://forum.unity.com/threads/how-to-check-a-vector3-position-is-between-two-other-vector3-along-a-line.461474/
-// */
-//fun Vec3d.isBetween(a: Vec3d, b: Vec3d): Boolean {
-//    return (b - a).normalize().dotProduct((this - b).normalize()) < 0 && (a - b).normalize().dotProduct((this - a).normalize()) < 0
-//}
-//
+/**
+ * source: https://forum.unity.com/threads/how-to-check-a-vector3-position-is-between-two-other-vector3-along-a-line.461474/
+ */
+fun Vec3d.isBetween(a: Vec3d, b: Vec3d): Boolean {
+    return (b - a).normalize().dotProduct((this - b).normalize()) < 0 && (a - b).normalize().dotProduct((this - a).normalize()) < 0
+}
+
 ///**
 // * source: https://forum.unity.com/threads/how-to-check-a-vector3-position-is-between-two-other-vector3-along-a-line.461474/
 // */

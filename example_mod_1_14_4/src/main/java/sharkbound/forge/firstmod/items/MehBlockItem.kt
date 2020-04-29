@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.util.text.ITextComponent
 import sharkbound.forge.firstmod.blocks.MehBlock
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.shared.util.toText
+import sharkbound.forge.shared.util.asText
 
 class MehBlockItem(mehBlock: MehBlock) : BlockItem(mehBlock, Properties().group(FirstModItemGroup)) {
     init {
@@ -13,7 +13,7 @@ class MehBlockItem(mehBlock: MehBlock) : BlockItem(mehBlock, Properties().group(
     }
 
     override fun getDisplayName(stack: ItemStack): ITextComponent {
-        return toText("&aMeh Block")
+        return asText("&aMeh Block")
     }
 
     companion object {

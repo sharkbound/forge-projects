@@ -18,7 +18,7 @@ import kotlin.contracts.contract
 import kotlin.streams.asSequence
 
 @ExperimentalContracts
-fun World?.isServerWorld(): Boolean {
+fun IWorld?.isServerWorld(): Boolean {
     contract {
         returns(true) implies (this@isServerWorld is ServerWorld)
     }
@@ -26,7 +26,7 @@ fun World?.isServerWorld(): Boolean {
 }
 
 @ExperimentalContracts
-fun World?.isClientWorld(): Boolean {
+fun IWorld?.isClientWorld(): Boolean {
     contract {
         returns(true) implies (this@isClientWorld is ClientWorld)
     }

@@ -41,7 +41,7 @@ import sharkbound.forge.shared.extensions.setVel
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.extensions.toActionResult
 import sharkbound.forge.shared.util.TickUnit
-import sharkbound.forge.shared.util.toText
+import sharkbound.forge.shared.util.asText
 import sharkbound.forge.shared.util.vec3D
 import kotlin.contracts.ExperimentalContracts
 
@@ -55,7 +55,7 @@ class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
     }
 
     override fun getDisplayName(stack: ItemStack): ITextComponent {
-        return toText("&aThrower")
+        return asText("&aThrower")
     }
 
     override fun getUseDuration(stack: ItemStack): Int {

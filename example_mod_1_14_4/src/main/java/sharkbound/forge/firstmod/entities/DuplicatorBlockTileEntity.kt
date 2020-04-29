@@ -10,14 +10,13 @@ import net.minecraft.tileentity.ITickableTileEntity
 import net.minecraft.tileentity.LockableLootTileEntity
 import net.minecraft.util.NonNullList
 import net.minecraft.util.text.ITextComponent
-import net.minecraftforge.fml.network.NetworkRegistry
 import sharkbound.commonutils.extensions.len
 import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
 import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.shared.extensions.isServer
 import sharkbound.forge.shared.extensions.name
 import sharkbound.forge.shared.util.classes.IndexVar
-import sharkbound.forge.shared.util.toText
+import sharkbound.forge.shared.util.asText
 import kotlin.contracts.ExperimentalContracts
 
 class DuplicatorBlockTileEntity : LockableLootTileEntity(ModBlocks.DUPLICATOR_TILE_ENTITY), ITickableTileEntity {
@@ -67,7 +66,7 @@ class DuplicatorBlockTileEntity : LockableLootTileEntity(ModBlocks.DUPLICATOR_TI
     }
 
     override fun getDefaultName(): ITextComponent {
-        return toText("&eDuplicator")
+        return asText("&eDuplicator")
     }
 
     override fun setInventorySlotContents(index: Int, stack: ItemStack) {
