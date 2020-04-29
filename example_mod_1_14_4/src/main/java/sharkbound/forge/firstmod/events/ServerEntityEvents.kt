@@ -21,6 +21,8 @@ import sharkbound.forge.firstmod.objects.minecraft
 import sharkbound.forge.shared.extensions.applyTo
 import sharkbound.forge.shared.extensions.entitiesInAABB
 import sharkbound.forge.shared.extensions.instance
+import sharkbound.forge.shared.extensions.isClient
+import sharkbound.forge.shared.extensions.isServer
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.particle
 import sharkbound.forge.shared.extensions.pos
@@ -33,11 +35,12 @@ import kotlin.contracts.ExperimentalContracts
 
 @Mod.EventBusSubscriber
 object ServerEntityEvents {
+    @ExperimentalContracts
     @SubscribeEvent
     @JvmStatic
     fun entityJoinWorld(e: EntityJoinWorldEvent) {
         val ent = e.entity
-        if (ent.world.isRemote || ent !is CreeperEntity) return
+        if (ent.world.isClient() || ent !is CreeperEntity) return
         ent.removeAllGoals()
         ent.goalSelector.addGoal(CreeperFollowPlayerGoal.PRIORITY, CreeperFollowPlayerGoal(ent))
     }
@@ -49,7 +52,7 @@ object ServerEntityEvents {
         if (minecraft.integratedServer == null) return
         val player = playerList.players.firstOrNull() ?: return
         for (entity in rayTraceEntities<MobEntity>(player, 20.0)) {
-            entity.world.particle(ParticleTypes.FLAME, entity.posX, entity.posY + 1, entity.posZ, speed=1.0)
+            entity.world.particle(ParticleTypes.FLAME, entity.pos, speed = 1.0)
             entity.attackEntityFrom(DamageSource.MAGIC, 5f)
         }
     }

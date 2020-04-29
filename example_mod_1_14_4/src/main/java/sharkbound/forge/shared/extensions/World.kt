@@ -46,6 +46,10 @@ fun <T : IParticleData> World.particle(type: T, x: Double, y: Double, z: Double,
 fun <T : IParticleData> World.particle(type: T, x: Int, y: Int, z: Int, count: Int = 1, offX: Double = 0.0, offY: Double = 0.0, offZ: Double = 0.0, speed: Double = 0.0): Boolean =
         particle(type, x.toDouble(), y.toDouble(), z.toDouble(), count, offX, offY, offZ, speed)
 
+@ExperimentalContracts
+fun <T : IParticleData> World.particle(type: T, pos: Vec3d, count: Int = 1, offX: Double = 0.0, offY: Double = 0.0, offZ: Double = 0.0, speed: Double = 0.0): Boolean =
+        particle(type, pos.x, pos.y, pos.z, count, offX, offY, offZ, speed)
+
 fun ServerWorld.doLightningStrike(pos: Vec3d, effectOnly: Boolean = false) {
     addLightningBolt(LightningBoltEntity(this, pos.x, pos.y, pos.z, effectOnly))
 }
@@ -59,7 +63,7 @@ fun ServerWorld.addFallingBlock(pos: Vec3d, blockState: BlockState, velocity: Ve
         }
 
 inline fun <reified T : Entity> IWorld.entitiesInAABB(aabb: AxisAlignedBB) =
-        world.getEntitiesWithinAABB(T::class.java, aabb)
+        world.getEntitiesWithinAABB(T::class.java, aabb).filterNotNull()
 
 @ExperimentalContracts
 fun IWorld?.isClient(): Boolean {

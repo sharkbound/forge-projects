@@ -5,6 +5,8 @@ import net.minecraft.command.CommandSource
 import net.minecraft.command.Commands
 import net.minecraft.network.play.server.STitlePacket
 import sharkbound.forge.firstmod.commands.FlyCommand
+import sharkbound.forge.firstmod.commands.GodCommand
+import sharkbound.forge.firstmod.commands.HealCommand
 import sharkbound.forge.firstmod.commands.MarkWandCommand
 import sharkbound.forge.firstmod.commands.WalkCommand
 import sharkbound.forge.shared.extensions.isServerWorld
@@ -17,6 +19,13 @@ object ModCommands {
         FlyCommand.register(dis)
         WalkCommand.register(dis)
         MarkWandCommand.register(dis)
+        HealCommand.register(dis)
+        GodCommand.register(dis)
+        registerTitleTest(dis)
+    }
+
+    @ExperimentalContracts
+    private fun registerTitleTest(dis: CommandDispatcher<CommandSource>) {
         dis.register(Commands.literal("titletest").executes { s ->
             s.source.world.let { w ->
                 val player = s.source.asPlayer()
