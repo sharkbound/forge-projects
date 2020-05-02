@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.events
+package sharkbound.forge.firstmod.events.client
 
 import net.minecraftforge.fml.common.Mod
 

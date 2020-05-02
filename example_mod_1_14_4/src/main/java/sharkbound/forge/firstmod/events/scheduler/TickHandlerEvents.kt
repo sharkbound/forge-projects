@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.events
+package sharkbound.forge.firstmod.events.scheduler
 
 import sharkbound.commonutils.extensions.max
 

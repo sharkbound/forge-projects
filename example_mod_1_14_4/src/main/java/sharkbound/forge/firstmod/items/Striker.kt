@@ -12,7 +12,7 @@ import net.minecraft.world.World
 import sharkbound.commonutils.util.randDouble
 import sharkbound.commonutils.util.randRange
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.events.delayTask
+import sharkbound.forge.firstmod.events.scheduler.delayTask
 import sharkbound.forge.shared.extensions.addAll
 import sharkbound.forge.shared.extensions.doLightningStrike
 import sharkbound.forge.shared.extensions.item

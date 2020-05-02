@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.events
+package sharkbound.forge.firstmod.events.client
 
 import net.minecraft.util.Hand
 import net.minecraftforge.api.distmarker.Dist

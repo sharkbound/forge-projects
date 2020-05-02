@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.events
+package sharkbound.forge.firstmod.events.registry
 
 import com.mojang.datafixers.Dynamic
 import net.minecraft.block.Block
@@ -22,6 +22,7 @@ import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.enchantments.DisplacementEnchantment
 import sharkbound.forge.firstmod.entities.DuplicatorBlockTileEntity
 import sharkbound.forge.firstmod.entities.MehBlockTileEntity
+import sharkbound.forge.firstmod.objects.ModFeatures
 import sharkbound.forge.firstmod.features.TestFeature
 import sharkbound.forge.firstmod.features.config.TestFeatureConfig
 import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
@@ -84,12 +85,12 @@ object RegistryEvents {
     fun onContainerRegistry(e: RegistryEvent.Register<ContainerType<*>>) {
         e.registry.run {
             // repulser container
-            register(IForgeContainerType.create { id, inv, data ->
+            register(IForgeContainerType.create { id, inv, _ ->
                 RepulserContainer(id, inv, inv.player)
             }.setRegistryName(RepulserContainer.REGISTRY_NAME))
 
             // duplicator container
-            register(IForgeContainerType.create { id, inv, data ->
+            register(IForgeContainerType.create { id, inv, _ ->
                 DuplicatorContainer(id, inv, inv.player)
             }.setRegistryName(DuplicatorContainer.REGISTRY_NAME))
         }
@@ -112,6 +113,7 @@ object RegistryEvents {
     }
 }
 
+@Suppress("DEPRECATION", "UNCHECKED_CAST")
 private object FeatureUtil {
     fun <C : IFeatureConfig?, F : Feature<C>?> registerFeature(key: String, value: F): F =
             Registry.register<Feature<*>>(Registry.FEATURE, key, value) as F

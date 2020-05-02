@@ -14,8 +14,8 @@ enum class TickUnit(val mul: Int) {
             value * mul
 }
 
-fun toTicks(value: Int, unit: TickUnit = TickUnit.TICKS): Int =
+fun asTicks(value: Int, unit: TickUnit = TickUnit.TICKS): Int =
         unit.applyTo(value)
 
-fun toTicks(value: Long, unit: TickUnit = TickUnit.TICKS): Long =
+fun asTicks(value: Long, unit: TickUnit = TickUnit.TICKS): Long =
         unit.applyTo(value)

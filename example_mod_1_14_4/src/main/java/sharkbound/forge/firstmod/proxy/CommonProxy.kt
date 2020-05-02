@@ -5,15 +5,12 @@ import net.minecraft.world.World
 import net.minecraft.world.biome.Biome
 import net.minecraft.world.biome.Biomes
 import net.minecraft.world.gen.GenerationStage
-import net.minecraft.world.gen.feature.Feature
-import net.minecraft.world.gen.feature.GrassFeatureConfig
 import net.minecraft.world.gen.placement.FrequencyConfig
-import net.minecraft.world.gen.placement.NoiseDependant
 import net.minecraft.world.gen.placement.Placement
 import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.events.ModFeatures
+import sharkbound.forge.firstmod.objects.ModFeatures
 import sharkbound.forge.firstmod.features.config.TestFeatureConfig
 import sharkbound.forge.firstmod.networking.Network
 

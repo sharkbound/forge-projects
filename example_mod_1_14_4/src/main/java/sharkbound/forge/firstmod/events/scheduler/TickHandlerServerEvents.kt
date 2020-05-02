@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.events
+package sharkbound.forge.firstmod.events.scheduler
 
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -12,7 +12,7 @@ import sharkbound.forge.firstmod.objects.forgeEventBus
 import kotlin.contracts.ExperimentalContracts
 
 @Mod.EventBusSubscriber
-object ServerEvents {
+object TickHandlerServerEvents {
     var serverRunning = false
 
     init {

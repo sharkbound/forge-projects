@@ -14,7 +14,6 @@ object GodCommand {
     fun isInGod(player: PlayerEntity): Boolean =
             player.uniqueID in godPlayers
 
-    //    found on a tutorial, i am not using this way myself, at least as of now
     fun register(dis: CommandDispatcher<CommandSource>) {
         dis.register(Commands.literal("god").executes {
             it.source.asPlayer().let { player ->

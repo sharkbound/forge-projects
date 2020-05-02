@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.events
+package sharkbound.forge.firstmod.events.features
 
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraftforge.event.entity.living.LivingDamageEvent

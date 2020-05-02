@@ -1,4 +1,4 @@
-package sharkbound.forge.firstmod.events
+package sharkbound.forge.firstmod.events.scheduler
 
 fun delayTask(startDelay: Int = 0, delayTicks: Int = 0, handler: TickHandler.() -> Unit): TickHandler =
         run {
@@ -12,8 +12,8 @@ fun delayRepeatingTask(delayTicks: Int, startDelay: Int = 0, handler: TickHandle
 
 fun addTickHandler(tickHandler: TickHandler): TickHandler =
         tickHandler.also {
-            ServerEvents.tickHandlerAddQueue.add(it)
+            TickHandlerServerEvents.tickHandlerAddQueue.add(it)
         }
 
 fun runningTickHandlers() =
-        ServerEvents.tickHandlers.filter { it.isRunning }
+        TickHandlerServerEvents.tickHandlers.filter { it.isRunning }
