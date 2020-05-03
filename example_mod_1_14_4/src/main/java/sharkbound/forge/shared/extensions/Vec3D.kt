@@ -3,9 +3,7 @@ package sharkbound.forge.shared.extensions
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.util.math.Vec3i
-import sharkbound.forge.shared.util.Numbers
 import sharkbound.forge.shared.util.vec3D
-import kotlin.math.abs
 import kotlin.math.absoluteValue
 import kotlin.math.sqrt
 
@@ -124,5 +122,5 @@ operator fun Vec3d.div(other: Double): Vec3d =
 operator fun Vec3d.div(other: Int): Vec3d =
         vec3D(x / other, y / other, z / other)
 
-
-
+operator fun Vec3d.unaryMinus(): Vec3d =
+        Vec3d(-x, -y, -z)

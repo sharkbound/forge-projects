@@ -11,7 +11,6 @@ import sharkbound.forge.shared.extensions.send
 
 object MarkWandCommand {
     private fun mark(player: ServerPlayerEntity, nbtKey: String): Int {
-        val player = player
         if (player.item.isEmpty) {
             player.send("you must be holding a item to mark!")
             return 0
@@ -28,7 +27,10 @@ object MarkWandCommand {
                     mark(it.source.asPlayer(), Flags.GLASS_BOX_SPAWNER)
                 }).then(Commands.literal("arrow_spawner").executes {
                     mark(it.source.asPlayer(), Flags.ARROW_SPAWNER_KEY)
+                }).then(Commands.literal("death_beam").executes {
+                    mark(it.source.asPlayer(), Flags.DEATH_BEAM)
                 })
+
         )
     }
 }

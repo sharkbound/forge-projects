@@ -36,19 +36,6 @@ object ServerEntityEvents {
     @ExperimentalContracts
     @SubscribeEvent
     @JvmStatic
-    fun serverTick(e: TickEvent.ServerTickEvent) {
-        if (minecraft.integratedServer == null) return
-        val player = playerList.players.firstOrNull() ?: return
-        if (!player.isSneaking) return
-        for (entity in rayTraceEntities<MobEntity>(player, 20.0)) {
-            entity.world.particle(ParticleTypes.FLAME, entity.pos, speed = 1.0)
-            entity.attackEntityFrom(DamageSource.MAGIC, 5f)
-        }
-    }
-
-    @ExperimentalContracts
-    @SubscribeEvent
-    @JvmStatic
     fun arrowImpactEvent(e: ProjectileImpactEvent) {
         if (e.entity !is ArrowEntity || !e.entity?.world.isServerWorld()) return
         if (e.entity.persistentData.getBoolean("removeonimpact")) {

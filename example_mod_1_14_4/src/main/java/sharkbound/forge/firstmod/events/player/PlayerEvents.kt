@@ -1,7 +1,10 @@
 package sharkbound.forge.firstmod.events.player
 
 import net.minecraft.block.Blocks
+import net.minecraft.entity.MobEntity
+import net.minecraft.particles.ParticleTypes
 import net.minecraft.tileentity.LockableLootTileEntity
+import net.minecraft.util.DamageSource
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.gen.feature.template.PlacementSettings
 import net.minecraft.world.server.ServerWorld
@@ -20,12 +23,15 @@ import sharkbound.forge.firstmod.objects.Flags
 import sharkbound.forge.shared.extensions.eyePos
 import sharkbound.forge.shared.extensions.hasNBTKey
 import sharkbound.forge.shared.extensions.isServerWorld
+import sharkbound.forge.shared.extensions.particle
 import sharkbound.forge.shared.extensions.plus
+import sharkbound.forge.shared.extensions.pos
 import sharkbound.forge.shared.extensions.rayTraceBlocks
 import sharkbound.forge.shared.extensions.setToAir
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.util.TickUnit
 import sharkbound.forge.shared.util.createArrow
+import sharkbound.forge.shared.util.rayTraceEntities
 import kotlin.contracts.ExperimentalContracts
 
 @Mod.EventBusSubscriber
@@ -51,6 +57,7 @@ object PlayerEvents {
         when {
             e.itemStack hasNBTKey Flags.GLASS_BOX_SPAWNER -> dungeonSpawner(e, world)
             e.itemStack hasNBTKey Flags.ARROW_SPAWNER_KEY -> arrowSpawner(e, world)
+            e.itemStack hasNBTKey Flags.DEATH_BEAM -> deathBeam(e, world)
         }
     }
 }
@@ -88,3 +95,10 @@ private fun dungeonSpawner(e: PlayerInteractEvent.RightClickItem, world: ServerW
     }
 }
 
+@ExperimentalContracts
+private fun deathBeam(e: PlayerInteractEvent.RightClickItem, world: ServerWorld) {
+    for (entity in rayTraceEntities<MobEntity>(e.player, 20.0)) {
+        entity.world.particle(ParticleTypes.FLAME, entity.pos, speed = 1.0)
+        entity.attackEntityFrom(DamageSource.MAGIC, 7f)
+    }
+}
