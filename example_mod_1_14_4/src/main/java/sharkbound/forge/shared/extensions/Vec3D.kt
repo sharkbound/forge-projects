@@ -124,3 +124,37 @@ operator fun Vec3d.div(other: Int): Vec3d =
 
 operator fun Vec3d.unaryMinus(): Vec3d =
         Vec3d(-x, -y, -z)
+
+fun Vec3d.turn(yaw: Float? = null, pitch: Float? = null): Vec3d {
+    var ret = this
+    yaw?.let { ret = rotateYaw(it) }
+    pitch?.let { ret = rotatePitch(it) }
+    return ret
+}
+
+fun Vec3d.up(amount: Int = 1): Vec3d =
+        add(vec3D(y = amount))
+
+fun Vec3d.up(amount: Double = 1.0): Vec3d =
+        add(vec3D(y = amount))
+
+fun Vec3d.up(amount: Float = 1f): Vec3d =
+        add(vec3D(y = amount))
+
+fun Vec3d.down(amount: Int = 1): Vec3d =
+        add(vec3D(y = -amount))
+
+fun Vec3d.down(amount: Double = 1.0): Vec3d =
+        add(vec3D(y = -amount))
+
+fun Vec3d.down(amount: Float = 1f): Vec3d =
+        add(vec3D(y = -amount))
+
+fun Vec3d.offset(xOff: Int = 0, yOff: Int = 0, zOff: Int = 0): Vec3d =
+        add(xOff.toDouble(), yOff.toDouble(), zOff.toDouble())
+
+fun Vec3d.offset(xOff: Float = 0f, yOff: Float = 0f, zOff: Float = 0f): Vec3d =
+        add(xOff.toDouble(), yOff.toDouble(), zOff.toDouble())
+
+fun Vec3d.offset(xOff: Double = 0.0, yOff: Double = 0.0, zOff: Double = 0.0): Vec3d =
+        add(xOff, yOff, zOff)
