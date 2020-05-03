@@ -28,7 +28,7 @@ import sharkbound.forge.shared.extensions.setVel
 import sharkbound.forge.shared.extensions.state
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.extensions.toActionResult
-import sharkbound.forge.shared.extensions.toBlockPos
+import sharkbound.forge.shared.extensions.vec3d.toBlockPos
 import sharkbound.forge.shared.util.TickUnit
 import sharkbound.forge.shared.util.vec3D
 import kotlin.contracts.ExperimentalContracts

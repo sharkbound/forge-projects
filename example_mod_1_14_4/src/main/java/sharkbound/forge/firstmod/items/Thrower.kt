@@ -25,7 +25,7 @@ import sharkbound.forge.shared.extensions.instance
 import sharkbound.forge.shared.extensions.isServerPlayer
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.item
-import sharkbound.forge.shared.extensions.mul
+import sharkbound.forge.shared.extensions.vec3d.mul
 import sharkbound.forge.shared.extensions.rayTraceBlocks
 import sharkbound.forge.shared.extensions.setPos
 import sharkbound.forge.shared.extensions.setVel

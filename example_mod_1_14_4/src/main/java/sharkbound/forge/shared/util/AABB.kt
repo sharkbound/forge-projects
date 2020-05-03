@@ -4,9 +4,8 @@ import net.minecraft.entity.Entity
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
-import sharkbound.forge.shared.extensions.minus
-import sharkbound.forge.shared.extensions.plus
-import sharkbound.forge.shared.extensions.pos
+import sharkbound.forge.shared.extensions.vec3d.minus
+import sharkbound.forge.shared.extensions.vec3d.plus
 
 // min max
 fun createAABB(min: Vec3d, max: Vec3d): AxisAlignedBB =

@@ -4,6 +4,7 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.util.math.RayTraceContext
 import net.minecraft.util.math.Vec3d
+import sharkbound.forge.shared.extensions.vec3d.mul
 
 fun LivingEntity.rayTraceBlocks(
         distance: Double,

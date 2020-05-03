@@ -1,20 +1,15 @@
 package sharkbound.forge.shared.util
 
 import net.minecraft.entity.Entity
-import net.minecraft.particles.ParticleTypes
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.IWorld
-import sharkbound.forge.shared.extensions.dist
+import sharkbound.forge.shared.extensions.vec3d.dist
 import sharkbound.forge.shared.extensions.entitiesInAABB
 import sharkbound.forge.shared.extensions.eyePos
-import sharkbound.forge.shared.extensions.isBetween
-import sharkbound.forge.shared.extensions.isServerWorld
-import sharkbound.forge.shared.extensions.minus
-import sharkbound.forge.shared.extensions.particle
-import sharkbound.forge.shared.extensions.plus
-import sharkbound.forge.shared.extensions.pos
-import sharkbound.forge.shared.extensions.times
+import sharkbound.forge.shared.extensions.vec3d.minus
+import sharkbound.forge.shared.extensions.vec3d.plus
+import sharkbound.forge.shared.extensions.vec3d.times
 import kotlin.contracts.ExperimentalContracts
 
 @ExperimentalContracts

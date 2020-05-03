@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.util.text.StringTextComponent
+import sharkbound.forge.shared.extensions.vec3d.dist
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
@@ -67,3 +68,12 @@ fun Entity.isLivingEntity(): Boolean {
 
 val Entity.eyePos: Vec3d
     get() = getEyePosition(1f)
+
+val Entity?.nameOrCustom: String
+    get() = when {
+        this == null -> ""
+        else -> customName?.unformattedComponentText ?: name.unformattedComponentText
+    }
+
+val Entity?.nameOrCustomLower: String
+    get() = nameOrCustom.toLowerCase()

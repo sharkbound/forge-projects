@@ -16,7 +16,10 @@ import sharkbound.forge.shared.extensions.isClient
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.particle
 import sharkbound.forge.shared.extensions.pos
+import sharkbound.forge.shared.extensions.rayTraceBlocks
 import sharkbound.forge.shared.extensions.removeAllGoals
+import sharkbound.forge.shared.extensions.vec3d.down
+import sharkbound.forge.shared.util.findPlayer
 import sharkbound.forge.shared.util.playerList
 import sharkbound.forge.shared.util.rayTraceEntities
 import kotlin.contracts.ExperimentalContracts
@@ -41,5 +44,11 @@ object ServerEntityEvents {
         if (e.entity.persistentData.getBoolean("removeonimpact")) {
             e.entity.remove()
         }
+    }
+
+    @ExperimentalContracts
+    @SubscribeEvent
+    @JvmStatic
+    fun debugTick(e: TickEvent.ServerTickEvent) {
     }
 }

@@ -14,8 +14,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.common.Mod
-import sharkbound.commonutils.rand
-import sharkbound.forge.firstmod.events.scheduler.delayRepeatingTask
 import sharkbound.forge.firstmod.events.scheduler.delayTask
 import sharkbound.forge.firstmod.objects.forgeEventBus
 import sharkbound.forge.firstmod.modResourceId
@@ -24,7 +22,7 @@ import sharkbound.forge.shared.extensions.eyePos
 import sharkbound.forge.shared.extensions.hasNBTKey
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.particle
-import sharkbound.forge.shared.extensions.plus
+import sharkbound.forge.shared.extensions.vec3d.plus
 import sharkbound.forge.shared.extensions.pos
 import sharkbound.forge.shared.extensions.rayTraceBlocks
 import sharkbound.forge.shared.extensions.setToAir
