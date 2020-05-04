@@ -5,6 +5,7 @@ import net.minecraft.util.math.BlockRayTraceResult
 import net.minecraft.util.math.RayTraceContext
 import net.minecraft.util.math.Vec3d
 import sharkbound.forge.shared.extensions.vec3d.mul
+import sharkbound.forge.shared.extensions.vec3d.times
 
 fun LivingEntity.rayTraceBlocks(
         distance: Double,
@@ -14,5 +15,5 @@ fun LivingEntity.rayTraceBlocks(
 ): BlockRayTraceResult =
         run {
             val start = startVec ?: eyePos
-            world.rayTraceBlocks(RayTraceContext(start, start.add(lookVec.mul(distance)), blockMode, fluidMode, this))
+            world.rayTraceBlocks(RayTraceContext(start, start.add(lookVec.times(distance)), blockMode, fluidMode, this))
         }

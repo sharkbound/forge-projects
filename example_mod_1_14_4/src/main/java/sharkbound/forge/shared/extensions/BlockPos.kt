@@ -7,7 +7,6 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.IWorld
-import net.minecraft.world.World
 import net.minecraft.world.chunk.IChunk
 import sharkbound.forge.shared.util.vec3D
 

@@ -15,8 +15,8 @@ import sharkbound.forge.firstmod.gui.container.RepulserContainer
 import sharkbound.forge.firstmod.items.Repulser
 import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.send
-import sharkbound.forge.shared.util.imageButton
 import sharkbound.forge.shared.util.asText
+import sharkbound.forge.shared.util.imageButton
 
 class RepulserScreen(container: RepulserContainer, val inv: PlayerInventory) : ContainerScreen<RepulserContainer>(container, inv, asText(TITLE)), INamedContainerProvider {
     companion object {

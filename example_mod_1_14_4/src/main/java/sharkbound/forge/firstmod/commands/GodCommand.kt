@@ -4,7 +4,6 @@ import com.mojang.brigadier.CommandDispatcher
 import net.minecraft.command.CommandSource
 import net.minecraft.command.Commands
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.entity.player.ServerPlayerEntity
 import sharkbound.forge.shared.extensions.send
 import java.util.*
 

@@ -7,7 +7,6 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.inventory.EquipmentSlotType
 import sharkbound.commonutils.util.randDouble
 import sharkbound.forge.shared.extensions.isLivingEntity
-import sharkbound.forge.shared.extensions.pos
 import sharkbound.forge.shared.extensions.setVel
 import sharkbound.forge.shared.util.vec3D
 import kotlin.contracts.ExperimentalContracts

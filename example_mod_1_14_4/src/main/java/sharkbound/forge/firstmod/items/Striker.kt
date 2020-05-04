@@ -15,9 +15,9 @@ import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.events.scheduler.delayTask
 import sharkbound.forge.shared.extensions.addAll
 import sharkbound.forge.shared.extensions.doLightningStrike
-import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.isServerPlayer
 import sharkbound.forge.shared.extensions.isServerWorld
+import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.rayTraceBlocks
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.util.TickUnit

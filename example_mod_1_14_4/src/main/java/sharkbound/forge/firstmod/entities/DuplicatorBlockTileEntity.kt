@@ -15,8 +15,8 @@ import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
 import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.shared.extensions.isServer
 import sharkbound.forge.shared.extensions.name
-import sharkbound.forge.shared.util.classes.IndexVar
 import sharkbound.forge.shared.util.asText
+import sharkbound.forge.shared.util.classes.IndexVar
 import kotlin.contracts.ExperimentalContracts
 
 class DuplicatorBlockTileEntity : LockableLootTileEntity(ModBlocks.DUPLICATOR_TILE_ENTITY), ITickableTileEntity {

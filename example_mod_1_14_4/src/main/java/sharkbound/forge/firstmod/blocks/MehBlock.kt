@@ -8,8 +8,8 @@ import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IBlockReader
 import net.minecraft.world.World
-import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.firstmod.entities.MehBlockTileEntity
+import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.shared.extensions.destroyBlock
 import sharkbound.forge.shared.extensions.isBlock
 

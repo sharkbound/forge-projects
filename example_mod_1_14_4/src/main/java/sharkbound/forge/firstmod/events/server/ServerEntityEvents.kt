@@ -1,27 +1,16 @@
 package sharkbound.forge.firstmod.events.server
 
-import net.minecraft.entity.MobEntity
 import net.minecraft.entity.monster.CreeperEntity
 import net.minecraft.entity.projectile.ArrowEntity
-import net.minecraft.particles.ParticleTypes
-import net.minecraft.util.DamageSource
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.event.entity.EntityJoinWorldEvent
 import net.minecraftforge.event.entity.ProjectileImpactEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import sharkbound.forge.firstmod.entities.goals.CreeperFollowPlayerGoal
-import sharkbound.forge.firstmod.objects.minecraft
 import sharkbound.forge.shared.extensions.isClient
 import sharkbound.forge.shared.extensions.isServerWorld
-import sharkbound.forge.shared.extensions.particle
-import sharkbound.forge.shared.extensions.pos
-import sharkbound.forge.shared.extensions.rayTraceBlocks
 import sharkbound.forge.shared.extensions.removeAllGoals
-import sharkbound.forge.shared.extensions.vec3d.down
-import sharkbound.forge.shared.util.findPlayer
-import sharkbound.forge.shared.util.playerList
-import sharkbound.forge.shared.util.rayTraceEntities
 import kotlin.contracts.ExperimentalContracts
 
 @Mod.EventBusSubscriber

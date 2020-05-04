@@ -5,7 +5,6 @@ import net.minecraftforge.fml.network.NetworkEvent
 import sharkbound.forge.firstmod.items.MehWand
 import sharkbound.forge.firstmod.items.Repulser
 import sharkbound.forge.shared.extensions.item
-import sharkbound.forge.shared.extensions.mainHand
 import java.util.*
 import java.util.function.Supplier
 

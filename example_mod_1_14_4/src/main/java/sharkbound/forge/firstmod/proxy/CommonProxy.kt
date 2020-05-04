@@ -10,9 +10,9 @@ import net.minecraft.world.gen.placement.Placement
 import net.minecraftforge.fml.LogicalSide
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.objects.ModFeatures
 import sharkbound.forge.firstmod.features.config.TestFeatureConfig
 import sharkbound.forge.firstmod.networking.Network
+import sharkbound.forge.firstmod.objects.ModFeatures
 
 open class CommonProxy : Proxy {
     override val side: LogicalSide = LogicalSide.SERVER

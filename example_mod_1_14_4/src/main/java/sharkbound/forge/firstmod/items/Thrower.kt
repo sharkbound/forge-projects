@@ -25,12 +25,12 @@ import sharkbound.forge.shared.extensions.instance
 import sharkbound.forge.shared.extensions.isServerPlayer
 import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.item
-import sharkbound.forge.shared.extensions.vec3d.mul
 import sharkbound.forge.shared.extensions.rayTraceBlocks
 import sharkbound.forge.shared.extensions.setPos
 import sharkbound.forge.shared.extensions.setVel
 import sharkbound.forge.shared.extensions.ticks
 import sharkbound.forge.shared.extensions.toActionResult
+import sharkbound.forge.shared.extensions.vec3d.times
 import sharkbound.forge.shared.util.TickUnit
 import sharkbound.forge.shared.util.asText
 import sharkbound.forge.shared.util.vec3D
@@ -82,7 +82,7 @@ class Thrower : Item(Properties().maxStackSize(1).group(FirstModItemGroup)) {
             setPos(spawn)
             setVel(hit.subtract(player.eyePos)
                     .normalize()
-                    .mul(randDouble(.3, 3.0))
+                    .times(randDouble(.3, 3.0))
                     .rotateYaw(randDouble(-.1, .1).toFloat())
                     .rotatePitch(randDouble(-.1, .1).toFloat()))
         }

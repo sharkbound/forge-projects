@@ -1,7 +1,6 @@
 package sharkbound.forge.firstmod.features
 
 import com.mojang.datafixers.Dynamic
-import net.minecraft.block.Blocks
 import net.minecraft.tags.BlockTags
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.IWorld
@@ -9,9 +8,7 @@ import net.minecraft.world.gen.ChunkGenerator
 import net.minecraft.world.gen.GenerationSettings
 import net.minecraft.world.gen.feature.Feature
 import sharkbound.forge.firstmod.features.config.TestFeatureConfig
-import sharkbound.forge.shared.extensions.block
 import sharkbound.forge.shared.extensions.isAir
-import sharkbound.forge.shared.extensions.setBlock
 import sharkbound.forge.shared.extensions.setState
 import sharkbound.forge.shared.extensions.state
 import java.util.*

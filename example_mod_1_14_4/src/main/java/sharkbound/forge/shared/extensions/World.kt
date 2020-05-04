@@ -3,11 +3,9 @@ package sharkbound.forge.shared.extensions
 import net.minecraft.block.BlockState
 import net.minecraft.client.world.ClientWorld
 import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.effect.LightningBoltEntity
 import net.minecraft.entity.item.FallingBlockEntity
-import net.minecraft.entity.projectile.ArrowEntity
 import net.minecraft.particles.IParticleData
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.Vec3d

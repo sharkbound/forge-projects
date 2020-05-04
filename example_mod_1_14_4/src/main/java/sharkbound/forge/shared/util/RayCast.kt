@@ -4,9 +4,9 @@ import net.minecraft.entity.Entity
 import net.minecraft.util.math.AxisAlignedBB
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.IWorld
-import sharkbound.forge.shared.extensions.vec3d.dist
 import sharkbound.forge.shared.extensions.entitiesInAABB
 import sharkbound.forge.shared.extensions.eyePos
+import sharkbound.forge.shared.extensions.vec3d.dist
 import sharkbound.forge.shared.extensions.vec3d.minus
 import sharkbound.forge.shared.extensions.vec3d.plus
 import sharkbound.forge.shared.extensions.vec3d.times

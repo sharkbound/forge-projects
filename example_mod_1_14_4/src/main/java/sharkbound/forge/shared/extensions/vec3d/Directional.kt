@@ -1,8 +1,6 @@
 package sharkbound.forge.shared.extensions.vec3d
 
 import net.minecraft.util.math.Vec3d
-import sharkbound.forge.shared.util.vec3D
-import kotlin.math.sign
 
 fun Vec3d.turn(yaw: Float? = null, pitch: Float? = null): Vec3d {
     var ret = this

@@ -9,8 +9,8 @@ import sharkbound.forge.firstmod.commands.GodCommand
 import sharkbound.forge.firstmod.commands.HealCommand
 import sharkbound.forge.firstmod.commands.MarkWandCommand
 import sharkbound.forge.firstmod.commands.WalkCommand
-import sharkbound.forge.shared.extensions.isServerWorld
 import sharkbound.forge.shared.extensions.asText
+import sharkbound.forge.shared.extensions.isServerWorld
 import kotlin.contracts.ExperimentalContracts
 
 object ModCommands {

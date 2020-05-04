@@ -22,7 +22,6 @@ import sharkbound.forge.firstmod.creative.FirstModItemGroup
 import sharkbound.forge.firstmod.enchantments.DisplacementEnchantment
 import sharkbound.forge.firstmod.entities.DuplicatorBlockTileEntity
 import sharkbound.forge.firstmod.entities.MehBlockTileEntity
-import sharkbound.forge.firstmod.objects.ModFeatures
 import sharkbound.forge.firstmod.features.TestFeature
 import sharkbound.forge.firstmod.features.config.TestFeatureConfig
 import sharkbound.forge.firstmod.gui.container.DuplicatorContainer
@@ -34,6 +33,7 @@ import sharkbound.forge.firstmod.items.Repulser
 import sharkbound.forge.firstmod.items.Striker
 import sharkbound.forge.firstmod.items.Thrower
 import sharkbound.forge.firstmod.objects.ModBlocks
+import sharkbound.forge.firstmod.objects.ModFeatures
 import sharkbound.forge.firstmod.potions.ChaosEffect
 import sharkbound.forge.shared.util.tileEntityRegistryBuilder
 

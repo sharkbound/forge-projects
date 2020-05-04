@@ -22,15 +22,15 @@ import sharkbound.forge.firstmod.gui.screen.RepulserScreen
 import sharkbound.forge.firstmod.networking.Network
 import sharkbound.forge.firstmod.networking.packets.RepulserRadiusChangePacket
 import sharkbound.forge.shared.extensions.addAll
-import sharkbound.forge.shared.extensions.vec3d.dist
 import sharkbound.forge.shared.extensions.get
-import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.isServerPlayer
 import sharkbound.forge.shared.extensions.isServerWorld
-import sharkbound.forge.shared.extensions.vec3d.mul
+import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.rayTraceBlocks
 import sharkbound.forge.shared.extensions.setVel
 import sharkbound.forge.shared.extensions.toActionResult
+import sharkbound.forge.shared.extensions.vec3d.dist
+import sharkbound.forge.shared.extensions.vec3d.times
 import sharkbound.forge.shared.util.vec3D
 import java.util.*
 import kotlin.contracts.ExperimentalContracts
@@ -71,7 +71,7 @@ class Repulser : Item(Properties().group(FirstModItemGroup)) {
         world.getEntitiesWithinAABB(Entity::class.java, AxisAlignedBB(ray.hitVec.subtract(vec3D(range, range, range)), ray.hitVec.add(vec3D(range, range, range)))).forEach {
             val normalized = it.positionVec.subtract(ray.hitVec).normalize()
             val dist = it.positionVec dist ray.hitVec
-            val vel = normalized.mul((maxForce * (1 - (dist / range))).absoluteValue min 5.0)
+            val vel = normalized.times((maxForce * (1 - (dist / range))).absoluteValue min 5.0)
             it.setVel(vel)
         }
     }

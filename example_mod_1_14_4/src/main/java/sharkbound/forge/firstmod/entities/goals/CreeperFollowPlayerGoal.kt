@@ -6,9 +6,9 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.util.math.AxisAlignedBB
 import sharkbound.forge.shared.extensions.dist
 import sharkbound.forge.shared.extensions.entitiesInAABB
+import sharkbound.forge.shared.extensions.pos
 import sharkbound.forge.shared.extensions.vec3d.minus
 import sharkbound.forge.shared.extensions.vec3d.plus
-import sharkbound.forge.shared.extensions.pos
 
 class CreeperFollowPlayerGoal(val creeper: CreeperEntity) : Goal() {
     companion object {

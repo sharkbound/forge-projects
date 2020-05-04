@@ -17,15 +17,15 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider
 import sharkbound.commonutils.extensions.choice
 import sharkbound.commonutils.extensions.len
 import sharkbound.forge.firstmod.creative.FirstModItemGroup
-import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.firstmod.networking.Network
 import sharkbound.forge.firstmod.networking.packets.MehWandModeSwitchPacket
+import sharkbound.forge.firstmod.objects.ModBlocks
 import sharkbound.forge.firstmod.potions.ModEffects
 import sharkbound.forge.shared.extensions.destroyBlock
-import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.instance
 import sharkbound.forge.shared.extensions.isBlock
 import sharkbound.forge.shared.extensions.isServerWorld
+import sharkbound.forge.shared.extensions.item
 import sharkbound.forge.shared.extensions.send
 import sharkbound.forge.shared.extensions.setBlock
 import sharkbound.forge.shared.util.asText
