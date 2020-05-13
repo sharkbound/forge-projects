@@ -1,5 +1,6 @@
 package sharkbound.forge.shared.extensions
 
+import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.entity.Entity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.ServerPlayerEntity
@@ -73,3 +74,6 @@ operator fun PlayerEntity.get(hand: Hand): ItemStack =
 
 operator fun PlayerEntity.get(equipmentSlotType: EquipmentSlotType): ItemStack =
         getItemStackFromSlot(equipmentSlotType)
+
+fun PlayerEntity?.asServerPlayer() = this as? ServerPlayerEntity
+fun PlayerEntity?.asClientPlayer() = this as? ClientPlayerEntity

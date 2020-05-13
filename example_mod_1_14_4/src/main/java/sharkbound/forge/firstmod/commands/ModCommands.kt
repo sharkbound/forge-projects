@@ -1,14 +1,9 @@
-package sharkbound.forge.firstmod.objects
+package sharkbound.forge.firstmod.commands
 
 import com.mojang.brigadier.CommandDispatcher
 import net.minecraft.command.CommandSource
 import net.minecraft.command.Commands
 import net.minecraft.network.play.server.STitlePacket
-import sharkbound.forge.firstmod.commands.FlyCommand
-import sharkbound.forge.firstmod.commands.GodCommand
-import sharkbound.forge.firstmod.commands.HealCommand
-import sharkbound.forge.firstmod.commands.MarkWandCommand
-import sharkbound.forge.firstmod.commands.WalkCommand
 import sharkbound.forge.shared.extensions.asText
 import sharkbound.forge.shared.extensions.isServerWorld
 import kotlin.contracts.ExperimentalContracts
@@ -21,6 +16,7 @@ object ModCommands {
         MarkWandCommand.register(dis)
         HealCommand.register(dis)
         GodCommand.register(dis)
+        ToggleCommand.register(dis)
         registerTitleTest(dis)
     }
 
