@@ -9,11 +9,12 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent
 import sharkbound.forge.firstmod.commands.ModCommands
 import sharkbound.forge.firstmod.objects.forgeEventBus
+import sharkbound.forge.shared.util.events.Server
+import sharkbound.forge.shared.util.events.ServerState
 import kotlin.contracts.ExperimentalContracts
 
 @Mod.EventBusSubscriber
 object TickHandlerServerEvents {
-    var serverRunning = false
 
     init {
         forgeEventBus.register(this)
@@ -26,7 +27,6 @@ object TickHandlerServerEvents {
     @SubscribeEvent
     @JvmStatic
     fun onServerShutdown(e: FMLServerStoppingEvent) {
-        serverRunning = false
         tickHandlerAddQueue.clear()
         tickHandlers.clear()
         completedHandlers.clear()
@@ -35,7 +35,6 @@ object TickHandlerServerEvents {
     @SubscribeEvent
     @JvmStatic
     fun onServerStarted(e: FMLServerStartedEvent) {
-        serverRunning = true
         tickHandlerAddQueue.clear()
         tickHandlers.clear()
         completedHandlers.clear()
@@ -51,7 +50,7 @@ object TickHandlerServerEvents {
     @SubscribeEvent
     @JvmStatic
     fun taskServerTickProcessor(e: TickEvent.ServerTickEvent) {
-        if (e.side == LogicalSide.CLIENT) return
+        if (e.side == LogicalSide.CLIENT || Server.state != ServerState.STARTED) return
 
         for (handler in tickHandlers) {
             if (handler.state == TickHandler.State.COMPLETED) {

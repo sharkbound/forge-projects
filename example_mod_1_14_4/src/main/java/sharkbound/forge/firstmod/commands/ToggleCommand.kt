@@ -10,7 +10,7 @@ object ToggleCommand {
     var zombiesThrowBlocks = false
 
     fun register(dis: CommandDispatcher<CommandSource>) {
-        dis.register(Commands.literal("toggle")
+        dis.register(Commands.literal("t")
                 .then(Commands.literal("zombiesThrowBlocks").executes {
                     zombiesThrowBlocks = !zombiesThrowBlocks
                     it.send((if (zombiesThrowBlocks) "&eenabled zombies throwing blocks" else "&edisabled zombies throwing blocks").color())

@@ -1,5 +1,6 @@
 package sharkbound.forge.shared.extensions
 
+import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.client.entity.player.ClientPlayerEntity
 import net.minecraft.client.world.ClientWorld
@@ -63,6 +64,9 @@ fun ServerWorld.addFallingBlock(pos: Vec3d, blockState: BlockState, velocity: Ve
             it.fallTime = 1
             addEntity(it)
         }
+
+fun ServerWorld.addFallingBlock(pos: Vec3d, block: Block, velocity: Vec3d = Vec3d.ZERO, gravity: Boolean = true): FallingBlockEntity =
+        addFallingBlock(pos, block.defaultState, velocity, gravity)
 
 inline fun <reified T : Entity> IWorld.entitiesInAABB(aabb: AxisAlignedBB) =
         world.getEntitiesWithinAABB(T::class.java, aabb).filterNotNull()

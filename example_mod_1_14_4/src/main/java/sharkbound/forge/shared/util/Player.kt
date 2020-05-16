@@ -1,6 +1,7 @@
 package sharkbound.forge.shared.util
 
 import net.minecraft.entity.player.ServerPlayerEntity
+import sharkbound.forge.shared.util.events.server
 import java.util.*
 
 fun getPlayer(username: String): ServerPlayerEntity? =
